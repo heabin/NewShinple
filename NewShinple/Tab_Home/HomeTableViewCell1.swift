@@ -9,6 +9,17 @@
 import UIKit
 
 class HomeTableViewCell1: UITableViewCell {
+    
+    @IBOutlet weak var btnFirst: UIButton!
+    @IBOutlet weak var btnSecond: UIButton!
+    @IBOutlet weak var lblFirst: UILabel!
+    @IBOutlet weak var imgFirst: UIImageView!
+    @IBOutlet weak var lblSecond: UILabel!
+    @IBOutlet weak var imgSecond: UIImageView!
+    
+    
+    
+    
 
     override func awakeFromNib() {
         super.awakeFromNib()
