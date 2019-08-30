@@ -10,6 +10,10 @@ import UIKit
 
 class HomeTableViewCell2: UITableViewCell {
 
+    @IBOutlet weak var lblName: UILabel!
+    @IBOutlet weak var lblCategory: UILabel!
+    @IBOutlet weak var btnMore: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
