@@ -6,6 +6,11 @@
 //  Copyright © 2019 veronica. All rights reserved.
 //
 
+/*
+ 
+ 더보기 탭에서 이미지, 이름, 사번, 직책등 정보를 입력하는 셀 입니다.
+ 
+ */
 import UIKit
 
 class MoreTabTableViewCell1: UITableViewCell {
