@@ -9,7 +9,7 @@
 import UIKit
 import XLPagerTabStrip
 
-class MyListViewController: ViewController {
+class MyListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

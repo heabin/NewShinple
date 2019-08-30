@@ -121,7 +121,7 @@
                                 </connections>
                             </containerView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="nHs-QF-4Hs" firstAttribute="width" secondItem="jqq-Py-s3E" secondAttribute="width" id="1EW-vR-e7q"/>
                             <constraint firstItem="nHs-QF-4Hs" firstAttribute="centerX" secondItem="jqq-Py-s3E" secondAttribute="centerX" id="IFn-uA-WU5"/>
@@ -383,7 +383,7 @@
                                 </connections>
                             </containerView>
                         </subviews>
-                        <color key="backgroundColor" red="0.76440336082373472" green="1" blue="0.88156149053771715" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="bd3-5z-iQo" firstAttribute="centerY" secondItem="6ov-cn-cQt" secondAttribute="centerY" id="OVW-3i-joS"/>
                             <constraint firstItem="bd3-5z-iQo" firstAttribute="height" secondItem="6ov-cn-cQt" secondAttribute="height" id="Yi1-rJ-Gz7"/>
