@@ -10,6 +10,10 @@ import UIKit
 
 class SearchTableViewCell1: UITableViewCell {
 
+    
+    @IBOutlet weak var allDeleteBtn: UIButton!
+    @IBOutlet weak var label: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -20,5 +24,7 @@ class SearchTableViewCell1: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
+    @IBAction func deleteBtnClicked(_ sender: UIButton) {
+    }
+    
 }

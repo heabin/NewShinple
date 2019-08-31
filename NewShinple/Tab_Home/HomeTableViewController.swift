@@ -175,19 +175,21 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate{
         
         print("select")
         
-        let categoryController = segue.destination as! CategoryTableViewController
-        
-        if segue.identifier == "goToFirstCategory" {
-            categoryController.category = ["전체", "개발","금융","문학","어학","육아","자격증","필수강의", "추가"]
-        } else if segue.identifier == "goToSecondCategory" {
-            if sorting == 0 {
-                categoryController.category = ["----------"]
-            } else {
-                categoryController.category = ["전체", "두번째", "카테고리", "입니다."]
+        if segue.identifier == "goToFirstCategory" || segue.identifier == "goToSecondCategory" {
+            let categoryController = segue.destination as! CategoryTableViewController
+            
+            if segue.identifier == "goToFirstCategory" {
+                categoryController.category = ["전체", "개발","금융","문학","어학","육아","자격증","필수강의", "추가"]
+            } else if segue.identifier == "goToSecondCategory" {
+                if sorting == 0 {
+                    categoryController.category = ["----------"]
+                } else {
+                    categoryController.category = ["전체", "두번째", "카테고리", "입니다."]
+                }
             }
+            categoryController.delegate = self
         }
         
-        categoryController.delegate = self
         
     }
     
