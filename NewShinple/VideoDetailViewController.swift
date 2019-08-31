@@ -82,21 +82,21 @@ class VideoDetailViewController: UIViewController {
             playerLayer.frame = videoView.layer.bounds
             //CGRect(x: 0, y: 0, width: videoView.frame.width, height: videoView.frame.height)
             
-            player?.play()
-            player?.addObserver(self, forKeyPath: "currentItem.loadedTimeRanges", options: .new, context: nil)
-            
-            // 현재재생시간
-            let interval = CMTime(seconds: 0.5, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
-            
-            let mainQueue = DispatchQueue.main
-            _ = player?.addPeriodicTimeObserver(forInterval: interval, queue: mainQueue, using: {[weak self]
-                time in
-                guard let currentItem = self?.player?.currentItem else {return}
-                self?.videoSlider.maximumValue = Float(currentItem.duration.seconds)
-                self?.videoSlider.minimumValue = 0
-                self?.videoSlider.value = Float(currentItem.currentTime().seconds)
-                self?.lblCurrentTime.text = self?.getTimeString(from: currentItem.currentTime())
-            })
+//            player?.play()
+//            player?.addObserver(self, forKeyPath: "currentItem.loadedTimeRanges", options: .new, context: nil)
+//            
+//            // 현재재생시간
+//            let interval = CMTime(seconds: 0.5, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
+//            
+//            let mainQueue = DispatchQueue.main
+//            _ = player?.addPeriodicTimeObserver(forInterval: interval, queue: mainQueue, using: {[weak self]
+//                time in
+//                guard let currentItem = self?.player?.currentItem else {return}
+//                self?.videoSlider.maximumValue = Float(currentItem.duration.seconds)
+//                self?.videoSlider.minimumValue = 0
+//                self?.videoSlider.value = Float(currentItem.currentTime().seconds)
+//                self?.lblCurrentTime.text = self?.getTimeString(from: currentItem.currentTime())
+//            })
             
             print("강의불러와라")
         }
