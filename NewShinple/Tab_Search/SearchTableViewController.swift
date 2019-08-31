@@ -69,6 +69,19 @@ class SearchTableViewController: UITableViewController {
         
     }
     
+    // 선택 셀 삭제 불가 함수
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        var edit: Bool = true;
+        
+        if(indexPath.row == 0) {
+            
+            edit = false;
+        }
+        
+        return edit;
+    }
+    
+    
 
     //삭제시 Delete 대신 "삭제"
     override func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
@@ -98,6 +111,7 @@ class SearchTableViewController: UITableViewController {
        
     }
     
+
 
     //-------------viewDidLoad-------------
     
