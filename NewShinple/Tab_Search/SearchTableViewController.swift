@@ -8,6 +8,9 @@
 
 import UIKit
 
+/*
+ bin
+ */
 class SearchTableViewController: UITableViewController {
 
     @IBOutlet weak var searchBar: UISearchBar!

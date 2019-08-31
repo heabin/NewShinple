@@ -21,11 +21,12 @@ class MoreTabTableViewController: UITableViewController {
     //cell
     let cellIdentifier1 = "MoreTabImgIdentifier"
     let cellIdentifier2 = "MoreTabListIdentifier"
+
     
     let arr = ["알림함","문의하기","로그아웃"]
     let segueIdentifier = ["goToAlert2","goToQuestion","logOutIdentifier"]
     
-    
+
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -35,10 +36,12 @@ class MoreTabTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
        return arr.count+1
+
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
         var row = indexPath.row
         
         if(row == 0){
@@ -49,6 +52,7 @@ class MoreTabTableViewController: UITableViewController {
         }else{
             let cell : UITableViewCell = self.tableView.dequeueReusableCell(withIdentifier: cellIdentifier2, for: indexPath)
             cell.textLabel?.text = arr[indexPath.row-1]
+
             return cell
         }
         
@@ -78,12 +82,13 @@ class MoreTabTableViewController: UITableViewController {
             alert.addAction(noAction)
             present(alert, animated: true, completion: nil)
             
+
         }else if(segueIdentifier[indexPath.row] == "goToAlert2"){
             self.performSegue(withIdentifier: segueIdentifier[indexPath.row], sender: self)
         }else if(segueIdentifier[indexPath.row] == "goToQuestion"){
             self.performSegue(withIdentifier: segueIdentifier[indexPath.row], sender: self)
         }else{
-            
+
         }
         
     }

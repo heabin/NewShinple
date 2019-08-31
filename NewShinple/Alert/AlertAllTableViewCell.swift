@@ -9,7 +9,15 @@
 import UIKit
 
 class AlertAllTableViewCell: UITableViewCell {
-
+    @IBOutlet weak var imgColor: UIImageView!
+    @IBOutlet weak var lblTitle: UILabel!
+    @IBOutlet weak var lblContent: UILabel!
+    @IBOutlet weak var lblDate: UILabel!
+    
+    func layout() {
+        imgColor.layer.cornerRadius = imgColor.frame.width / 2
+    }
+  
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
