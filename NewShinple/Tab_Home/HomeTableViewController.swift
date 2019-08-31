@@ -8,11 +8,14 @@
 
 import UIKit
 
-class HomeTableViewController: UITableViewController, selectCategoryDelegate{
+class HomeTableViewController: UITableViewController, selectCategoryDelegate, selectMoreCategoryDelegate {
+
+    
     
     let colorStartBlue = UIColor(red: 15/255, green: 83/255, blue: 163/255, alpha: 1)
     let colorMiddleBlue = UIColor(red: 20/255, green: 123/255, blue: 195/255, alpha: 1)
     let colorEndBlue = UIColor(red: 27/255, green: 164/255, blue: 227/255, alpha: 1)
+    let colorLightGray = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +40,9 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate{
     
     let heartEmpty = UIImage(named: "heart_empty.png")
     let heartFill = UIImage(named: "heart_fill.png")
+    var flag:Bool = true
     
+    var selectedCategory = ""
 
     
     //TableView cell
@@ -94,7 +99,9 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate{
                 cell.lblName.text = userName
                 cell.lblCategory.text = "님의 최근시청 강의입니다."
                 
-                cell.btnMore.addTarget(self, action: #selector(goToVideoList), for: .touchUpInside)
+                //selectedCategory = "최근시청 강의"
+                cell.btnMore.addTarget(self, action: #selector(goToVideoList(_:)), for: .touchUpInside)
+                
                 
                 return cell
             }else {
@@ -103,7 +110,9 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate{
                 cell.lblCategory.text = categories[indexPath.row]
                 cell.collectionView.tag = indexPath.row
                 
-                cell.btnMore.addTarget(self, action: #selector(goToVideoList), for: .touchUpInside)
+                selectedCategory = categories[indexPath.row]
+                
+                cell.btnMore.addTarget(self, action: #selector(goToVideoList(_:)), for: .touchUpInside)
                 
                 return cell
             }
@@ -153,7 +162,10 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate{
         }
     }
     
-    @objc func goToVideoList() {
+    @objc func goToVideoList(_ sender : UIButton) {
+        
+        //selectedCategory = sender.currentTitle!
+        
         performSegue(withIdentifier: "goToMore", sender: nil)
     }
     
@@ -176,6 +188,7 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate{
         print("select")
         
         if segue.identifier == "goToFirstCategory" || segue.identifier == "goToSecondCategory" {
+            
             let categoryController = segue.destination as! CategoryTableViewController
             
             if segue.identifier == "goToFirstCategory" {
@@ -188,6 +201,14 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate{
                 }
             }
             categoryController.delegate = self
+            
+        }else if segue.identifier == "goToMore" {
+            
+            let moreController = segue.destination as! HomeMoreTableViewController
+            
+            moreController.categoryName = selectedCategory
+            
+            moreController.delegate = self
         }
         
         
@@ -207,7 +228,12 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate{
         self.tableView.reloadData()
         refreshControl?.endRefreshing()
     }
-
+    
+    func selectedCategoryName(_ controller: HomeMoreTableViewController, message: String) {
+        
+        print("list")
+        
+    }
     
 }
 

@@ -8,83 +8,96 @@
 
 import UIKit
 
+protocol selectMoreCategoryDelegate {
+    func selectedCategoryName(_ controller: HomeMoreTableViewController, message: String)
+}
+
 class HomeMoreTableViewController: UITableViewController {
+    
+    let colorStartBlue = UIColor(red: 15/255, green: 83/255, blue: 163/255, alpha: 1)
+    let colorMiddleBlue = UIColor(red: 20/255, green: 123/255, blue: 195/255, alpha: 1)
+    let colorEndBlue = UIColor(red: 27/255, green: 164/255, blue: 227/255, alpha: 1)
+    
+    var titles: String = "제목입니다."
+    var contents: String = "There is a content about the video.You can see the video if you click the image."
+    var date: String = "19.09.09"
+    var number: Int = 80
+    
+    var imagieFiles = ["video10.png", "video9.png", "video8.png", "video7.png", "video6.png","video5.png", "video4.png", "video3.png", "video2.png", "video.png"]
+    
+    let heartEmpty = UIImage(named: "heart_empty.png")
+    let heartFill = UIImage(named: "heart_fill.png")
+    
+    var delegate : selectMoreCategoryDelegate?
+    
+    
+    var categoryName = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
     // MARK: - Table view data source
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.row == 0 {
+            return 40
+        } else {
+            return 120
+        }
+    }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return imagieFiles.count
     }
 
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        
+        let row = indexPath.row
+        
+        if row == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "HomeMoreTableViewCell1") as! HomeMoreTableViewCell1
+            
+            cell.lblCategory.text = categoryName
+            
+            return cell
+            
+        } else {
+        
+            let cell = tableView.dequeueReusableCell(withIdentifier: "HomeMoreTableViewCell2") as! HomeMoreTableViewCell2
+            
+            
+            cell.lblTitle.text = titles
+            cell.lblWatchingTime.text = "진행률: " + String(number) + " %"
+            cell.lblContent.text = contents
+            
+            
+            cell.imgVideo.image = UIImage(named: imagieFiles[indexPath.row])
+            cell.imgVideo.translatesAutoresizingMaskIntoConstraints = true
+            
+            if indexPath.row % 2 == 0 {
+                cell.btnFavorite.setImage(heartFill, for: .normal)
+            }else {
+                cell.btnFavorite.setImage(heartEmpty, for: .normal)
+            }
+            
+            cell.btnFavorite.addTarget(self, action: #selector(setFavorite(_:)), for: .touchUpInside)
+        
         return cell
+        }
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    @objc func setFavorite(_ sender: UIButton) {
+        if sender.currentImage == UIImage(named: "heart_fill.png") {
+            sender.setImage(heartEmpty, for: .normal)
+        } else if sender.currentImage == UIImage(named: "heart_empty.png") {
+            sender.setImage(heartFill, for: .normal)
+        }
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
