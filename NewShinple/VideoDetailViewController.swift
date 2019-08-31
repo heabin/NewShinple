@@ -82,21 +82,21 @@ class VideoDetailViewController: UIViewController {
             playerLayer.frame = videoView.layer.bounds
             //CGRect(x: 0, y: 0, width: videoView.frame.width, height: videoView.frame.height)
             
-//            player?.play()
-//            player?.addObserver(self, forKeyPath: "currentItem.loadedTimeRanges", options: .new, context: nil)
-//            
-//            // 현재재생시간
-//            let interval = CMTime(seconds: 0.5, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
-//            
-//            let mainQueue = DispatchQueue.main
-//            _ = player?.addPeriodicTimeObserver(forInterval: interval, queue: mainQueue, using: {[weak self]
-//                time in
-//                guard let currentItem = self?.player?.currentItem else {return}
-//                self?.videoSlider.maximumValue = Float(currentItem.duration.seconds)
-//                self?.videoSlider.minimumValue = 0
-//                self?.videoSlider.value = Float(currentItem.currentTime().seconds)
-//                self?.lblCurrentTime.text = self?.getTimeString(from: currentItem.currentTime())
-//            })
+            player?.play()
+            player?.addObserver(self, forKeyPath: "currentItem.loadedTimeRanges", options: .new, context: nil)
+
+            // 현재재생시간
+            let interval = CMTime(seconds: 0.5, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
+
+            let mainQueue = DispatchQueue.main
+            _ = player?.addPeriodicTimeObserver(forInterval: interval, queue: mainQueue, using: {[weak self]
+                time in
+                guard let currentItem = self?.player?.currentItem else {return}
+                self?.videoSlider.maximumValue = Float(currentItem.duration.seconds)
+                self?.videoSlider.minimumValue = 0
+                self?.videoSlider.value = Float(currentItem.currentTime().seconds)
+                self?.lblCurrentTime.text = self?.getTimeString(from: currentItem.currentTime())
+            })
             
             print("강의불러와라")
         }
@@ -136,17 +136,19 @@ class VideoDetailViewController: UIViewController {
         print("설정끝*")
     }
     
-    // 슬라이더(재생)
-    let sssssss: UISlider = {
-        let slider = UISlider()
-        slider.translatesAutoresizingMaskIntoConstraints = false
-        slider.minimumTrackTintColor = UIColor.red
-        slider.maximumTrackTintColor = UIColor.white
-        slider.thumbTintColor = UIColor.red
-        slider.value = 1
-        
-        return slider
-    }()
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == "currentItem.loadedTimeRanges" {
+            activityIndicatorView.stopAnimating()
+            activityIndicatorView.isHidden = true
+            videoView.backgroundColor = .clear
+            isPlaying = true
+            
+            if let duration = player?.currentItem?.duration {
+                let secondsText = getTimeString(from: duration)
+                lblVideoLength.text = secondsText
+            }
+        }
+    }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         if UIDevice.current.orientation.isLandscape {
