@@ -129,7 +129,7 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate, se
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let row = indexPath.row
         
-        //----------대분류: 전체, 소분류: 전체 (Default)
+        //----------대분류: 전체, 소분류: 전체 - Sorting case: 0
         if sortingCase == 0 {
             print("sorting=0")
             
@@ -165,7 +165,7 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate, se
             }
         
             
-        //----------대분류: 선택, 소분류: 전체
+        //----------대분류: 선택, 소분류: 전체 - Sorting case: 1
         } else if sortingCase == 1{
             print("sorting=1")
             
@@ -202,7 +202,7 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate, se
             }
             
             
-        //----------대분류: 선택, 소분류: 선택
+        //----------대분류: 선택, 소분류: 선택 - Sorting case: 2
         } else if sortingCase == 2 {
             if row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "HomeTableViewCell1") as! HomeTableViewCell1
