@@ -11,19 +11,21 @@ import UIKit
 
 protocol selectCategoryDelegate {
     func selectFirstCategory(_ controller: CategoryTableViewController, message: String)
+    func selectSecondCatogory(_ controller: CategoryTableViewController, message: String)
 }
 
-
 class CategoryTableViewController: UITableViewController {
+    
     
     let colorStartBlue = UIColor(red: 15/255, green: 83/255, blue: 163/255, alpha: 1)
     let colorMiddleBlue = UIColor(red: 20/255, green: 123/255, blue: 195/255, alpha: 1)
     let colorEndBlue = UIColor(red: 27/255, green: 164/255, blue: 227/255, alpha: 1)
     let colorLightGray = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
     
-    let selectedCategory = ""
     var category = [""]
     var delegate : selectCategoryDelegate?
+    
+    var buttonNum:Int = 0
 
 
     override func viewDidLoad() {
@@ -61,16 +63,30 @@ class CategoryTableViewController: UITableViewController {
         return cell
     }
     
+
+    
+    
     @objc func goToMainPage(_ sender: UIButton) {
+        
         sender.setTitleColor(colorEndBlue, for: .normal)
-        if delegate != nil {
-            delegate?.selectFirstCategory(self, message: sender.currentTitle!)
+        if buttonNum == 0 {
+            if delegate != nil {
+                print("대분류 선택 / buttonNum = 0")
+                print(sender.currentTitle!)
+                delegate?.selectFirstCategory(self, message: sender.currentTitle!)
+            }
+        }else if buttonNum == 1 {
+            if delegate != nil {
+                print("소분류 선택 / buttonNum = 1")
+                delegate?.selectSecondCatogory(self, message: sender.currentTitle!)
+            }
+        }else {
+            print("EEEEEEEEEEEEEEEError")
         }
         
         _ = navigationController?.popViewController(animated: true)
     }
-    
-    
+  
 
 }
 

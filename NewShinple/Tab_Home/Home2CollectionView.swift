@@ -99,6 +99,8 @@ class Home2CollectionView: UICollectionView, UICollectionViewDelegate, UICollect
         return cell
     }
     
+    
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         HomeTableViewController().goToDetailPage()

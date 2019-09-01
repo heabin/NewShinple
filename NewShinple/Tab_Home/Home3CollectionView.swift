@@ -26,6 +26,7 @@ class Home3CollectionView: UICollectionView, UICollectionViewDelegate, UICollect
                        ["video8.png", "video2.png", "video10.png", "video3.png", "video.png"]]
     
     var testurl = URL(string: "https://shinpleios.s3.us-east-2.amazonaws.com/Poutine.png")
+
     
     override func awakeFromNib() {
         self.delegate = self

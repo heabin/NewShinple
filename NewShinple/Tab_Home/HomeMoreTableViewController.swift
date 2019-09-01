@@ -31,7 +31,7 @@ class HomeMoreTableViewController: UITableViewController {
     var delegate : selectMoreCategoryDelegate?
     
     
-    var categoryName = ""
+    var mainTitleName = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,7 +63,7 @@ class HomeMoreTableViewController: UITableViewController {
         if row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "HomeMoreTableViewCell1") as! HomeMoreTableViewCell1
             
-            cell.lblCategory.text = categoryName
+            cell.lblCategory.text = mainTitleName
             
             return cell
             
