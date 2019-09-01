@@ -10,11 +10,12 @@ import UIKit
 import AVFoundation
 
 class VideoDetailViewController: UIViewController {
-
+    
     // videoView 의 위치를 잡아주기 위한 것들
     @IBOutlet weak var LargeView: UIView!
     @IBOutlet weak var SmallView: UIView!
     @IBOutlet weak var videoView: UIView!
+    @IBOutlet weak var containerView: UIView!
     
     // 미디어컨트롤
     @IBOutlet weak var btnGoBack: UIButton!
@@ -30,11 +31,16 @@ class VideoDetailViewController: UIViewController {
     
     // 미디어 제어 관련 변수
     var isPlaying:Bool = false
+    var isControlOn: Bool = true
     var isBookmarked: Bool = false
     var isFullScreen: Bool = false
-    let urlString = "https://shinplestorage.s3.us-east-2.amazonaws.com/lectureTest.mp4"
+    let layer = CALayer()
+    //let urlString = "https://shinplestorage.s3.us-east-2.amazonaws.com/lectureTest.mp4"
     //let urlString = "https://wolverine.raywenderlich.com/content/ios/tutorials/video_streaming/foxVillage.m3u8"
+    
+    let urlString = "https://shinplestorage.s3.us-east-2.amazonaws.com/videoplayback.mp4"
     var player: AVPlayer?
+    var playerLayer = AVPlayerLayer()
     
     // 로딩화면
     let activityIndicatorView: UIActivityIndicatorView = {
@@ -45,15 +51,12 @@ class VideoDetailViewController: UIViewController {
         return aiv
     }()
     
-    let controlsContainerView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor(white: 0, alpha: 1)
-        return view
-    }()
+    @IBOutlet weak var TabContainerView: UIView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // 그냥 작은 화면일때 기준이 되는 뷰를 한개 더 만들었음
         //SmallView.isHidden = true
         
@@ -63,11 +66,20 @@ class VideoDetailViewController: UIViewController {
         videoView.topAnchor.constraint(equalTo: SmallView.topAnchor).isActive = true
         videoView.trailingAnchor.constraint(equalTo: SmallView.trailingAnchor).isActive = true
         videoView.bottomAnchor.constraint(equalTo: SmallView.bottomAnchor).isActive = true
-       
+        
         // 비디오 불러오기
         setupPlayerView()
         // 라이브러리 설정
         settingLibrary()
+        controlOnOff()
+        
+        // 뷰를 터치했을때
+        let gesture = UITapGestureRecognizer(target: self, action: Selector(("someAction:")))
+        self.videoView.addGestureRecognizer(gesture)
+        
+        
+        SmallView.backgroundColor = .black
+        LargeView.backgroundColor = .black
     }
     
     
@@ -76,15 +88,17 @@ class VideoDetailViewController: UIViewController {
         if let url = NSURL(string: urlString){
             player = AVPlayer(url: url as URL)
             
-            let playerLayer = AVPlayerLayer(player: player)
+            playerLayer = AVPlayerLayer(player: player)
             playerLayer.name = "videoPlayerLayer"
             videoView.layer.addSublayer(playerLayer)
             playerLayer.frame = videoView.layer.bounds
+            
             //CGRect(x: 0, y: 0, width: videoView.frame.width, height: videoView.frame.height)
             
             player?.play()
+            isPlaying = true
             player?.addObserver(self, forKeyPath: "currentItem.loadedTimeRanges", options: .new, context: nil)
-
+           
             // 현재재생시간
             let interval = CMTime(seconds: 0.5, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
 
@@ -133,9 +147,15 @@ class VideoDetailViewController: UIViewController {
         btnFullScreen.setImage(UIImage(named: "icons8-full-screen-90"), for: .normal)
         btnFullScreen.tintColor = .white
         
+//        videoSlider.translatesAutoresizingMaskIntoConstraints = false
+//        videoSlider.setThumbImage(UIImage(named: "thumb_circle"), for: .normal)
+        
         print("설정끝*")
     }
     
+    
+    
+    // MARK: - 함수
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "currentItem.loadedTimeRanges" {
             activityIndicatorView.stopAnimating()
@@ -157,14 +177,84 @@ class VideoDetailViewController: UIViewController {
             videoView.leadingAnchor.constraint(equalTo: LargeView.leadingAnchor).isActive = true
             videoView.trailingAnchor.constraint(equalTo: LargeView.trailingAnchor).isActive = true
             videoView.topAnchor.constraint(equalTo: LargeView.topAnchor).isActive = true
-
+            btnFullScreen.setImage(UIImage(named: "icons8-normal-screen-90"), for: .normal)
+            
+            TabContainerView.isHidden = true
+            print(self.view.backgroundColor)
+            self.view.backgroundColor = .black
         } else {
             print("세로모드")
             videoView.translatesAutoresizingMaskIntoConstraints = false
             videoView.leadingAnchor.constraint(equalTo: SmallView.leadingAnchor).isActive = true
             videoView.trailingAnchor.constraint(equalTo: SmallView.trailingAnchor).isActive = true
             videoView.topAnchor.constraint(equalTo: SmallView.topAnchor).isActive = true
+            
+            btnFullScreen.setImage(UIImage(named: "icons8-full-screen-90"), for: .normal)
+            TabContainerView.isHidden = false
+            
+            self.view.backgroundColor = .white
         }
+    }
+    
+    @objc func someAction(_ sender:UITapGestureRecognizer){
+        // do other task
+        print("화면 터치")
+        controlOnOff()
+    }
+    
+    func controlOnOff(){
+        if isControlOn {
+            print("컨트롤 끄기")
+            btnGoBack.isHidden = true
+            btnBookmark.isHidden = true
+            btnRewind.isHidden = true
+            btnPlayPause.isHidden = true
+            btnForward.isHidden = true
+            lblCurrentTime.isHidden = true
+            lblVideoLength.isHidden = true
+            btnFullScreen.isHidden = true
+            videoSlider.isHidden = true
+            
+            if let sublayers = videoView.layer.sublayers {
+                for layer in sublayers {
+                    if layer.name == "gradientLayer" {
+                        layer.removeFromSuperlayer()
+                        break
+                    }
+                }
+            }
+            
+        }else {
+            print("컨트롤 켜기")
+            
+            layer.frame = videoView.layer.bounds
+            layer.backgroundColor = UIColor.black.cgColor
+            layer.opacity = 0.5
+            layer.name = "gradientLayer"
+            videoView.layer.addSublayer(layer)
+            
+            btnGoBack.isHidden = false
+            btnBookmark.isHidden = false
+            btnRewind.isHidden = false
+            btnPlayPause.isHidden = false
+            btnForward.isHidden = false
+            lblCurrentTime.isHidden = false
+            lblVideoLength.isHidden = false
+            btnFullScreen.isHidden = false
+            videoSlider.isHidden = false
+            
+            // 제일위로
+            btnGoBack.layer.zPosition = 1
+            btnBookmark.layer.zPosition = 1
+            btnRewind.layer.zPosition = 1
+            btnPlayPause.layer.zPosition = 1
+            btnForward.layer.zPosition = 1
+            lblCurrentTime.layer.zPosition = 1
+            lblVideoLength.layer.zPosition = 1
+            btnFullScreen.layer.zPosition = 1
+            videoSlider.layer.zPosition = 1
+        }
+        isControlOn = !isControlOn
     }
     
     // MARK: - 액션
@@ -216,28 +306,28 @@ class VideoDetailViewController: UIViewController {
     }
     
     @IBAction func FullScreen(_ sender: UIButton) {
-//        videoView.translatesAutoresizingMaskIntoConstraints = false
-//        videoView.frame = SmallView.bounds
-//        var t = CGAffineTransform.identity
-//        t = t.translatedBy(x: 100, y: 0)    // 세로형으로 보는 그대로 x,y
-//        t = t.translatedBy(x: 0, y: 0)
-//        t = t.rotated(by: .pi / 2)
-//        t = t.scaledBy(x: 1.5, y: 1.5)
-//
-//        videoView.transform = t
-//
-//        videoView.translatesAutoresizingMaskIntoConstraints = false
-//        videoView.leadingAnchor.constraint(equalTo: LargeView.leadingAnchor).isActive = true
-//        videoView.trailingAnchor.constraint(equalTo: LargeView.trailingAnchor).isActive = true
-//        videoView.topAnchor.constraint(equalTo: LargeView.topAnchor, constant: 10).isActive = true
-        
+        //        videoView.translatesAutoresizingMaskIntoConstraints = false
+        //        videoView.frame = SmallView.bounds
+        //        var t = CGAffineTransform.identity
+        //        t = t.translatedBy(x: 100, y: 0)    // 세로형으로 보는 그대로 x,y
+        //        t = t.translatedBy(x: 0, y: 0)
+        //        t = t.rotated(by: .pi / 2)
+        //        t = t.scaledBy(x: 1.5, y: 1.5)
+        //
+        //        videoView.transform = t
+        //
+        //        videoView.translatesAutoresizingMaskIntoConstraints = false
+        //        videoView.leadingAnchor.constraint(equalTo: LargeView.leadingAnchor).isActive = true
+        //        videoView.trailingAnchor.constraint(equalTo: LargeView.trailingAnchor).isActive = true
+        //        videoView.topAnchor.constraint(equalTo: LargeView.topAnchor, constant: 10).isActive = true
         if isFullScreen {
-            btnFullScreen.setImage(UIImage(named: "icons8-normal-screen-90"), for: .normal)
-        } else {
+            print("화면 최소 버튼 누르기")
             btnFullScreen.setImage(UIImage(named: "icons8-full-screen-90"), for: .normal)
+        } else {
+            print("전체화면 버튼 누르기")
+            btnFullScreen.setImage(UIImage(named: "icons8-normal-screen-90"), for: .normal)
         }
-        
-        
+        isFullScreen = !isFullScreen
     }
     
     @IBAction func SliderValueChanged(_ sender: UISlider) {
@@ -257,5 +347,14 @@ class VideoDetailViewController: UIViewController {
         }else{
             return String(format: "%02i:%02i", arguments: [minutes, seconds])
         }
+    }
+    
+    // 레이어의 사이즈를 비디오뷰에 맞춘다
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+//        print("s")
+        layer.frame = videoView.bounds
+        playerLayer.frame = videoView.bounds
+//        gradientLayer.frame = videoView.bounds
     }
 }

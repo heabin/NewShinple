@@ -17,9 +17,6 @@ class HomeTableViewCell1: UITableViewCell {
     @IBOutlet weak var lblSecond: UILabel!
     @IBOutlet weak var imgSecond: UIImageView!
     
-    
-    
-    
 
     override func awakeFromNib() {
         super.awakeFromNib()
