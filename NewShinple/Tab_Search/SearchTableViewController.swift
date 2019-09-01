@@ -31,9 +31,11 @@ class SearchTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if searching{
-            return searchedData.count
+
+            return searchedData.count+1
         }else {
-            return baseArray.count
+
+            return baseArray.count+1
         }
     }
     
@@ -65,9 +67,10 @@ class SearchTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        var rowline = indexPath.row
+        var rowLine = indexPath.row
+        var listLine = rowLine-1
 //        SearchTableViewCell1
-        if(rowline == 0){
+        if(rowLine == 0){
             let cell = tableView.dequeueReusableCell(withIdentifier: "SearchTableViewCell1", for: indexPath) as! SearchTableViewCell1
             
             cell.label.text = "최근 검색기록 입니다.   "
@@ -79,9 +82,10 @@ class SearchTableViewController: UITableViewController {
         }else{
             let cell = tableView.dequeueReusableCell(withIdentifier: "SearchTableViewCell2", for: indexPath) as! SearchTableViewCell2
             if searching {
-                cell.searchContent.text = searchedData[indexPath.row]
+                cell.searchContent.text = searchedData[listLine]
             } else {
-                cell.searchContent.text = sampleData[indexPath.row]
+                print("sample data print")
+                cell.searchContent.text = baseArray[listLine]
             }
             return cell
         }
@@ -90,7 +94,7 @@ class SearchTableViewController: UITableViewController {
     
     //전체 삭제 함수
     @objc func delectCell() {
-        baseArray = [""]
+        baseArray = []
         tableView.reloadData()
     }
     
