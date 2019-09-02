@@ -320,8 +320,10 @@
                                                             </constraints>
                                                             <size key="customSize" width="158" height="122"/>
                                                             <connections>
+                                                                <outlet property="imgCheck" destination="OaF-bz-jd5" id="pgk-Ri-bTb"/>
                                                                 <outlet property="imgVideo" destination="nl5-uP-BMW" id="gpW-y7-Fn5"/>
                                                                 <outlet property="lblTitle" destination="qU2-tc-TO8" id="jcc-6n-HN5"/>
+                                                                <outlet property="lblVideoTime" destination="0cR-fd-pKQ" id="6KE-of-aIv"/>
                                                             </connections>
                                                         </collectionViewCell>
                                                     </cells>
@@ -401,20 +403,13 @@
                                                             <rect key="frame" x="0.0" y="43" width="188.5" height="20"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DIL-9k-tHO">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="94.5" height="20"/>
-                                                                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="10"/>
-                                                                    <nil key="textColor"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ead-Et-AeJ">
-                                                                    <rect key="frame" x="94.5" y="0.0" width="94" height="20"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="188.5" height="20"/>
                                                                     <fontDescription key="fontDescription" type="system" weight="thin" pointSize="10"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                             </subviews>
                                                             <constraints>
-                                                                <constraint firstItem="Ead-Et-AeJ" firstAttribute="height" secondItem="piz-E4-bb9" secondAttribute="height" id="7Xk-gq-d7v"/>
                                                                 <constraint firstItem="DIL-9k-tHO" firstAttribute="height" secondItem="piz-E4-bb9" secondAttribute="height" id="iXg-m7-PpK"/>
                                                             </constraints>
                                                         </stackView>
@@ -474,10 +469,11 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="btnFavorite" destination="n2G-fq-Qqu" id="Wk1-9U-juD"/>
+                                    <outlet property="imgCheck" destination="ZBf-ux-aIo" id="Akf-fW-dcL"/>
                                     <outlet property="imgVideo" destination="d8u-Za-ovP" id="jLH-uv-NG2"/>
                                     <outlet property="lblContent" destination="t3a-Wv-Peu" id="Fd5-Xv-PEm"/>
                                     <outlet property="lblTitle" destination="Cvg-eV-39j" id="cMW-Ih-A5f"/>
-                                    <outlet property="lblWatchingTime" destination="Ead-Et-AeJ" id="53u-sz-VVb"/>
+                                    <outlet property="lblVideoTime" destination="owe-qH-75C" id="fww-wR-97l"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -637,13 +633,7 @@
                                                             <rect key="frame" x="0.0" y="43" width="189.5" height="19.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cZi-b2-3dh">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="95" height="19.5"/>
-                                                                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="10"/>
-                                                                    <nil key="textColor"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iRT-Rg-4nh">
-                                                                    <rect key="frame" x="95" y="0.0" width="94.5" height="19.5"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="189.5" height="19.5"/>
                                                                     <fontDescription key="fontDescription" type="system" weight="thin" pointSize="10"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -651,7 +641,6 @@
                                                             </subviews>
                                                             <constraints>
                                                                 <constraint firstItem="cZi-b2-3dh" firstAttribute="height" secondItem="552-5Q-C2B" secondAttribute="height" id="Spd-ju-LPZ"/>
-                                                                <constraint firstItem="iRT-Rg-4nh" firstAttribute="height" secondItem="552-5Q-C2B" secondAttribute="height" id="o9M-ff-F5o"/>
                                                             </constraints>
                                                         </stackView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D03-Py-4Pj">
@@ -714,10 +703,11 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="btnFavorite" destination="XWC-IN-Vbv" id="i7O-v3-zBh"/>
+                                    <outlet property="imgCheck" destination="Lgu-hX-cdr" id="nXJ-s8-QlK"/>
                                     <outlet property="imgVideo" destination="RMj-5R-0lw" id="5ay-Av-ajr"/>
                                     <outlet property="lblContent" destination="Mis-Bd-5sc" id="cY5-2G-N1f"/>
                                     <outlet property="lblTitle" destination="ZAf-Si-xKj" id="Nh7-g5-fnB"/>
-                                    <outlet property="lblWatchingTime" destination="iRT-Rg-4nh" id="BF1-Tf-xI8"/>
+                                    <outlet property="lblVideoTime" destination="Z5M-9L-v3L" id="XsR-90-BNB"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1005,13 +995,7 @@
                                                             <rect key="frame" x="0.0" y="43" width="189.5" height="19.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kye-1s-WKS">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="95" height="19.5"/>
-                                                                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="10"/>
-                                                                    <nil key="textColor"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8JB-NL-Mok">
-                                                                    <rect key="frame" x="95" y="0.0" width="94.5" height="19.5"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="189.5" height="19.5"/>
                                                                     <fontDescription key="fontDescription" type="system" weight="thin" pointSize="10"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -1019,7 +1003,6 @@
                                                             </subviews>
                                                             <constraints>
                                                                 <constraint firstItem="kye-1s-WKS" firstAttribute="height" secondItem="ON7-aq-MqB" secondAttribute="height" id="43A-Bc-0Kq"/>
-                                                                <constraint firstItem="8JB-NL-Mok" firstAttribute="height" secondItem="ON7-aq-MqB" secondAttribute="height" id="jlL-tg-RVY"/>
                                                             </constraints>
                                                         </stackView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FFL-lo-4EU">
@@ -1080,14 +1063,14 @@
                                         <constraint firstItem="t2x-zQ-GTE" firstAttribute="centerX" secondItem="GPf-9D-WO5" secondAttribute="centerX" id="t8k-G8-eEe"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" red="1" green="0.24466790329999999" blue="0.0161532855" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <outlet property="btnFavorite" destination="Q6A-e2-m1J" id="iXi-iY-LGV"/>
                                     <outlet property="imgCheck" destination="2ve-TH-XJu" id="036-Hw-Ri0"/>
                                     <outlet property="imgVideo" destination="GPf-9D-WO5" id="VYc-6f-aWU"/>
                                     <outlet property="lblContent" destination="u7z-Ql-pZn" id="dyG-ES-VGo"/>
                                     <outlet property="lblTitle" destination="aCa-Qy-4Q8" id="7Pc-4e-pij"/>
-                                    <outlet property="lblWatchingTime" destination="8JB-NL-Mok" id="5Ih-aX-B3x"/>
+                                    <outlet property="lblVideoTime" destination="8vP-6R-ndh" id="kB5-Us-Beq"/>
+                                    <outlet property="sliderTime" destination="t2x-zQ-GTE" id="BmT-qW-kAo"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1162,13 +1145,7 @@
                                                             <rect key="frame" x="0.0" y="43" width="189.5" height="19.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OtC-dl-0cX">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="95" height="19.5"/>
-                                                                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="10"/>
-                                                                    <nil key="textColor"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kvf-gA-r0Z">
-                                                                    <rect key="frame" x="95" y="0.0" width="94.5" height="19.5"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="189.5" height="19.5"/>
                                                                     <fontDescription key="fontDescription" type="system" weight="thin" pointSize="10"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -1176,7 +1153,6 @@
                                                             </subviews>
                                                             <constraints>
                                                                 <constraint firstItem="OtC-dl-0cX" firstAttribute="height" secondItem="SWq-L7-PUX" secondAttribute="height" id="9Qk-4h-ECA"/>
-                                                                <constraint firstItem="kvf-gA-r0Z" firstAttribute="height" secondItem="SWq-L7-PUX" secondAttribute="height" id="cvZ-L4-63c"/>
                                                             </constraints>
                                                         </stackView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="45s-jK-8bG">
@@ -1237,14 +1213,14 @@
                                         <constraint firstItem="DWo-A2-njz" firstAttribute="width" secondItem="qw4-Sq-F8M" secondAttribute="width" id="zt3-mO-0CX"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" red="0.3549311134" green="0.8980392157" blue="0.66963663009999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <outlet property="btnFavorite" destination="O3q-OB-f2a" id="mBF-2b-nbt"/>
                                     <outlet property="imgCheck" destination="euo-m8-sv7" id="fIG-Hh-aLm"/>
                                     <outlet property="imgVideo" destination="qw4-Sq-F8M" id="ZDf-ke-2L0"/>
                                     <outlet property="lblContent" destination="s0b-Xh-5h3" id="PqM-3Y-6pb"/>
                                     <outlet property="lblTitle" destination="AP2-Ve-bIq" id="vwJ-Sq-tb6"/>
-                                    <outlet property="lblWatchingTime" destination="kvf-gA-r0Z" id="N7K-dr-bX7"/>
+                                    <outlet property="lblVideoTime" destination="rrA-qJ-jRD" id="zEh-NZ-Pei"/>
+                                    <outlet property="sliderTime" destination="DWo-A2-njz" id="ooR-d2-IHq"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1319,13 +1295,7 @@
                                                             <rect key="frame" x="0.0" y="43" width="189.5" height="19.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oBB-55-j06">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="95" height="19.5"/>
-                                                                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="10"/>
-                                                                    <nil key="textColor"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gm6-t2-hT4">
-                                                                    <rect key="frame" x="95" y="0.0" width="94.5" height="19.5"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="189.5" height="19.5"/>
                                                                     <fontDescription key="fontDescription" type="system" weight="thin" pointSize="10"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -1333,7 +1303,6 @@
                                                             </subviews>
                                                             <constraints>
                                                                 <constraint firstItem="oBB-55-j06" firstAttribute="height" secondItem="xLX-p7-zd7" secondAttribute="height" id="77x-pA-UzL"/>
-                                                                <constraint firstItem="gm6-t2-hT4" firstAttribute="height" secondItem="xLX-p7-zd7" secondAttribute="height" id="DFf-JK-ZDK"/>
                                                             </constraints>
                                                         </stackView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hxq-Ux-c55">
@@ -1394,14 +1363,14 @@
                                         <constraint firstItem="Bki-vS-KCF" firstAttribute="leading" secondItem="D59-JL-4lQ" secondAttribute="leading" constant="10" id="tAW-W0-TpJ"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" red="1" green="0.78404857569999997" blue="0.5198360528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <outlet property="btnFavorite" destination="VyS-se-JSc" id="xmO-22-zWN"/>
                                     <outlet property="imgCheck" destination="jT2-Yn-Uej" id="GqB-tT-nd3"/>
                                     <outlet property="imgVideo" destination="8de-xK-CCJ" id="WBl-se-BKg"/>
                                     <outlet property="lblContent" destination="2ip-aa-wBN" id="8Qx-qE-VQt"/>
                                     <outlet property="lblTitle" destination="DeK-WR-fIg" id="l6F-NF-34U"/>
-                                    <outlet property="lblWatchingTime" destination="gm6-t2-hT4" id="azN-0o-ape"/>
+                                    <outlet property="lblVideoTime" destination="Ooa-rc-sim" id="txZ-lI-5Uj"/>
+                                    <outlet property="sliderTime" destination="cW2-zC-aZD" id="Nzo-Op-F3x"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1928,20 +1897,13 @@
                                                             <rect key="frame" x="0.0" y="43" width="189.5" height="19.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qhb-vT-iJ0">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="95" height="19.5"/>
-                                                                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="10"/>
-                                                                    <nil key="textColor"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3eZ-DJ-p02">
-                                                                    <rect key="frame" x="95" y="0.0" width="94.5" height="19.5"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="189.5" height="19.5"/>
                                                                     <fontDescription key="fontDescription" type="system" weight="thin" pointSize="10"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                             </subviews>
                                                             <constraints>
-                                                                <constraint firstItem="3eZ-DJ-p02" firstAttribute="height" secondItem="jsY-2n-1e0" secondAttribute="height" id="XMc-Qb-Cxs"/>
                                                                 <constraint firstItem="Qhb-vT-iJ0" firstAttribute="height" secondItem="jsY-2n-1e0" secondAttribute="height" id="lie-so-K3w"/>
                                                             </constraints>
                                                         </stackView>
@@ -2005,10 +1967,12 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="btnFavorite" destination="jlN-3E-bA9" id="HuZ-BD-bpG"/>
+                                    <outlet property="imgCheck" destination="avO-rl-BP4" id="5IB-kB-tEX"/>
                                     <outlet property="imgVideo" destination="kHq-6l-hLG" id="tqo-Ua-ohh"/>
                                     <outlet property="lblContent" destination="cKc-lQ-qQ1" id="oMY-Xs-tgL"/>
                                     <outlet property="lblTitle" destination="XU9-Xz-6hN" id="uPo-3g-vXk"/>
-                                    <outlet property="lblWatchingTime" destination="3eZ-DJ-p02" id="Lhq-5J-gW9"/>
+                                    <outlet property="lblVideoTime" destination="B7M-cu-3c8" id="uvu-Da-ONH"/>
+                                    <outlet property="sliderTime" destination="WkY-4k-hPG" id="Xdx-BZ-R6f"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -2212,7 +2176,7 @@
                                 </constraints>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tXo-xz-Mfx">
-                                <rect key="frame" x="83" y="509.5" width="248.00000000000011" height="41"/>
+                                <rect key="frame" x="83" y="509.5" width="248" height="41"/>
                                 <state key="normal" title="Login" backgroundImage="btnLogin">
                                     <color key="titleColor" red="0.97548274899999998" green="0.99757593870000005" blue="0.96298147010000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>

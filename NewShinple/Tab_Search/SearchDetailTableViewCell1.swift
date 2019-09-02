@@ -14,7 +14,9 @@ class SearchDetailTableViewCell1: UITableViewCell {
     @IBOutlet weak var btnFavorite: UIButton!
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblContent: UILabel!
-    @IBOutlet weak var lblWatchingTime: UILabel!
+    @IBOutlet weak var sliderTime: UISlider!
+    @IBOutlet weak var lblVideoTime: UILabel!
+    @IBOutlet weak var imgCheck: UIImageView!
     
     
     override func awakeFromNib() {

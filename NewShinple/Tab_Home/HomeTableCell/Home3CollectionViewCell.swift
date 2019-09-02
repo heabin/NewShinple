@@ -12,5 +12,7 @@ class Home3CollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var imgVideo: UIImageView!
     @IBOutlet weak var lblTitle: UILabel!
+    @IBOutlet weak var lblVideoTime: UILabel!
+    @IBOutlet weak var imgCheck: UIImageView!
     
 }

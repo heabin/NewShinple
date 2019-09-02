@@ -73,7 +73,6 @@ class HomeMoreTableViewController: UITableViewController {
             
             
             cell.lblTitle.text = titles
-            cell.lblWatchingTime.text = "진행률: " + String(number) + " %"
             cell.lblContent.text = contents
             
             

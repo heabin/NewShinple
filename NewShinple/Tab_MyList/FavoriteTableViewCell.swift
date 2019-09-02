@@ -14,13 +14,17 @@ class FavoriteTableViewCell: UITableViewCell {
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var btnFavorite: UIButton!
     @IBOutlet weak var lblContent: UILabel!
-    @IBOutlet weak var lblWatchingTime: UILabel!
     @IBOutlet weak var imgCheck: UIImageView!
+    @IBOutlet weak var sliderTime: UISlider!
+    @IBOutlet weak var lblVideoTime: UILabel!
     
     
     override func awakeFromNib() {
         super.awakeFromNib()
         btnFavorite.imageView?.contentMode = .scaleAspectFit
+        
+        sliderTime.setThumbImage(UIImage(), for: .normal)
+        sliderTime.thumbTintColor = .red
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
