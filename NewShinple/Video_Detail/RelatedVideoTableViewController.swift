@@ -73,6 +73,6 @@ class RelatedVideoTableViewController: UITableViewController, UISearchBarDelegat
 
 extension RelatedVideoTableViewController : IndicatorInfoProvider {
     func indicatorInfo(for pagerTabStripViewController: PagerTabStripViewController)->IndicatorInfo {
-        return IndicatorInfo(title: "연관 강의")
+        return IndicatorInfo(title: "강의 목록")
     }
 }
