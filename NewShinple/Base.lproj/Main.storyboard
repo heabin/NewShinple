@@ -758,7 +758,7 @@
                                                 <constraint firstAttribute="height" constant="15" id="NYn-tY-S40"/>
                                                 <constraint firstAttribute="width" constant="20" id="ZSW-rR-SC2"/>
                                             </constraints>
-                                            <state key="normal" title="Button" image="next2"/>
+                                            <state key="normal" title="Button" image="arrow_right_gray"/>
                                         </button>
                                     </subviews>
                                     <constraints>
@@ -804,19 +804,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AlertAllTableViewCell" id="hlP-v2-4Ud" customClass="AlertAllTableViewCell" customModule="NewShinple" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AlertAllTableViewCell" rowHeight="60" id="hlP-v2-4Ud" customClass="AlertAllTableViewCell" customModule="NewShinple" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="414" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hlP-v2-4Ud" id="42h-zE-vc1">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="59.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ieL-vp-L1A">
-                                            <rect key="frame" x="12.5" y="16.5" width="16.5" height="10.5"/>
+                                            <rect key="frame" x="12.5" y="22.5" width="16.5" height="14.5"/>
                                             <color key="backgroundColor" red="0.0" green="0.97680455450000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="알림유형" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gsy-Z0-AMY">
-                                            <rect key="frame" x="49" y="-8" width="100" height="20"/>
+                                            <rect key="frame" x="49" y="8" width="100" height="20"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="20" id="Teu-W6-DuN"/>
                                                 <constraint firstAttribute="width" constant="100" id="W5t-E7-iVF"/>
@@ -826,7 +826,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="알림내용" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VP7-gb-6BK">
-                                            <rect key="frame" x="49" y="13.5" width="365" height="20"/>
+                                            <rect key="frame" x="49" y="29.5" width="365" height="20"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="20" id="Dbu-fY-6h7"/>
                                             </constraints>
@@ -835,7 +835,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="19/09/09" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m36-Nm-AI7">
-                                            <rect key="frame" x="352" y="-6.5" width="62" height="15"/>
+                                            <rect key="frame" x="352" y="9.5" width="62" height="15"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="15" id="XU9-aM-8wM"/>
                                                 <constraint firstAttribute="width" constant="62" id="xVY-CN-hZs"/>
@@ -845,12 +845,12 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vt4-5s-dKh">
-                                            <rect key="frame" x="394" y="18.5" width="20" height="15"/>
+                                            <rect key="frame" x="394" y="34.5" width="20" height="15"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="20" id="C0t-vQ-Xtt"/>
                                                 <constraint firstAttribute="height" constant="15" id="o5U-sM-H6p"/>
                                             </constraints>
-                                            <state key="normal" title="Button" image="next2"/>
+                                            <state key="normal" title="Button" image="arrow_right_gray"/>
                                         </button>
                                     </subviews>
                                     <constraints>
@@ -2782,7 +2782,7 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="CYL-Hr-GDF">
                                 <rect key="frame" x="8" y="88" width="398" height="456"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <mutableString key="text">C언어와 이를 이용한 프로그래밍에 대하여 학습하는 것을 목표로하며, 이를 위해 C언어의 기본적인 원리와 문법, C표준라이브러리 사용법을 학습한다. 구체적으로, 본 강의에서는 변수의 선언과정의, 함수 구현 및 호출, 포인터와 구조체, 순환문, 조건문등을 학습하며, C라이브러리를 이용한 파일 입출력, 문자열관리, 동적메모리할당 등을 함께 학습합니다.
+                                <string key="text">C언어와 이를 이용한 프로그래밍에 대하여 학습하는 것을 목표로하며, 이를 위해 C언어의 기본적인 원리와 문법, C표준라이브러리 사용법을 학습한다. 구체적으로, 본 강의에서는 변수의 선언과정의, 함수 구현 및 호출, 포인터와 구조체, 순환문, 조건문등을 학습하며, C라이브러리를 이용한 파일 입출력, 문자열관리, 동적메모리할당 등을 함께 학습합니다.
 
 1강. C프로그래밍 구성요소 
 2강. 변수와 자료형(1)
@@ -2793,7 +2793,7 @@
  7강. 함수정의(2)
  8강. 배열의 정의 및 응용
  9강. 배열과 함수, 다차원 배열 응용
- 10강. 문자와 문자열</mutableString>
+ 10강. 문자와 문자열</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -2970,6 +2970,7 @@
     </scenes>
     <resources>
         <image name="arrow_down" width="50" height="50"/>
+        <image name="arrow_right_gray" width="50" height="50"/>
         <image name="btnLogin" width="474" height="64"/>
         <image name="heart_empty" width="90" height="90"/>
         <image name="home_20" width="20" height="20"/>
