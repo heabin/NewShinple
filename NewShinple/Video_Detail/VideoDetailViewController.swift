@@ -51,6 +51,12 @@ class VideoDetailViewController: UIViewController {
         return aiv
     }()
     
+    // 평가관련
+    @IBOutlet weak var EvaluationView: UIView!
+    @IBOutlet weak var btnBad: UIButton!
+    @IBOutlet weak var btnNormal: UIButton!
+    @IBOutlet weak var btnGood: UIButton!
+    
     @IBOutlet weak var TabContainerView: UIView!
     
     
@@ -80,6 +86,7 @@ class VideoDetailViewController: UIViewController {
         
         SmallView.backgroundColor = .black
         LargeView.backgroundColor = .black
+        
     }
     
     
@@ -150,6 +157,14 @@ class VideoDetailViewController: UIViewController {
 //        videoSlider.translatesAutoresizingMaskIntoConstraints = false
 //        videoSlider.setThumbImage(UIImage(named: "thumb_circle"), for: .normal)
         
+        
+        btnBad.setImage(UIImage(named: "bad_empty"), for: .normal)
+        btnBad.tintColor = .white
+        btnNormal.setImage(UIImage(named: "normal_empty"), for: .normal)
+        btnNormal.tintColor = .white
+        btnGood.setImage(UIImage(named: "good_empty"), for: .normal)
+        btnGood.tintColor = .white
+
         print("설정끝*")
     }
     
@@ -180,7 +195,6 @@ class VideoDetailViewController: UIViewController {
             btnFullScreen.setImage(UIImage(named: "icons8-normal-screen-90"), for: .normal)
             
             TabContainerView.isHidden = true
-            print(self.view.backgroundColor)
             self.view.backgroundColor = .black
         } else {
             print("세로모드")
@@ -333,6 +347,22 @@ class VideoDetailViewController: UIViewController {
     @IBAction func SliderValueChanged(_ sender: UISlider) {
         player?.seek(to: CMTimeMake(value: Int64(sender.value*1000), timescale: 1000))
     }
+    
+    
+    @IBAction func BadEvaluation(_ sender: UIButton) {
+        print("강의 별로에요")
+    }
+    
+    @IBAction func NormalEvaluation(_ sender: UIButton) {
+        print("강의 보통이에요")
+    }
+    
+    @IBAction func GoodEvaluation(_ sender: UIButton) {
+        print("강의 최고에요")
+    }
+    
+    
+    
     
     // MARK: - 기타함수
     // 시간 포멧

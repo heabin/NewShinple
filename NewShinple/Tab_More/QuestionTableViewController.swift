@@ -6,41 +6,58 @@
 //  Copyright © 2019 veronica. All rights reserved.
 //
 
+
+//edit 버튼 어떻게 생성할건지
+
 import UIKit
 
 class QuestionTableViewController: UITableViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-    }
+    let send = UIImage(named: "send")
+    let recive = UIImage(named: "send2")
+    
 
     // MARK: - Table view data source
-
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 55
+    }
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return 4
     }
-
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        let row = indexPath.row
+        let cell = tableView.dequeueReusableCell(withIdentifier: "QuestionTableViewCell") as! QuestionTableViewCell
+        
+        if row == 0 {
+            cell.lblTitle.text = "받은쪽지"
+            cell.lblContent.text = "안녕하세요. 문의사항 답변드립니다."
+            cell.lblDate.text = "19.09.09  09:05"
+            cell.imgState.image = send
+            
+        } else if row == 1 {
+            cell.lblTitle.text = "받은쪽지"
+            cell.lblContent.text = "안녕하세요. 문의사항 답변드립니다."
+            cell.lblDate.text = "19.09.08  15:03"
+            cell.imgState.image = send
+            
+        } else {
+            cell.lblTitle.text = "보낸쪽지"
+            cell.lblContent.text = "동영상 재생이 되지 않아요. 개발을 이런식으로"
+            cell.lblDate.text = "19.09.01   13:01"
+            cell.imgState.image = recive
+        }
+        
         return cell
     }
-    */
+    
 
     /*
     // Override to support conditional editing of the table view.

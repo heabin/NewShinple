@@ -8,83 +8,212 @@
 
 import UIKit
 
+/*
+ bin
+ */
 class SearchTableViewController: UITableViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    let sampleData = ["Afghanistan", "Albania", "Algeria", "American Samoa", "Andorra", "Angola", "Anguilla", "Antarctica", "Antigua and Barbuda", "Argentina", "Armenia", "Aruba", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bermuda", "Bhutan", "Bolivia", "Bosnia and Herzegowina", "Botswana", "Bouvet Island", "Brazil", "British Indian Ocean Territory", "Brunei Darussalam", "Bulgaria", "Burkina Faso", "Burundi", "Cambodia", "Cameroon", "Canada", "Cape Verde", "Cayman Islands", "Central African Republic", "Chad", "Chile", "China", "Christmas Island", "Cocos (Keeling) Islands", "Colombia", "Comoros", "Congo", "Congo, the Democratic Republic of the", "Cook Islands", "Costa Rica", "Cote d'Ivoire", "Croatia (Hrvatska)", "Cuba", "Cyprus", "Czech Republic", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "East Timor", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Ethiopia", "Falkland Islands (Malvinas)", "Faroe Islands", "Fiji", "Finland", "France", "France Metropolitan", "French Guiana", "French Polynesia", "French Southern Territories", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Gibraltar", "Greece", "Greenland", "Grenada", "Guadeloupe", "Guam", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Heard and Mc Donald Islands", "Holy See (Vatican City State)", "Honduras", "Hong Kong", "Hungary", "Iceland", "India", "Indonesia", "Iran (Islamic Republic of)", "Iraq", "Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Korea, Democratic People's Republic of", "Korea, Republic of", "Kuwait", "Kyrgyzstan", "Lao, People's Democratic Republic", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libyan Arab Jamahiriya", "Liechtenstein", "Lithuania", "Luxembourg", "Macau", "Macedonia, The Former Yugoslav Republic of", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Martinique", "Mauritania", "Mauritius", "Mayotte", "Mexico", "Micronesia, Federated States of", "Moldova, Republic of", "Monaco", "Mongolia", "Montserrat", "Morocco", "Mozambique", "Myanmar", "Namibia", "Nauru", "Nepal", "Netherlands", "Netherlands Antilles", "New Caledonia", "New Zealand", "Nicaragua", "Niger", "Nigeria", "Niue", "Norfolk Island", "Northern Mariana Islands", "Norway", "Oman", "Pakistan", "Palau", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Pitcairn", "Poland", "Portugal", "Puerto Rico", "Qatar", "Reunion", "Romania", "Russian Federation", "Rwanda", "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Seychelles", "Sierra Leone", "Singapore", "Slovakia (Slovak Republic)", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "South Georgia and the South Sandwich Islands", "Spain", "Sri Lanka", "St. Helena", "St. Pierre and Miquelon", "Sudan", "Suriname", "Svalbard and Jan Mayen Islands", "Swaziland", "Sweden", "Switzerland", "Syrian Arab Republic", "Taiwan, Province of China", "Tajikistan", "Tanzania, United Republic of", "Thailand", "Togo", "Tokelau", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Turks and Caicos Islands", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "United States Minor Outlying Islands", "Uruguay", "Uzbekistan", "Vanuatu", "Venezuela", "Vietnam", "Virgin Islands (British)", "Virgin Islands (U.S.)", "Wallis and Futuna Islands", "Western Sahara", "Yemen", "Yugoslavia", "Zambia", "Zimbabwe"]
+    
+    
+    
+    var titles: String = "제목입니다."
+    var contents: String = "There is a content about the video.You can see the video if you click the image."
+    var number: Int = 80
+    
+    var imagieFiles = ["video.png", "video2.png", "video3.png", "video4.png", "video5.png","video6.png", "video7.png", "video8.png", "video9.png", "video10.png"]
+    
+    let heartEmpty = UIImage(named: "heart_empty.png")
+    let heartFill = UIImage(named: "heart_fill.png")
+    
+    
+    //---------- 공통 color ----------//
+    
+    let colorStartBlue = UIColor(red: 15/255, green: 83/255, blue: 163/255, alpha: 1)
+    let colorMiddleBlue = UIColor(red: 20/255, green: 123/255, blue: 195/255, alpha: 1)
+    let colorEndBlue = UIColor(red: 27/255, green: 164/255, blue: 227/255, alpha: 1)
+    let colorLightGray = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
+    
+    var searchedData = [String]()
+    var searching = false
+    var selectedButton = false
+    var selectedTitle = ""
+    
+    @IBOutlet weak var searchBar: UISearchBar!
+    
+    
+    var baseArray: [String] = ["IC","ss","A","집에 가고싶다","개발개발", "강의 듣기"]
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-    }
-
-    // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        if (selectedButton == false) {
+            if searching{
+                return searchedData.count+1
+            }else {
+                return baseArray.count+1
+            }
+        } else {
+            return imagieFiles.count
+        }
+        
     }
-
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
+    
+    //목록 삭제 함수
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
+        
+        if(editingStyle == .delete){
+            baseArray.remove(at: (indexPath as NSIndexPath).row)
             tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+    
+    // 선택 셀 삭제 불가 함수
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        var edit: Bool = true;
+        
+        if(indexPath.row == 0) {
+            edit = false;
+        }
+        return edit;
     }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
+    
+    
+    //삭제시 Delete 대신 "삭제"
+    override func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        return "삭제"
     }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        var rowLine = indexPath.row
+        var listLine = rowLine-1
+        
+//        SearchTableViewCell1
+        if(selectedButton == false) {
+            if(rowLine == 0){
+                let cell = tableView.dequeueReusableCell(withIdentifier: "SearchTableViewCell1", for: indexPath) as! SearchTableViewCell1
+                
+                cell.label.text = "최근 검색기록 입니다.   "
+                cell.backgroundColor = colorLightGray
+                cell.label.backgroundColor = colorLightGray
+                
+                cell.allDeleteBtn.addTarget(self, action: #selector(delectCell), for: .touchUpInside)
+                //            cell.allDeleteBtn?.textInputContextIdentifier = "X"
+                
+                return cell
+            }else{
+                let cell = tableView.dequeueReusableCell(withIdentifier: "SearchTableViewCell2", for: indexPath) as! SearchTableViewCell2
+                if searching {
+                    cell.btnSearchContent.setTitle(searchedData[listLine], for: .normal)
+                    cell.btnSearchContent.addTarget(self, action: #selector(goToDetailList(_:)), for: .touchUpInside)
+                } else {
+                    print("sample data print")
+                    cell.btnSearchContent.setTitle(baseArray[listLine], for: .normal)
+                    cell.btnSearchContent.addTarget(self, action: #selector(goToDetailList(_:)), for: .touchUpInside)
+                }
+                return cell
+            }
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SearchDetailTableViewCell1") as! SearchDetailTableViewCell1
+            
+            cell.lblTitle.text = titles
+            cell.lblWatchingTime.text = "진행률: " + String(number) + " %"
+            cell.lblContent.text = contents
+            
+            
+            cell.imgVideo.image = UIImage(named: imagieFiles[indexPath.row])
+            cell.imgVideo.translatesAutoresizingMaskIntoConstraints = true
+            
+            if indexPath.row % 2 == 0 {
+                cell.btnFavorite.setImage(heartFill, for: .normal)
+            }else {
+                cell.btnFavorite.setImage(heartEmpty, for: .normal)
+            }
+            
+            cell.btnFavorite.addTarget(self, action: #selector(setFavorite(_:)), for: .touchUpInside)
+            
+            return cell
+        }
+        
+       
     }
-    */
+    
+    @objc func goToDetailList(_ sender: UIButton) {
+        
+        print("dd")
+        selectedButton = true
+        selectedTitle = sender.currentTitle!
+        searchBar.text = selectedTitle
+        
+        self.tableView.reloadData()
+        refreshControl?.endRefreshing()
+    }
+    
+    //---------- 좋아요 클릭/해제 ----------//
+    @objc func setFavorite(_ sender: UIButton) {
+        if sender.currentImage == UIImage(named: "heart_fill.png") {
+            sender.setImage(heartEmpty, for: .normal)
+        } else if sender.currentImage == UIImage(named: "heart_empty.png") {
+            sender.setImage(heartFill, for: .normal)
+        }
+    }
+    
+    //전체 삭제 함수
+    @objc func delectCell() {
+        baseArray = []
+        tableView.reloadData()
+    }
+    
+    //-------------viewDidLoad-------------
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        searchBar.delegate = self
+        tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
+    }
+}
 
+extension SearchTableViewController: UISearchBarDelegate {
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        searchedData = sampleData.filter({$0.lowercased().prefix(searchText.count) == searchText.lowercased()})
+        searching = true
+        tableView.reloadData()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searching = false
+        searchBar.text = ""
+        
+        selectedButton = false
+        
+        tableView.reloadData()
+        refreshControl?.endRefreshing()
+    }
+    
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        
+        if selectedButton == false {
+            
+            print("selectedButton = false")
+            print(selectedButton)
+            searching = true
+            
+            return true
+        } else {
+            selectedButton = false
+            searching = false
+            
+            print("selectedButton = true")
+            print(selectedButton)
+            
+            tableView.reloadData()
+            refreshControl?.endRefreshing()
+            return true
+        }
+    }
 }

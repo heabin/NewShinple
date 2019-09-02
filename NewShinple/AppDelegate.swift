@@ -5,7 +5,6 @@
 //  Created by user on 30/08/2019.
 //  Copyright © 2019 veronica. All rights reserved.
 //
-
 import UIKit
 
 @UIApplicationMain
@@ -16,9 +15,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        check()
         return true
     }
 
+    // MARK: - DAEUN
+    // 자동로그인
+    func check(){
+        if UserDefaults.standard.value(forKey: "id") != nil{
+            let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "myTabBar")
+            
+            //let layout = UICollectionViewFlowLayout()
+            
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            
+            appDelegate.window?.rootViewController = vc
+            appDelegate.window?.makeKeyAndVisible()
+        }
+    }
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.

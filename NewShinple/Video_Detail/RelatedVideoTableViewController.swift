@@ -9,7 +9,36 @@
 import UIKit
 import XLPagerTabStrip
 
-class RelatedVideoTableViewController: UITableViewController {
+class RelatedVideoTableViewController: UITableViewController, UISearchBarDelegate, UITextViewDelegate {
+    
+    
+    let colorLightGray = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)
+    
+    let colorStartBlue = UIColor(red: 37/255, green: 97/255, blue: 166/255, alpha: 1)
+    let colorMiddleBlue = UIColor(red: 45/255, green: 132/255, blue: 194/255, alpha: 1)
+    let colorEndBlue = UIColor(red: 53/255, green: 169/255, blue: 223/255, alpha: 1)
+    
+    var isSearchBarFocused = false
+    var lectureArray = [String]()
+    var currentLectureArray = [String]()
+    var searchedBefore = [String?]()
+    struct cgFloatInt {
+        var width: Int
+        var height: Int
+        var widthSpacing: Int
+        var heightSpacing: Int
+        var buttonSizing: Int
+        init(w: Int, h:Int, ws:Int, hs:Int, bs:Int) {
+            width = w
+            height = h
+            widthSpacing = ws
+            heightSpacing = hs
+            buttonSizing = bs
+        }
+    }
+    var custom: cgFloatInt = cgFloatInt(w: 25, h: 30, ws: 200, hs:35, bs:100)
+    
+    
 
     var weather:[String] = ["cloud", "snowflake", "sun", "umbrella", "wind"]
     
@@ -44,6 +73,6 @@ class RelatedVideoTableViewController: UITableViewController {
 
 extension RelatedVideoTableViewController : IndicatorInfoProvider {
     func indicatorInfo(for pagerTabStripViewController: PagerTabStripViewController)->IndicatorInfo {
-        return IndicatorInfo(title: "연관 강의")
+        return IndicatorInfo(title: "강의 목록")
     }
 }

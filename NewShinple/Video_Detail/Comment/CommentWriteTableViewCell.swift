@@ -10,9 +10,15 @@ import UIKit
 
 class CommentWriteTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var textViewComment: UITextView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        textViewComment.layer.borderWidth = 0
+        textViewComment.layer.cornerRadius = 4
+
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

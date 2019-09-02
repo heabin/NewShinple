@@ -10,6 +10,8 @@ import UIKit
 
 class SearchTableViewCell2: UITableViewCell {
 
+    @IBOutlet weak var btnSearchContent: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

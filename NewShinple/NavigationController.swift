@@ -15,9 +15,11 @@ class NavigationController: UINavigationController {
     let colorEndBlue = UIColor(red: 27/255, green: 164/255, blue: 227/255, alpha: 1)
     
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        //Quer.dbGetLecCate()
         
         //setupGradientLayer()
         self.navigationBar.tintColor = .white
@@ -53,5 +55,8 @@ class NavigationController: UINavigationController {
         
         return gradientImage
     }
+    
+    
+    
 
 }

@@ -33,8 +33,6 @@ class VideoCommentViewController: UIViewController, UITableViewDelegate, UITable
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -50,6 +48,6 @@ class VideoCommentViewController: UIViewController, UITableViewDelegate, UITable
 
 extension VideoCommentViewController : IndicatorInfoProvider {
     func indicatorInfo(for pagerTabStripViewController: PagerTabStripViewController)->IndicatorInfo {
-        return IndicatorInfo(title: "강의 리뷰")
+        return IndicatorInfo(title: "질문하기")
     }
 }
