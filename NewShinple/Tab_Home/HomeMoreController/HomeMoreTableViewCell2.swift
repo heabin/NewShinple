@@ -16,6 +16,8 @@ class HomeMoreTableViewCell2: UITableViewCell {
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblContent: UILabel!
     @IBOutlet weak var lblWatchingTime: UILabel!
+
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()

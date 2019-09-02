@@ -12,35 +12,23 @@ import XLPagerTabStrip
 class RelatedVideoTableViewController: UITableViewController, UISearchBarDelegate, UITextViewDelegate {
     
     
-    let colorLightGray = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)
+    var titles: String = "제목입니다."
+    var contents: String = "There is a content about the video.You can see the video if you click the image."
+    var number: Int = 80
     
-    let colorStartBlue = UIColor(red: 37/255, green: 97/255, blue: 166/255, alpha: 1)
-    let colorMiddleBlue = UIColor(red: 45/255, green: 132/255, blue: 194/255, alpha: 1)
-    let colorEndBlue = UIColor(red: 53/255, green: 169/255, blue: 223/255, alpha: 1)
+    var imagieFiles = ["video.png", "video2.png", "video3.png", "video4.png", "video5.png","video6.png"]
     
-    var isSearchBarFocused = false
-    var lectureArray = [String]()
-    var currentLectureArray = [String]()
-    var searchedBefore = [String?]()
-    struct cgFloatInt {
-        var width: Int
-        var height: Int
-        var widthSpacing: Int
-        var heightSpacing: Int
-        var buttonSizing: Int
-        init(w: Int, h:Int, ws:Int, hs:Int, bs:Int) {
-            width = w
-            height = h
-            widthSpacing = ws
-            heightSpacing = hs
-            buttonSizing = bs
-        }
-    }
-    var custom: cgFloatInt = cgFloatInt(w: 25, h: 30, ws: 200, hs:35, bs:100)
+    let heartEmpty = UIImage(named: "heart_empty.png")
+    let heartFill = UIImage(named: "heart_fill.png")
     
     
-
-    var weather:[String] = ["cloud", "snowflake", "sun", "umbrella", "wind"]
+    //---------- 공통 color ----------//
+    
+    let colorStartBlue = UIColor(red: 15/255, green: 83/255, blue: 163/255, alpha: 1)
+    let colorMiddleBlue = UIColor(red: 20/255, green: 123/255, blue: 195/255, alpha: 1)
+    let colorEndBlue = UIColor(red: 27/255, green: 164/255, blue: 227/255, alpha: 1)
+    let colorLightGray = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,25 +37,50 @@ class RelatedVideoTableViewController: UITableViewController, UISearchBarDelegat
     }
 
 
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 120
+    }
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
-
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return weather.count
+        
+        return imagieFiles.count
     }
-
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath)
-        cell.textLabel?.text = weather[indexPath.row]
-        // Configure the cell...
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath) as! RelatedVideoTableViewCell
+        
+        cell.lblTitle.text = titles
+        cell.lblContent.text = contents
+        
+        
+        cell.imgVideo.image = UIImage(named: imagieFiles[indexPath.row])
+        cell.imgVideo.translatesAutoresizingMaskIntoConstraints = true
+        
+        
+        
+        cell.btnFavorite.setImage(heartFill, for: .normal)
+        
+        cell.btnFavorite.addTarget(self, action: #selector(setFavorite(_:)), for: .touchUpInside)
+        
+        
+        
         return cell
     }
     
-
+    
+    //---------- 좋아요 클릭/해제 ----------//
+    @objc func setFavorite(_ sender: UIButton) {
+        if sender.currentImage == UIImage(named: "heart_fill.png") {
+            sender.setImage(heartEmpty, for: .normal)
+        } else if sender.currentImage == UIImage(named: "heart_empty.png") {
+            sender.setImage(heartFill, for: .normal)
+        }
+    }
  
 }
 
