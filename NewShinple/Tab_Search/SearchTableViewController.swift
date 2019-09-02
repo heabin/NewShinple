@@ -92,7 +92,7 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate {
         var rowLine = indexPath.row
         var listLine = rowLine-1
         
-//        SearchTableViewCell1
+//        SearchTableViewCell
         if(selectedButton == false) {
             if(rowLine == 0){
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SearchTableViewCell1", for: indexPath) as! SearchTableViewCell1
