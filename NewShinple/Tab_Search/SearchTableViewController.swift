@@ -142,9 +142,14 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate {
             
             return cell
         }
-        
        
     }
+    
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        goToDetailPage()
+    }
+    
     
     @objc func goToDetailList(_ sender: UIButton) {
         
@@ -165,6 +170,12 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate {
         } else if sender.currentImage == UIImage(named: "heart_empty.png") {
             sender.setImage(heartFill, for: .normal)
         }
+    }
+    
+    func goToDetailPage() {
+        let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "VideoDetailSID")
+        
+        self.present(viewController, animated: true, completion: nil)
     }
     
     //전체 삭제 함수

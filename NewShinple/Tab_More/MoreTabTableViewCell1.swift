@@ -20,9 +20,9 @@ class MoreTabTableViewCell1: UITableViewCell {
     
     @IBOutlet weak var profileImg: UIImageView!
     @IBOutlet weak var name: UILabel!
-    @IBOutlet weak var dept: UILabel!
-    @IBOutlet weak var position: UILabel!
+    @IBOutlet weak var deptAndPosition: UILabel!
     @IBOutlet weak var company: UILabel!
+    @IBOutlet weak var stackViewInfo: UIStackView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -13,6 +13,7 @@ class MoreTabTableViewController: UITableViewController {
     //cell
     let cellIdentifier1 = "MoreTabTableViewCell1"
     let cellIdentifier2 = "MoreTabTableViewCell2"
+
     
     
     let arr = ["알림함","문의하기","로그아웃"]
@@ -31,11 +32,7 @@ class MoreTabTableViewController: UITableViewController {
 //        tableView.rowHeight = UITableView.automaticDimension
         
         
-        
-        
     }
-
-    
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -57,12 +54,13 @@ class MoreTabTableViewController: UITableViewController {
             let cell  = self.tableView.dequeueReusableCell(withIdentifier: cellIdentifier1, for: indexPath) as! MoreTabTableViewCell1
             
             
+            
             //셀 클릭시 이동 막기
 //            cell.isSelected = false
             
             cell.company.text = "신한DS"
-            cell.dept.text = "그룹솔루션"
-            cell.position.text = "선임"
+            cell.deptAndPosition.text = "그룹솔루션" + "선임"
+            //cell.position.text = "선임"
             cell.name.text = "김신한"
             
             cell.profileImg.layer.cornerRadius = cell.profileImg.frame.width / 2
@@ -74,23 +72,28 @@ class MoreTabTableViewController: UITableViewController {
             return cell
         }else{
             let cell = self.tableView.dequeueReusableCell(withIdentifier: cellIdentifier2, for: indexPath)as! MoreTabTableViewCell2
+            
             cell.textLabel?.text = arr[listLine]
-            tableView.rowHeight = 70
+            
+            cell.textLabel?.translatesAutoresizingMaskIntoConstraints = false
+            cell.textLabel?.leadingAnchor.constraint(equalTo: cell.leadingAnchor, constant: 30).isActive = true
+            cell.textLabel?.trailingAnchor.constraint(equalTo: cell.trailingAnchor, constant: 30)
+            
             return cell
         }
         
     }
     
-    //table cell 높이 조정
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        if indexPath.row == 0 {
+            return 300
+        } else {
+            return 50
+        }
+    }
     
-//    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-//        var rowLine = indexPath.row
-//        if(rowLine == 0){
-//            return 200
-//        }else{
-//            return 100
-//        }
-//    }
+    
     
     //table cell 클릭시 이동
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
