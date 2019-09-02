@@ -125,7 +125,6 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate {
             let cell = tableView.dequeueReusableCell(withIdentifier: "SearchDetailTableViewCell1") as! SearchDetailTableViewCell1
             
             cell.lblTitle.text = titles
-            cell.lblWatchingTime.text = "진행률: " + String(number) + " %"
             cell.lblContent.text = contents
             
             

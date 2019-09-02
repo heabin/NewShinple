@@ -55,7 +55,6 @@ class IngTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "IngCellIdentifier", for: indexPath) as! IngTableViewCell
         
         cell.lblTitle.text = titles
-        cell.lblWatchingTime.text = "진행률: " + String(number) + " %"
         cell.lblContent.text = contents
         
         
@@ -84,6 +83,6 @@ class IngTableViewController: UITableViewController {
 
 extension IngTableViewController : IndicatorInfoProvider {
     func indicatorInfo(for pagerTabStripViewController: PagerTabStripViewController)->IndicatorInfo {
-        return IndicatorInfo(title: "ING")
+        return IndicatorInfo(title: "수강중")
     }
 }
