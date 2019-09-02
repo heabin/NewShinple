@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HomeTableViewCell1: UITableViewCell {
+class HomeTableViewCell1: UITableViewCell, selectCategoryDelegate {
     
     @IBOutlet weak var btnFirst: UIButton!
     @IBOutlet weak var btnSecond: UIButton!
@@ -17,19 +17,23 @@ class HomeTableViewCell1: UITableViewCell {
     @IBOutlet weak var lblSecond: UILabel!
     @IBOutlet weak var imgSecond: UIImageView!
     
-    
-    
-    
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        btnFirst.layer.zPosition = 1
+        btnSecond.layer.zPosition = 1
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    func selectFirstCategory(_ controller: CategoryTableViewController, message: String) {
+        
+        print("돌아옴")
+        lblFirst.text = message
     }
 
 }
