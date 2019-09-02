@@ -10,6 +10,7 @@ import UIKit
 
 class HomeTableViewCell1: UITableViewCell, selectCategoryDelegate {
     
+    
     @IBOutlet weak var btnFirst: UIButton!
     @IBOutlet weak var btnSecond: UIButton!
     @IBOutlet weak var lblFirst: UILabel!
@@ -32,8 +33,15 @@ class HomeTableViewCell1: UITableViewCell, selectCategoryDelegate {
     
     func selectFirstCategory(_ controller: CategoryTableViewController, message: String) {
         
-        print("돌아옴")
+        print("대분류 돌아옴")
         lblFirst.text = message
     }
+    
+    
+    func selectSecondCatogory(_ controller: CategoryTableViewController, message: String) {
+        print("소분류 돌아옴")
+        lblSecond.text = message
+    }
+
 
 }

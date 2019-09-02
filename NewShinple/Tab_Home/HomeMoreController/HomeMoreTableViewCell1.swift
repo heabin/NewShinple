@@ -1,16 +1,16 @@
 //
-//  SearchTableViewCell2.swift
+//  HomeMoreTableViewCell1.swift
 //  NewShinple
 //
-//  Created by user on 30/08/2019.
+//  Created by user on 31/08/2019.
 //  Copyright © 2019 veronica. All rights reserved.
 //
 
 import UIKit
 
-class SearchTableViewCell2: UITableViewCell {
+class HomeMoreTableViewCell1: UITableViewCell {
 
-    @IBOutlet weak var btnSearchContent: UIButton!
+    @IBOutlet weak var lblCategory: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
