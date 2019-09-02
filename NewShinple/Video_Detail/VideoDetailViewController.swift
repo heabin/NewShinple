@@ -36,9 +36,9 @@ class VideoDetailViewController: UIViewController {
     var isFullScreen: Bool = false
     let layer = CALayer()
     //let urlString = "https://shinplestorage.s3.us-east-2.amazonaws.com/lectureTest.mp4"
-    //let urlString = "https://wolverine.raywenderlich.com/content/ios/tutorials/video_streaming/foxVillage.m3u8"
+    let urlString = "https://wolverine.raywenderlich.com/content/ios/tutorials/video_streaming/foxVillage.m3u8"
     
-    let urlString = "https://shinplestorage.s3.us-east-2.amazonaws.com/videoplayback.mp4"
+    //let urlString = "https://shinplestorage.s3.us-east-2.amazonaws.com/videoplayback.mp4"
     var player: AVPlayer?
     var playerLayer = AVPlayerLayer()
     
@@ -105,7 +105,8 @@ class VideoDetailViewController: UIViewController {
             player?.play()
             isPlaying = true
             player?.addObserver(self, forKeyPath: "currentItem.loadedTimeRanges", options: .new, context: nil)
-           
+            NotificationCenter.default.addObserver(self, selector: #selector(playerDidFinishPlaying), name: .AVPlayerItemDidPlayToEndTime, object: nil)
+          
             // 현재재생시간
             let interval = CMTime(seconds: 0.5, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
 
@@ -350,19 +351,46 @@ class VideoDetailViewController: UIViewController {
     }
     
     
+    @objc func playerDidFinishPlaying(note: NSNotification) {
+        print("강의끝********")
+        EvaluationView.isHidden = false
+        EvaluationView.layer.zPosition = 1
+        
+    }
+    
     @IBAction func BadEvaluation(_ sender: UIButton) {
         print("강의 별로에요")
+        btnBad.setImage(UIImage(named: "bad_fill"), for: .normal)
+        btnBad.tintColor = .white
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+            self.closeEvaluation()
+        })
     }
     
     @IBAction func NormalEvaluation(_ sender: UIButton) {
         print("강의 보통이에요")
+        btnNormal.setImage(UIImage(named: "normal_fill"), for: .normal)
+        btnNormal.tintColor = .white
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+            self.closeEvaluation()
+        })
     }
     
     @IBAction func GoodEvaluation(_ sender: UIButton) {
         print("강의 최고에요")
+        btnGood.setImage(UIImage(named: "good_fill"), for: .normal)
+        btnGood.tintColor = .white
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+            self.closeEvaluation()
+        })
     }
     
-    
+    func closeEvaluation(){
+        EvaluationView.isHidden = true
+    }
     
     
     // MARK: - 기타함수

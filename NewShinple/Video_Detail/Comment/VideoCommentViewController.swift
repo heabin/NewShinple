@@ -43,6 +43,11 @@ class VideoCommentViewController: UIViewController, UITableViewDelegate, UITable
             return 130
         }
     }
+    
+    @IBAction func AddComment(_ sender: UIButton) {
+        print("댓글달기")
+    }
+    
   
 }
 
