@@ -46,13 +46,13 @@ class VideoCommentViewController: UIViewController, UITableViewDelegate, UITable
     
     @IBAction func AddComment(_ sender: UIButton) {
         print("댓글달기")
+        
     }
     
-  
 }
 
 extension VideoCommentViewController : IndicatorInfoProvider {
     func indicatorInfo(for pagerTabStripViewController: PagerTabStripViewController)->IndicatorInfo {
-        return IndicatorInfo(title: "질문하기")
+        return IndicatorInfo(title: "댓글")
     }
 }

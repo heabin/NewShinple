@@ -17,11 +17,6 @@ class NewVideoInfoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-        lblVideoInfo.translatesAutoresizingMaskIntoConstraints = false
-        let fixedWidth = lblVideoInfo.frame.size.width
-        let newSize = lblVideoInfo.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
-        lblVideoInfo.frame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height)
     }
     
 
