@@ -165,6 +165,7 @@ class VideoDetailViewController: UIViewController {
         btnGood.setImage(UIImage(named: "good_empty"), for: .normal)
         btnGood.tintColor = .white
 
+        EvaluationView.isHidden = true
         print("설정끝*")
     }
     
