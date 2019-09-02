@@ -13,6 +13,7 @@ class NavigationController: UINavigationController {
     let colorStartBlue = UIColor(red: 15/255, green: 83/255, blue: 163/255, alpha: 1)
     let colorMiddleBlue = UIColor(red: 20/255, green: 123/255, blue: 195/255, alpha: 1)
     let colorEndBlue = UIColor(red: 27/255, green: 164/255, blue: 227/255, alpha: 1)
+    let colorLightGray = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
     
     
     

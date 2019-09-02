@@ -54,7 +54,6 @@ class FavoriteTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FavoriteCellIdentifier", for: indexPath) as! FavoriteTableViewCell
         
         cell.lblTitle.text = titles
-        cell.lblWatchingTime.text = "진행률: " + String(number) + " %"
         cell.lblContent.text = contents
         
         
@@ -62,6 +61,8 @@ class FavoriteTableViewController: UITableViewController {
         cell.imgVideo.translatesAutoresizingMaskIntoConstraints = true
         
         
+        cell.sliderTime.setThumbImage(UIImage(), for: .normal)
+        cell.sliderTime.thumbTintColor = .red
         
         cell.btnFavorite.setImage(heartFill, for: .normal)
         
@@ -86,7 +87,7 @@ class FavoriteTableViewController: UITableViewController {
 
 extension FavoriteTableViewController : IndicatorInfoProvider {
     func indicatorInfo(for pagerTabStripViewController: PagerTabStripViewController)->IndicatorInfo {
-        return IndicatorInfo(title: "찜 강의")
+        return IndicatorInfo(title: "찜 목록")
     }
 }
 

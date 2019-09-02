@@ -14,7 +14,9 @@ class HomeTableViewCell4: UITableViewCell {
     @IBOutlet weak var btnFavorite: UIButton!
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblContent: UILabel!
-    @IBOutlet weak var lblWatchingTime: UILabel!
+    @IBOutlet weak var imgCheck: UIImageView!
+    @IBOutlet weak var lblVideoTime: UILabel!
+    
 
     override func awakeFromNib() {
         super.awakeFromNib()

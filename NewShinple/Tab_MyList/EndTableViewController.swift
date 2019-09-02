@@ -53,14 +53,20 @@ class EndTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "EndCellIdentifier", for: indexPath) as! EndTableViewCell
         
+        let layer = CALayer()
+        
+        layer.frame = cell.imgVideo.layer.bounds
+        layer.backgroundColor = UIColor.black.cgColor
+        layer.opacity = 0.7
+        layer.name = "checkLayer"
+        
         cell.lblTitle.text = titles
-        cell.lblWatchingTime.text = "진행률: " + String(number) + " %"
         cell.lblContent.text = contents
-        
-        
+
         cell.imgVideo.image = UIImage(named: imagieFiles[indexPath.row])
         cell.imgVideo.translatesAutoresizingMaskIntoConstraints = true
         
+        cell.imgVideo.layer.addSublayer(layer)
         
         cell.btnFavorite.setImage(heartFill, for: .normal)
         
