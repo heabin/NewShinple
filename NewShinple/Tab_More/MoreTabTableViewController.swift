@@ -15,6 +15,7 @@ class MoreTabTableViewController: UITableViewController, UIImagePickerController
     let cellIdentifier1 = "MoreTabTableViewCell1"
     let cellIdentifier2 = "MoreTabTableViewCell2"
     
+    //사진 업로드 변수
     let imagePicker: UIImagePickerController! = UIImagePickerController()
     var image: UIImage!
     var flagImageSave = false
@@ -27,7 +28,8 @@ class MoreTabTableViewController: UITableViewController, UIImagePickerController
 //    @IBOutlet weak var profileImg: UIImageView!
     
     
-    
+  
+    /* ------------ 사진 이미지 업로드 코드  ------------*/
     //클릭시 이미지 변경
     @IBAction func addAction(_ sender: UIButton) {
         
@@ -72,7 +74,7 @@ class MoreTabTableViewController: UITableViewController, UIImagePickerController
         }
     }
     
-    
+    /*------------ 이미지 선택 완료 후 실행 코드 ------------*/
     @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         let mediaType = info[UIImagePickerController.InfoKey.mediaType] as! NSString
@@ -200,21 +202,3 @@ class MoreTabTableViewController: UITableViewController, UIImagePickerController
   
 }
 
-//
-//extension MoreTabTableViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate{
-//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-//
-//        let mediaType = info[UIImagePickerController.InfoKey.mediaType] as! NSString
-//        if mediaType.isEqual(to: kUTTypeImage as NSString as String){
-//            image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
-//
-//            if flagImageSave{
-//                UIImageWriteToSavedPhotosAlbum(image!, self, nil, nil)
-//                print("imagePickerController : UIImageWriteToSavedPhotosAlbum")
-//            }
-//            self.tableView.reloadData()
-//            print("imagePickerController : tableView.reloadData()")
-//        }
-//        picker.dismiss(animated: true, completion: nil)
-//    }
-//}
