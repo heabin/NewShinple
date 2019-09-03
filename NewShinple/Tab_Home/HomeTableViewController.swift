@@ -9,7 +9,7 @@
 import UIKit
 
 
-class HomeTableViewController: UITableViewController, selectCategoryDelegate {
+class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UITabBarControllerDelegate{
 
     
     //---------- 공통 color ----------//
@@ -26,9 +26,15 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tabBarController?.delegate = self
 
     }
-    
+ 
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+//        print("###")
+//        print(viewController.tabBarItem.tag)
+//        print("###")
+    }
     
     
     

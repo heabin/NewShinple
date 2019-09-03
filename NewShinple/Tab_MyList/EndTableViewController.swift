@@ -65,7 +65,7 @@ class EndTableViewController: UITableViewController {
         cell.lblContent.text = contents
 
         cell.imgVideo.image = UIImage(named: imagieFiles[indexPath.row])
-        cell.imgVideo.translatesAutoresizingMaskIntoConstraints = true
+//        cell.imgVideo.translatesAutoresizingMaskIntoConstraints = true
         
         cell.imgVideo.layer.addSublayer(layer)
         

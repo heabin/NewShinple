@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Home Table View Controller-->
+        <!--Item-->
         <scene sceneID="fZ6-Ff-Qoz">
             <objects>
                 <tableViewController storyboardIdentifier="mainSID" id="UFk-W5-qtp" customClass="HomeTableViewController" customModule="NewShinple" customModuleProvider="target" sceneMemberID="viewController">
@@ -489,6 +489,7 @@
                             <outlet property="delegate" destination="UFk-W5-qtp" id="igM-gO-rbW"/>
                         </connections>
                     </tableView>
+                    <tabBarItem key="tabBarItem" title="Item" id="KMW-jI-Uxm"/>
                     <navigationItem key="navigationItem" id="fES-PP-ckB">
                         <barButtonItem key="rightBarButtonItem" title="Item" id="R1F-IO-1Fq">
                             <connections>
@@ -2454,7 +2455,7 @@
                                 </constraints>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tXo-xz-Mfx">
-                                <rect key="frame" x="83" y="509.5" width="248.00000000000011" height="41"/>
+                                <rect key="frame" x="83" y="509.5" width="248" height="41"/>
                                 <state key="normal" title="Login" backgroundImage="btnLogin">
                                     <color key="titleColor" red="0.97548274899999998" green="0.99757593870000005" blue="0.96298147010000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
@@ -3803,7 +3804,7 @@
         <image name="video" width="414" height="236"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="CoC-Ic-azd"/>
+        <segue reference="L7D-EW-Tuy"/>
         <segue reference="TYt-S3-Jb8"/>
     </inferredMetricsTieBreakers>
 </document>
