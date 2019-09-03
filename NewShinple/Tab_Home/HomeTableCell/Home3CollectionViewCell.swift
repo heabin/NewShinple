@@ -15,4 +15,8 @@ class Home3CollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var lblVideoTime: UILabel!
     @IBOutlet weak var imgCheck: UIImageView!
     
+    override func awakeFromNib() {
+        imgCheck.isHidden = true
+    }
+    
 }
