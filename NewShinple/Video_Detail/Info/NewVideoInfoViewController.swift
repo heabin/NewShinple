@@ -11,6 +11,8 @@ import XLPagerTabStrip
 
 class NewVideoInfoViewController: UIViewController {
     
+    var test: String = ""
+    
     @IBOutlet weak var lblVideoTitle: UILabel!
     @IBOutlet weak var tvVideoInfo: UITextView!
     
@@ -34,8 +36,7 @@ class NewVideoInfoViewController: UIViewController {
     fileprivate func resize(textView: UITextView) {
         var newFrame = textView.frame
         let width = newFrame.size.width
-        let newSize = textView.sizeThatFits(CGSize(width: width,
-                                                   height: CGFloat.greatestFiniteMagnitude))
+        let newSize = textView.sizeThatFits(CGSize(width: width, height: CGFloat.greatestFiniteMagnitude))
         newFrame.size = CGSize(width: width, height: newSize.height)
         textView.frame = newFrame
     }
