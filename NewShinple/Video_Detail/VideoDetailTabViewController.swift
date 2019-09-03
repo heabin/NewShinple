@@ -34,7 +34,7 @@ class VideoDetailTabViewController: ButtonBarPagerTabStripViewController {
         self.settings.style.buttonBarItemBackgroundColor = .black
         
         //탭바 선택시 언더바 컬러 조정값
-        self.settings.style.selectedBarBackgroundColor = .blue
+        self.settings.style.selectedBarBackgroundColor = .white
         self.settings.style.buttonBarItemFont = .boldSystemFont(ofSize: 13)
         self.settings.style.selectedBarHeight = 4.0
         self.settings.style.buttonBarMinimumLineSpacing = 0
