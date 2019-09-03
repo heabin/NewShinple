@@ -16,11 +16,14 @@ class RelatedVideoTableViewCell: UITableViewCell {
     @IBOutlet weak var lblContent: UILabel!
     @IBOutlet weak var sliderTime: UISlider!
     @IBOutlet weak var lblVideoTime: UILabel!
+    @IBOutlet weak var imgCheck: UIImageView!
     
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        imgCheck.isHidden = true
+        
         btnFavorite.imageView?.contentMode = .scaleAspectFit
         
         sliderTime.tintColor = .red

@@ -26,7 +26,7 @@ class NavigationController: UINavigationController {
         //Quer.dbGetLecCate()
         
         //setupGradientLayer()
-        self.navigationBar.tintColor = .white
+        //self.navigationBar.tintColor = .white
         
         let gradient = CAGradientLayer()
         var bounds = navigationBar.bounds

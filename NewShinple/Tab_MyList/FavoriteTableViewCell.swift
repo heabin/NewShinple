@@ -22,6 +22,9 @@ class FavoriteTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        imgCheck.isHidden = true
+        
         btnFavorite.imageView?.contentMode = .scaleAspectFit
         
         sliderTime.tintColor = .red

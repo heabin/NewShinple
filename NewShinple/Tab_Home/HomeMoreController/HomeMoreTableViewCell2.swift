@@ -23,14 +23,14 @@ class HomeMoreTableViewCell2: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        imgCheck.isHidden = true
+        
         btnFavorite.imageView?.contentMode = .scaleAspectFit
         
         sliderTime.tintColor = .red
         sliderTime.setThumbImage(UIImage(), for: .normal)
         sliderTime.transform = CGAffineTransform(scaleX: 1, y: 3)
         sliderTime.setValue(0, animated: false)
-        
-        imgCheck.isHidden = true
         
         lblVideoTime.font = UIFont.boldSystemFont(ofSize: 12)
         lblVideoTime.backgroundColor = .black

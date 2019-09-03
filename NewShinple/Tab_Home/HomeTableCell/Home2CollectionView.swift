@@ -52,18 +52,12 @@ class Home2CollectionView: UICollectionView, UICollectionViewDelegate, UICollect
         cell.lblTitle.text = titles[indexPath.row]
         
         
-        
         //Image
         
         cell.imgVideo.layer.cornerRadius = 65/2
         
         cell.imgVideo.image = UIImage(named: imagieFiles[indexPath.row])
         
-        
-        //image url 사용
-        //let testdata = try! Data(contentsOf: testurl!)
-        //cell.imgVideo.image = UIImage(data: testdata)
-        // video 재생 정도 표시
         
         let shapeLayer = CAShapeLayer()
         
