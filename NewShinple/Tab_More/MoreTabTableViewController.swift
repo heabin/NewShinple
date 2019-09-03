@@ -128,7 +128,7 @@ class MoreTabTableViewController: UITableViewController, UIImagePickerController
             cell.profileImg.layer.cornerRadius = cell.profileImg.frame.width / 2
             cell.profileImg.layer.masksToBounds = true
             if(!flagImageSave){
-                cell.profileImg.image = UIImage(named: "1.jpeg")
+                cell.profileImg.image = UIImage(named: "5.png")
             }else{
                 cell.profileImg.image = image!
             }
