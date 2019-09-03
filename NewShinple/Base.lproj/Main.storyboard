@@ -453,18 +453,24 @@
                                             <color key="textColor" red="1" green="0.219857844" blue="0.2012050152" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="MRi-qj-fzS">
+                                            <rect key="frame" x="8" y="100" width="199.5" height="31"/>
+                                        </slider>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="MRi-qj-fzS" firstAttribute="width" secondItem="d8u-Za-ovP" secondAttribute="width" id="03Q-0z-6wV"/>
                                         <constraint firstItem="Ir1-UB-TA4" firstAttribute="centerX" secondItem="NPI-BJ-Igq" secondAttribute="centerX" id="4g8-Pj-Ne1"/>
                                         <constraint firstItem="Ir1-UB-TA4" firstAttribute="centerY" secondItem="NPI-BJ-Igq" secondAttribute="centerY" id="An1-lA-LRD"/>
                                         <constraint firstItem="Ir1-UB-TA4" firstAttribute="leading" secondItem="NPI-BJ-Igq" secondAttribute="leading" constant="10" id="N2I-fT-guo"/>
                                         <constraint firstAttribute="trailing" secondItem="Ir1-UB-TA4" secondAttribute="trailing" constant="10" id="Q06-c5-Ukg"/>
+                                        <constraint firstItem="MRi-qj-fzS" firstAttribute="centerX" secondItem="d8u-Za-ovP" secondAttribute="centerX" id="RSZ-HK-MdU"/>
                                         <constraint firstItem="ZBf-ux-aIo" firstAttribute="centerX" secondItem="d8u-Za-ovP" secondAttribute="centerX" id="SYb-z2-8HK"/>
                                         <constraint firstItem="owe-qH-75C" firstAttribute="trailing" secondItem="d8u-Za-ovP" secondAttribute="trailing" id="cqH-eH-d7g"/>
                                         <constraint firstAttribute="bottom" secondItem="Ir1-UB-TA4" secondAttribute="bottom" constant="5" id="iqb-n5-bpY"/>
                                         <constraint firstItem="owe-qH-75C" firstAttribute="centerY" secondItem="d8u-Za-ovP" secondAttribute="centerY" multiplier="1.8" id="nky-nH-9gw"/>
                                         <constraint firstItem="Ir1-UB-TA4" firstAttribute="top" secondItem="NPI-BJ-Igq" secondAttribute="top" constant="5" id="o9D-lG-Jwj"/>
                                         <constraint firstItem="ZBf-ux-aIo" firstAttribute="centerY" secondItem="d8u-Za-ovP" secondAttribute="centerY" id="yC8-Cy-8CT"/>
+                                        <constraint firstItem="MRi-qj-fzS" firstAttribute="centerY" secondItem="d8u-Za-ovP" secondAttribute="centerY" multiplier="2" id="zXD-uA-IDq"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -474,6 +480,7 @@
                                     <outlet property="lblContent" destination="t3a-Wv-Peu" id="Fd5-Xv-PEm"/>
                                     <outlet property="lblTitle" destination="Cvg-eV-39j" id="cMW-Ih-A5f"/>
                                     <outlet property="lblVideoTime" destination="owe-qH-75C" id="fww-wR-97l"/>
+                                    <outlet property="sliderTime" destination="MRi-qj-fzS" id="dfZ-hu-w0Y"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -708,6 +715,7 @@
                                     <outlet property="lblContent" destination="Mis-Bd-5sc" id="cY5-2G-N1f"/>
                                     <outlet property="lblTitle" destination="ZAf-Si-xKj" id="Nh7-g5-fnB"/>
                                     <outlet property="lblVideoTime" destination="Z5M-9L-v3L" id="XsR-90-BNB"/>
+                                    <outlet property="sliderTime" destination="Fpc-1C-ArC" id="VRk-VK-nFn"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1967,12 +1975,12 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="btnFavorite" destination="jlN-3E-bA9" id="HuZ-BD-bpG"/>
-                                    <outlet property="imgCheck" destination="avO-rl-BP4" id="5IB-kB-tEX"/>
+                                    <outlet property="imgCheck" destination="avO-rl-BP4" id="LcF-ZN-gyU"/>
                                     <outlet property="imgVideo" destination="kHq-6l-hLG" id="tqo-Ua-ohh"/>
                                     <outlet property="lblContent" destination="cKc-lQ-qQ1" id="oMY-Xs-tgL"/>
                                     <outlet property="lblTitle" destination="XU9-Xz-6hN" id="uPo-3g-vXk"/>
-                                    <outlet property="lblVideoTime" destination="B7M-cu-3c8" id="uvu-Da-ONH"/>
-                                    <outlet property="sliderTime" destination="WkY-4k-hPG" id="Xdx-BZ-R6f"/>
+                                    <outlet property="lblVideoTime" destination="B7M-cu-3c8" id="56G-Ie-Xxs"/>
+                                    <outlet property="sliderTime" destination="WkY-4k-hPG" id="sHf-hr-NbP"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

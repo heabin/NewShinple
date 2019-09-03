@@ -23,8 +23,12 @@ class IngTableViewCell: UITableViewCell {
         // Initialization code
         btnFavorite.imageView?.contentMode = .scaleAspectFit
         
+        sliderTime.tintColor = .red
         sliderTime.setThumbImage(UIImage(), for: .normal)
-        sliderTime.thumbTintColor = .red
+        sliderTime.transform = CGAffineTransform(scaleX: 1, y: 3)
+        
+        sliderTime.setValue(0, animated: false)
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

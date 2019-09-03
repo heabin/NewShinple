@@ -57,9 +57,12 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate, se
     // videoList data
     var titles: String = "제목입니다."
     var contents: String = "There is a content about the video.You can see the video if you click the image."
-    var number: Int = 80
     
     var imagieFiles = ["video.png", "video2.png", "video3.png", "video4.png", "video5.png","video6.png", "video7.png", "video8.png", "video9.png", "video10.png"]
+    
+    var videoRate: [Float] = [0.2,0,0.1,0,0,0.4,0,0,0.8,0]
+    
+    
     
     let heartEmpty = UIImage(named: "heart_empty.png")
     let heartFill = UIImage(named: "heart_fill.png")
@@ -197,6 +200,8 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate, se
                 
                 cell.btnFavorite.addTarget(self, action: #selector(setFavorite(_:)), for: .touchUpInside)
                 
+                cell.sliderTime.setValue(videoRate[row], animated: false)
+                
                 return cell
             }
             
@@ -231,6 +236,7 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate, se
                 }
                 
                 cell.btnFavorite.addTarget(self, action: #selector(setFavorite(_:)), for: .touchUpInside)
+                cell.sliderTime.setValue(videoRate[row], animated: false)
                 
                 return cell
             }
@@ -304,6 +310,7 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate, se
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         print("select")
+        
         
         //---------- 대분류, 소분류 카테고리 데이터
         if segue.identifier == "goToFirstCategory" || segue.identifier == "goToSecondCategory" {

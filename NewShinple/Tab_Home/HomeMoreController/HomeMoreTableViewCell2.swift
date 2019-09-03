@@ -17,12 +17,26 @@ class HomeMoreTableViewCell2: UITableViewCell {
     @IBOutlet weak var lblContent: UILabel!
     @IBOutlet weak var lblVideoTime: UILabel!
     @IBOutlet weak var imgCheck: UIImageView!
+    @IBOutlet weak var sliderTime: UISlider!
     
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
         btnFavorite.imageView?.contentMode = .scaleAspectFit
+        
+        sliderTime.tintColor = .red
+        sliderTime.setThumbImage(UIImage(), for: .normal)
+        sliderTime.transform = CGAffineTransform(scaleX: 1, y: 3)
+        sliderTime.setValue(0, animated: false)
+        
+        imgCheck.isHidden = true
+        
+        lblVideoTime.font = UIFont.boldSystemFont(ofSize: 12)
+        lblVideoTime.backgroundColor = .black
+        lblVideoTime.textColor = .white
+        
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
