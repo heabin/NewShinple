@@ -82,7 +82,6 @@ class FavoriteTableViewController: UITableViewController {
             sender.setImage(heartFill, for: .normal)
         }
     }
-    
 }
 
 extension FavoriteTableViewController : IndicatorInfoProvider {

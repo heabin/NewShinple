@@ -7,8 +7,6 @@
 //
 
 
-//edit 버튼 어떻게 생성할건지
-
 import UIKit
 
 class QuestionTableViewController: UITableViewController {
@@ -22,6 +20,7 @@ class QuestionTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 55
     }
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
@@ -57,6 +56,17 @@ class QuestionTableViewController: UITableViewController {
         
         return cell
     }
+    
+    //table cell 클릭시 이동
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let segueIdentifier = "QuestionDetail"
+        
+        self.performSegue(withIdentifier: segueIdentifier, sender: self)
+        
+    }
+
     
 
     /*
