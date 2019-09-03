@@ -12,16 +12,13 @@ import XLPagerTabStrip
 class NewVideoInfoViewController: UIViewController {
     
     @IBOutlet weak var lblVideoTitle: UILabel!
-    @IBOutlet weak var lblVideoInfo: UITextView!
+    @IBOutlet weak var tvVideoInfo: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        lblVideoInfo.translatesAutoresizingMaskIntoConstraints = false
-        let fixedWidth = lblVideoInfo.frame.size.width
-        let newSize = lblVideoInfo.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
-        lblVideoInfo.frame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height)
+        
+        tvVideoInfo.isScrollEnabled = true
+        resize(textView: tvVideoInfo)
     }
     
 
@@ -34,7 +31,14 @@ class NewVideoInfoViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    fileprivate func resize(textView: UITextView) {
+        var newFrame = textView.frame
+        let width = newFrame.size.width
+        let newSize = textView.sizeThatFits(CGSize(width: width,
+                                                   height: CGFloat.greatestFiniteMagnitude))
+        newFrame.size = CGSize(width: width, height: newSize.height)
+        textView.frame = newFrame
+    }
 }
 
 extension NewVideoInfoViewController : IndicatorInfoProvider {
