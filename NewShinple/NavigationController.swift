@@ -16,6 +16,9 @@ class NavigationController: UINavigationController {
     let colorLightGray = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
     
     
+
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

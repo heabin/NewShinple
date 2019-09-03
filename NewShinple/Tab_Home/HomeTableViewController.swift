@@ -9,9 +9,8 @@
 import UIKit
 
 
-class HomeTableViewController: UITableViewController, selectCategoryDelegate, selectMoreCategoryDelegate {
-    
-    
+class HomeTableViewController: UITableViewController, selectCategoryDelegate {
+
     
     //---------- 공통 color ----------//
     
@@ -360,7 +359,7 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate, se
             // 선택한 MainTitle name 넘기기
             moreController.mainTitleName = selectedMainTitle
             
-            moreController.delegate = self
+            //moreController.delegate = self
         }
     }
     
