@@ -18,13 +18,21 @@ class FavoriteTableViewCell: UITableViewCell {
     @IBOutlet weak var sliderTime: UISlider!
     @IBOutlet weak var lblVideoTime: UILabel!
     
+    let circleImage = UIImage(named: "star_fill")
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        imgCheck.isHidden = true
+        
         btnFavorite.imageView?.contentMode = .scaleAspectFit
         
+        sliderTime.tintColor = .red
         sliderTime.setThumbImage(UIImage(), for: .normal)
-        sliderTime.thumbTintColor = .red
+        sliderTime.transform = CGAffineTransform(scaleX: 1, y: 3)
+        
+        sliderTime.setValue(0, animated: false)
+
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

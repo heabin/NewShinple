@@ -14,7 +14,6 @@ class AlertAllTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -56,6 +55,17 @@ class AlertAllTableViewController: UITableViewController {
         
         return cell
     }
+    
+    //table cell 클릭시 이동
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let segueIdentifier = "goToAlertAllDetail"
+        
+        self.performSegue(withIdentifier: segueIdentifier, sender: self)
+        
+    }
+
 }
 
 

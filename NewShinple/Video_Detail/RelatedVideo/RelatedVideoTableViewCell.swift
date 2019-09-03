@@ -16,12 +16,21 @@ class RelatedVideoTableViewCell: UITableViewCell {
     @IBOutlet weak var lblContent: UILabel!
     @IBOutlet weak var sliderTime: UISlider!
     @IBOutlet weak var lblVideoTime: UILabel!
+    @IBOutlet weak var imgCheck: UIImageView!
     
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        imgCheck.isHidden = true
+        
         btnFavorite.imageView?.contentMode = .scaleAspectFit
+        
+        sliderTime.tintColor = .red
+        sliderTime.setThumbImage(UIImage(), for: .normal)
+        sliderTime.transform = CGAffineTransform(scaleX: 1, y: 3)
+        
+        sliderTime.setValue(0, animated: false)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
