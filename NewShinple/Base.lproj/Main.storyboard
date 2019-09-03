@@ -2176,7 +2176,7 @@
                                 </constraints>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tXo-xz-Mfx">
-                                <rect key="frame" x="83" y="509.5" width="248" height="41"/>
+                                <rect key="frame" x="83" y="509.5" width="248.00000000000011" height="41"/>
                                 <state key="normal" title="Login" backgroundImage="btnLogin">
                                     <color key="titleColor" red="0.97548274899999998" green="0.99757593870000005" blue="0.96298147010000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
@@ -3183,9 +3183,12 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="CYL-Hr-GDF">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="CYL-Hr-GDF">
                                 <rect key="frame" x="8" y="88" width="398" height="456"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="456" id="aAF-Dd-nR3"/>
+                                </constraints>
                                 <string key="text">C언어와 이를 이용한 프로그래밍에 대하여 학습하는 것을 목표로하며, 이를 위해 C언어의 기본적인 원리와 문법, C표준라이브러리 사용법을 학습한다. 구체적으로, 본 강의에서는 변수의 선언과정의, 함수 구현 및 호출, 포인터와 구조체, 순환문, 조건문등을 학습하며, C라이브러리를 이용한 파일 입출력, 문자열관리, 동적메모리할당 등을 함께 학습합니다.
 
 1강. C프로그래밍 구성요소 
@@ -3205,7 +3208,6 @@
                         <color key="backgroundColor" cyan="0.14768835620000001" magenta="0.0" yellow="0.0" black="0.0" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
                         <constraints>
                             <constraint firstItem="CYL-Hr-GDF" firstAttribute="leading" secondItem="Haq-39-09u" secondAttribute="leading" constant="8" id="5Mr-7p-Mf2"/>
-                            <constraint firstItem="CYL-Hr-GDF" firstAttribute="bottom" secondItem="Haq-39-09u" secondAttribute="bottom" constant="8" id="AED-x7-9KV"/>
                             <constraint firstItem="CYL-Hr-GDF" firstAttribute="top" secondItem="VUi-HI-ehA" secondAttribute="bottom" constant="8" id="XMB-aC-Fih"/>
                             <constraint firstItem="Haq-39-09u" firstAttribute="trailing" secondItem="CYL-Hr-GDF" secondAttribute="trailing" constant="8" id="szs-3l-LUf"/>
                             <constraint firstItem="VUi-HI-ehA" firstAttribute="leading" secondItem="Haq-39-09u" secondAttribute="leading" constant="20" id="uci-BM-k9g"/>
@@ -3214,8 +3216,8 @@
                         <viewLayoutGuide key="safeArea" id="Haq-39-09u"/>
                     </view>
                     <connections>
-                        <outlet property="lblVideoInfo" destination="CYL-Hr-GDF" id="1yw-9a-nSv"/>
                         <outlet property="lblVideoTitle" destination="VUi-HI-ehA" id="N8d-wG-lzQ"/>
+                        <outlet property="tvVideoInfo" destination="CYL-Hr-GDF" id="1yw-9a-nSv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mn3-Eb-RPL" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3252,6 +3254,9 @@
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="cxW-9b-eJL" id="GJV-vP-Gbq"/>
+                                                    </connections>
                                                 </textView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="00e-DM-TO8">
                                                     <rect key="frame" x="352" y="46" width="54" height="68.5"/>
@@ -3284,6 +3289,8 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="lblToday" destination="7q8-HM-nYo" id="4N6-pw-0OB"/>
+                                            <outlet property="lblUser" destination="6S6-Kp-yYI" id="e2B-wh-6Yg"/>
                                             <outlet property="textViewComment" destination="MET-8c-kI8" id="3Vn-zM-mV5"/>
                                         </connections>
                                     </tableViewCell>
@@ -3324,6 +3331,11 @@
                                                 <constraint firstAttribute="trailing" secondItem="uXR-0U-bQg" secondAttribute="trailing" constant="20" id="zvb-LT-J2k"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="lblDate" destination="uXR-0U-bQg" id="zPV-s7-uUP"/>
+                                            <outlet property="lblName" destination="Hax-Sm-ftk" id="ugy-EI-vhu"/>
+                                            <outlet property="textViewComment" destination="Yu0-13-g49" id="KKt-sa-Ej7"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -3341,6 +3353,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="eFp-of-Xev"/>
                     </view>
+                    <connections>
+                        <outlet property="tableViewComments" destination="Fqf-f3-UEq" id="WHC-Eh-IQ6"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xEV-IR-wfk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -35,8 +35,8 @@ class VideoDetailViewController: UIViewController {
     var isBookmarked: Bool = false
     var isFullScreen: Bool = false
     let layer = CALayer()
-    //let urlString = "https://shinplestorage.s3.us-east-2.amazonaws.com/lectureTest.mp4"
-    let urlString = "https://wolverine.raywenderlich.com/content/ios/tutorials/video_streaming/foxVillage.m3u8"
+    let urlString = "https://shinplestorage.s3.us-east-2.amazonaws.com/lectureTest.mp4"
+    //let urlString = "https://wolverine.raywenderlich.com/content/ios/tutorials/video_streaming/foxVillage.m3u8"
     
     //let urlString = "https://shinplestorage.s3.us-east-2.amazonaws.com/videoplayback.mp4"
     var player: AVPlayer?
