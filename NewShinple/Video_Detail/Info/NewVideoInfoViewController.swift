@@ -13,29 +13,21 @@ class NewVideoInfoViewController: UIViewController {
     
     @IBOutlet weak var lblVideoTitle: UILabel!
     @IBOutlet weak var tvVideoInfo: UITextView!
+    @IBOutlet weak var lblUploadDate: UILabel!
+    @IBOutlet weak var lblDueDate: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tvVideoInfo.isEditable = false
         
         tvVideoInfo.isScrollEnabled = true
         resize(textView: tvVideoInfo)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
     fileprivate func resize(textView: UITextView) {
         var newFrame = textView.frame
         let width = newFrame.size.width
-        let newSize = textView.sizeThatFits(CGSize(width: width,
-                                                   height: CGFloat.greatestFiniteMagnitude))
+        let newSize = textView.sizeThatFits(CGSize(width: width, height: CGFloat.greatestFiniteMagnitude))
         newFrame.size = CGSize(width: width, height: newSize.height)
         textView.frame = newFrame
     }

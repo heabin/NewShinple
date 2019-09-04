@@ -9,8 +9,10 @@
 import UIKit
 
 
-class HomeTableViewController: UITableViewController, selectCategoryDelegate {
+class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UITabBarControllerDelegate{
 
+    
+    @IBOutlet weak var alertBtn: UIBarButtonItem!
     
     //---------- 공통 color ----------//
     
@@ -19,6 +21,7 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate {
     let colorEndBlue = UIColor(red: 27/255, green: 164/255, blue: 227/255, alpha: 1)
     let colorLightGray = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
     
+    let image : UIImage? = UIImage.init(named: "alert_push.png")!.withRenderingMode(.alwaysOriginal)
     
     
     // MARK: - Table view data source
@@ -88,8 +91,6 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate {
     var videoTimes:[Int] = []
     var favorites:[Bool] = []
     
-    
-    
     //---------- Important Variable ----------//
     
     // 대분류, 소분류 솔팅 케이스 (0,1,2)
@@ -103,6 +104,13 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate {
     var selectedMainTitle = ""
 
     
+    //----------------??????????????????????????????????????????
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        //        print("###")
+        //        print(viewController.tabBarItem.tag)
+        //        print("###")
+    }
+    
     
     //MARK: - viowDidLoad
     //---------- DidLoad() ----------//
@@ -112,6 +120,9 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         VideoData = setSampleRecentData()
+        
+        self.tabBarController?.delegate = self
+        alertBtn.image = image
         
         print("MoreData")
         

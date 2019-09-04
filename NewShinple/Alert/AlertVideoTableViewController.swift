@@ -13,6 +13,7 @@ import XLPagerTabStrip
 class AlertVideoTableViewController: UITableViewController {
     
     var flag = [Bool](repeating: false, count: 4)
+    let colorLightGray = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
     
     var alertkey:[Int] = []
     var titles:[String] = []
@@ -48,15 +49,15 @@ class AlertVideoTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let row = indexPath.row
         let cell = tableView.dequeueReusableCell(withIdentifier: "AlertVideoTableViewCell") as! AlertVideoTableViewCell
-        cell.imgColor.layer.cornerRadius = cell.imgColor.frame.width / 2
-        
-        
+
         if row == 0 {
             cell.lblTitle.text = "댓글알림"
-            cell.lblContent.text = "동영상 댓글에 답글이 달렸습니다."
+//            cell.lblContent.text = "동영상 댓글에 답글이 달렸습니다."
+            cell.lblContent.text = "동영상 댓글에 답글이 달렸습니다.동영상 댓글에 답글이 달렸습니다.동영상 댓글에 답글이 달렸습니다.동영상 댓글에 답글이 달렸습니다.동영상 댓글에 답글이 달렸습니다.동영상 댓글에 답글이 달렸습니다.동영상 댓글에 답글이 달렸습니다."
+
             cell.lblDate.text = "19.09.09"
             if(flag[indexPath.row]){
-                cell.imgColor.backgroundColor = .lightGray
+                cell.backgroundColor = colorLightGray
             }
             
         } else if row == 1 {
@@ -64,7 +65,7 @@ class AlertVideoTableViewController: UITableViewController {
             cell.lblContent.text = "새로운 공지가 등록되었습니다."
             cell.lblDate.text = "19.09.08"
             if(flag[indexPath.row]){
-                cell.imgColor.backgroundColor = .lightGray
+                cell.backgroundColor = colorLightGray
             }
             
         } else {
@@ -72,7 +73,7 @@ class AlertVideoTableViewController: UITableViewController {
             cell.lblContent.text = "동영상 댓글에 답글이 달렸습니다."
             cell.lblDate.text = "19.09.07"
             if(flag[indexPath.row]){
-                cell.imgColor.backgroundColor = .lightGray
+                cell.backgroundColor = colorLightGray
             }
         }
         

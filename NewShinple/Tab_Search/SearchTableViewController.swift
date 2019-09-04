@@ -93,8 +93,8 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        var row = indexPath.row
-        var listLine = row-1
+        let row = indexPath.row
+        let listLine = row-1
         
 //        SearchTableViewCell
         if(selectedButton == false) {
@@ -132,7 +132,7 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate {
             cell.lblContent.text = contents
             
             cell.imgVideo.image = UIImage(named: imagieFiles[indexPath.row])
-            cell.imgVideo.translatesAutoresizingMaskIntoConstraints = true
+//            cell.imgVideo.translatesAutoresizingMaskIntoConstraints = true
             
             if indexPath.row % 2 == 0 {
                 cell.btnFavorite.setImage(heartFill, for: .normal)

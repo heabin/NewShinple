@@ -62,7 +62,7 @@ class IngTableViewController: UITableViewController {
         
         
         cell.imgVideo.image = UIImage(named: imagieFiles[indexPath.row])
-        cell.imgVideo.translatesAutoresizingMaskIntoConstraints = true
+//        cell.imgVideo.translatesAutoresizingMaskIntoConstraints = true
         
         
         cell.btnFavorite.setImage(heartFill, for: .normal)
