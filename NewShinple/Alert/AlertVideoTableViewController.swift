@@ -13,7 +13,7 @@ import XLPagerTabStrip
 class AlertVideoTableViewController: UITableViewController {
     
     var flag = [Bool](repeating: false, count: 4)
-    let colorLightGray = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
+    let colorLightGray = UIColor(red: 220/255, green: 220/255, blue: 220/255, alpha: 1)
     
     var alertkey:[Int] = []
     var titles:[String] = []
@@ -52,12 +52,12 @@ class AlertVideoTableViewController: UITableViewController {
 
         if row == 0 {
             cell.lblTitle.text = "댓글알림"
-//            cell.lblContent.text = "동영상 댓글에 답글이 달렸습니다."
             cell.lblContent.text = "동영상 댓글에 답글이 달렸습니다.동영상 댓글에 답글이 달렸습니다.동영상 댓글에 답글이 달렸습니다.동영상 댓글에 답글이 달렸습니다.동영상 댓글에 답글이 달렸습니다.동영상 댓글에 답글이 달렸습니다.동영상 댓글에 답글이 달렸습니다."
 
             cell.lblDate.text = "19.09.09"
             if(flag[indexPath.row]){
                 cell.backgroundColor = colorLightGray
+                cell.lblTitle.textColor = .darkGray
             }
             
         } else if row == 1 {
@@ -66,6 +66,7 @@ class AlertVideoTableViewController: UITableViewController {
             cell.lblDate.text = "19.09.08"
             if(flag[indexPath.row]){
                 cell.backgroundColor = colorLightGray
+                cell.lblTitle.textColor = .darkGray
             }
             
         } else {
@@ -74,6 +75,7 @@ class AlertVideoTableViewController: UITableViewController {
             cell.lblDate.text = "19.09.07"
             if(flag[indexPath.row]){
                 cell.backgroundColor = colorLightGray
+                cell.lblTitle.textColor = .darkGray
             }
         }
         
@@ -83,19 +85,16 @@ class AlertVideoTableViewController: UITableViewController {
     //table cell 클릭시 이동
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let gotovideodetail: UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "VideoDetailSID")
 
         
-        let segueIdentifier = "goToAlertVideoDetail"
-
-        // 눌렀을 때는 이미지가 회색으로
         if(!flag[indexPath.row]) {
             flag[indexPath.row] = true
         }
         tableView.reloadData()
         
-        // 이동
-        self.performSegue(withIdentifier: segueIdentifier, sender: self)
-
+        self.present(gotovideodetail, animated: true, completion: nil)
+        
     }
 }
 

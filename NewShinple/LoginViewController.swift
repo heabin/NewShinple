@@ -67,9 +67,7 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        
-        
-        
+
         imgLogo.image = img_log
         imgID.image = img_id
         // 코드 상에는 아울렛 걸렸지만, 스토리보드의 이름 imgPW로 변경 안 되어 에러 발생. 이미지 옮기는 것에는 문제 없음.

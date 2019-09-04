@@ -19,7 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // loading
         //splashScreen()
         check()
-        splashScreen()
         
         return true
     }
@@ -40,22 +39,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     @objc func dismissSplashController(){
-        let mainVC = UIStoryboard.init(name: "Main", bundle: nil)
-        let rootVC = mainVC.instantiateViewController(withIdentifier: "myTabBar")
-        self.window?.rootViewController = rootVC
-        self.window?.makeKeyAndVisible()
+
+//        let mainVC = UIStoryboard.init(name: "Main", bundle: nil)
+//        let rootVC = mainVC.instantiateViewController(withIdentifier: "LoginSID")
+//        self.window?.rootViewController = rootVC
+//        self.window?.makeKeyAndVisible()
+        
+        let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "myTabBar")
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.window?.rootViewController = vc
+        appDelegate.window?.makeKeyAndVisible()
+
     }
 
-//    // MARK: - DAEUN
+    // MARK: - DAEUN
     // 자동로그인
     func check(){
         if UserDefaults.standard.value(forKey: "id") != nil{
-            let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "FirstLoadingViewController")
 
-            //let layout = UICollectionViewFlowLayout()
-
+            let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "myTabBar")
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
-
             appDelegate.window?.rootViewController = vc
             appDelegate.window?.makeKeyAndVisible()
         }
