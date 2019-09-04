@@ -10,6 +10,8 @@ import UIKit
 import AWSDynamoDB
 
 
+
+
 class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UITabBarControllerDelegate{
 
     //var Firstcategories = [String]()
@@ -27,7 +29,11 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
     let colorEndBlue = UIColor(red: 27/255, green: 164/255, blue: 227/255, alpha: 1)
     let colorLightGray = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
     
-    let image : UIImage? = UIImage.init(named: "alert_push.png")!.withRenderingMode(.alwaysOriginal)
+    
+    
+    
+    
+    
     
     
     // MARK: - Table view data source
@@ -39,6 +45,7 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
     
     
     @IBOutlet var ItemCollectionView: UITableView!
+    
     // First: 대분류, Second: 소분류
     func dbGetLecCate() {
         func parseListData(beforeParsed:NSArray) -> [String] {
@@ -87,7 +94,6 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
     }
     
     
-    
     var Firstcategories = ["전체", "개발","금융","문학","어학","육아","자격증","필수강의"]
 
     var SecondCategorieEmpty = ["----------"]
@@ -100,7 +106,8 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
                           ["전체","필수강의1","필수강의2","필수강의3"]]
 
     
-    // Video Data in Main Title Cell
+
+    
     func setSampleRecentData() -> [My_Lec_List] {
         var sample = [My_Lec_List]()
         var index = 0
@@ -135,10 +142,6 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
     }
     
     
-    let heartEmpty = UIImage(named: "heart_empty.png")
-    let heartFill = UIImage(named: "heart_fill.png")
-    
-    
     // for 더보기 페이지
     var titles:[String] = []
     var imgurls:[URL] = []
@@ -146,6 +149,19 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
     var contents:[String] = []
     var videoTimes:[Int] = []
     var favorites:[Bool] = []
+    
+    
+    
+    
+    
+    
+    // 그림
+    
+    let heartEmpty = UIImage(named: "heart_empty.png")
+    let heartFill = UIImage(named: "heart_fill.png")
+    let alert_none = UIImage.init(named: "alert.png")!.withRenderingMode(.alwaysOriginal)
+    let alert_push = UIImage.init(named: "alert_push.png")!.withRenderingMode(.alwaysOriginal)
+
     
     //---------- Important Variable ----------//
     
@@ -158,20 +174,25 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
 
     // 카테고리 더보기의 MainTitle text
     var selectedMainTitle = ""
+    
+    // 알림 push 유무
+    var alertboolean = false
+    
+    
+    
+    
+    
 
     
     //----------------??????????????????????????????????????????
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        //        print("###")
-        //        print(viewController.tabBarItem.tag)
-        //        print("###")
+
     }
     
     
-    //MARK: - viowDidLoad
-    //---------- DidLoad() ----------//
-    var VideoData = [My_Lec_List]()
     
+    
+    //---------- 로딩 페이지 ----------//
     // 전체화면으로 생성해야함
     let LoadingView: UIView = {
         let view = UIView()
@@ -244,15 +265,14 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
             loading_11, loading_12, loading_14,loading_13,loading_13,loading_13,
             shinpleAni_0, shinpleAni_1,shinpleAni_2,shinpleAni_3, shinpleAni_4, shinpleAni_5]
 
-        animatedImage = UIImage.animatedImage(with: images, duration: 3.0)
+        animatedImage = UIImage.animatedImage(with: images, duration: 2.0)
         imgLogo.image = animatedImage
     
         return imgLogo
     }()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
+    
+    func loadingView() {
         print("메인화면띄움")
         
         view.addSubview(LoadingView)
@@ -266,15 +286,53 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
         loadingImageView.translatesAutoresizingMaskIntoConstraints = false
         loadingImageView.centerXAnchor.constraint(equalTo: LoadingView.centerXAnchor).isActive = true
         loadingImageView.centerYAnchor.constraint(equalTo: LoadingView.centerYAnchor, constant: -116).isActive = true
+    }
+    
+    
+    // 데이터 다 받으면 로딩페이지 끝내기
+    func isCachingCompleted() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            self.LoadingView.isHidden = true
+            self.loadingImageView.isHidden = true
+            
+            //Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(dismissSplashController), userInfo: nil, repeats: false)
+        }
+    }
+    
+    
+    // 알람 푸쉬
+    func pushAlert() {
+        if (alertboolean) {
+            alertBtn.image = alert_push
+        } else {
+            alertBtn.image = alert_none
+        }
         
-        // MARK: - DAEUN 로딩화면 구현 영상 로드가 끝난 시점에서 dismissSplashController 호출
-        Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(dismissSplashController), userInfo: nil, repeats: false)
-        
+    }
+    
+    
+    
+    //MARK: - viowDidLoad
+    //---------- DidLoad() ----------//
+    var VideoData = [My_Lec_List]()
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        print("kisung0")
+        // data 받는동안 loading page
+        loadingView()
+        isCachingCompleted()
+        print("kisung1")
+//        dbGetMainLectures(e_num: 1100012)
         VideoData = setSampleRecentData()
         //dbGetLecCate()
+
         
+        // 알림 푸쉬
         self.tabBarController?.delegate = self
-        alertBtn.image = image
+        pushAlert()
+        
         
         print("MoreData")
         
@@ -288,14 +346,14 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
             favorites.append(VideoData[i]._J_status! as! Bool)
         }
         
+        
+        
     }
-
     
-    @objc func dismissSplashController(){
-        // 로딩창 끄기
-        LoadingView.isHidden = true
-        loadingImageView.isHidden = true
-    }
+    
+    
+    
+    
     
     
     //Mark: - TableViewCell
@@ -363,6 +421,8 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
                 
                 cell.lblName.text = userName
                 cell.lblCategory.text = "님의 최근시청 강의입니다."
+                
+                
                 
                 cell.btnMore.tag = row
                 cell.btnMore.addTarget(self, action: #selector(goToVideoList(_:)), for: .touchUpInside)
@@ -514,26 +574,25 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
     func pushAlert(message: String) {
         
         print("---------------in")
-        self.view.addSubview(alertView)
         
-        alertView.center = self.view.center
         lblMessage.translatesAutoresizingMaskIntoConstraints = false
         lblMessage.text = message
-        lblMessage.layer.cornerRadius = 40
+        lblMessage.layer.masksToBounds = true
+        lblMessage.layer.cornerRadius = 10
         
-        alertView.layer.zPosition = 1
+        alertView.transform = CGAffineTransform.init(scaleX: 1, y: 1)
+        alertView.alpha = 1
         
-        //alertView.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(alertView)
+        
+        alertView.translatesAutoresizingMaskIntoConstraints = false
         
         alertView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        alertView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 20).isActive = true
+        alertView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 200).isActive = true
         alertView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
         alertView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 20).isActive = true
-
-        alertView.layer.cornerRadius = 30
+        alertView.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
-        alertView.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
-        alertView.alpha = 1
     }
     
     @objc func offAlert() {
@@ -580,7 +639,6 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
                 
                 // 대분류가 전체일 때, 소분류 Empty
                 if sortingCase == 0 {
-                    categoryController.category = SecondCategorieEmpty
                     
                 
                 // 대분류가 선택되었을 때, 그에 해당하는 소분류 데이터 넘기기
@@ -717,6 +775,8 @@ extension UIImageView {
         }
     }
     
+    
+    
 }
 
 extension UICollectionView {
@@ -739,6 +799,8 @@ extension UICollectionView {
             return String(format: "%02i:%02i", arguments: [minutes, seconds])
         }
     }
+    
+   
     
 }
 

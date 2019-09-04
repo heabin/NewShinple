@@ -24,7 +24,6 @@ class LECTURE: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
     var _U_date : String?
     var _L_length : NSNumber?
     var _L_count : NSNumber?
-    var _L_rate_user : NSNumber?
     
     
     
@@ -54,8 +53,7 @@ class LECTURE: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
             "_S_cate_num" : "S_cate_num",
             "_U_date" : "U_date",
             "_L_length" : "L_length",
-            "_L_count" : "L_count",
-            "_L_rate-user" : "L_rate-user"
+            "_L_count" : "L_count"
         ]
     }
     
