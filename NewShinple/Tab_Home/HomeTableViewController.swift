@@ -12,6 +12,8 @@ import UIKit
 class HomeTableViewController: UITableViewController, selectCategoryDelegate {
 
     
+    @IBOutlet weak var alertBtn: UIBarButtonItem!
+    
     //---------- 공통 color ----------//
     
     let colorStartBlue = UIColor(red: 15/255, green: 83/255, blue: 163/255, alpha: 1)
@@ -19,20 +21,18 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate {
     let colorEndBlue = UIColor(red: 27/255, green: 164/255, blue: 227/255, alpha: 1)
     let colorLightGray = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
     
-    
+    let image : UIImage? = UIImage.init(named: "alert_push.png")!.withRenderingMode(.alwaysOriginal)
     
     
     //---------- DidLoad() ----------//
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        alertBtn.image = image
+
     }
     
-    
-    
-    
-    
+  
     // MARK: - Table view data source
     //---------- Data Source ----------//
     
@@ -65,8 +65,6 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate {
     
     let heartEmpty = UIImage(named: "heart_empty.png")
     let heartFill = UIImage(named: "heart_fill.png")
-    
-    
     
     
     

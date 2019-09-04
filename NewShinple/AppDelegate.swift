@@ -19,9 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         check()
         return true
     }
-
-    // MARK: - DAEUN
-    // 자동로그인
+    
     func check(){
         if UserDefaults.standard.value(forKey: "id") != nil{
             let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "myTabBar")
@@ -34,6 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             appDelegate.window?.makeKeyAndVisible()
         }
     }
+    
     
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
