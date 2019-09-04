@@ -17,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         // loading
+        //splashScreen()
         check()
         
         return true
@@ -26,24 +27,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // 로딩페이지, UI 수정 -> LaunchScreen.storyboard
     func splashScreen(){
         if UserDefaults.standard.value(forKey: "id") != nil{
-            let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "myTabBar")
+            let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "FirstLoadingViewController") as! FirstLoadingViewController
             
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             
             appDelegate.window?.rootViewController = vc
             appDelegate.window?.makeKeyAndVisible()
-        }else {
-//            let launchScreenVC = UIStoryboard.init(name: "LaunchScreen", bundle: nil)
-//            let rootVC = launchScreenVC.instantiateViewController(withIdentifier: "splashController")
             
-//            self.window?.rootViewController = rootVC
-//            self.window?.makeKeyAndVisible()
-            //            var UIImageView UIImageView()
             Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(dismissSplashController), userInfo: nil, repeats: false)
         }
     }
     
     @objc func dismissSplashController(){
+
 //        let mainVC = UIStoryboard.init(name: "Main", bundle: nil)
 //        let rootVC = mainVC.instantiateViewController(withIdentifier: "LoginSID")
 //        self.window?.rootViewController = rootVC
@@ -53,17 +49,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.window?.rootViewController = vc
         appDelegate.window?.makeKeyAndVisible()
+
     }
 
     // MARK: - DAEUN
     // 자동로그인
     func check(){
         if UserDefaults.standard.value(forKey: "id") != nil{
+
             let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "myTabBar")
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             appDelegate.window?.rootViewController = vc
             appDelegate.window?.makeKeyAndVisible()
         }
+            
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
@@ -88,6 +87,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-
 }
+
+
 

@@ -7,10 +7,16 @@
 //
 
 import UIKit
+import AWSDynamoDB
 
 
 class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UITabBarControllerDelegate{
 
+    //var Firstcategories = [String]()
+    //var SecondCategories = [[String]]()
+    @IBOutlet var alertView: UIView!
+    @IBOutlet weak var lblMessage: UILabel!
+    
     
     @IBOutlet weak var alertBtn: UIBarButtonItem!
     
@@ -34,7 +40,56 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
     
     @IBOutlet var ItemCollectionView: UITableView!
     // First: 대분류, Second: 소분류
+    func dbGetLecCate() {
+        func parseListData(beforeParsed:NSArray) -> [String] {
+            var parsed: [String] = []
+            parsed.append("전체")
+            for item in beforeParsed {
+                parsed.append(item as! String)
+            }
+            return parsed
+        }
+        
+        let queryExpression = initQueryExpression()
+        queryExpression.keyConditionExpression = "#LECTURE = :lecture"
+        queryExpression.expressionAttributeNames = ["#LECTURE":"LECTURE"]
+        queryExpression.expressionAttributeValues = [":lecture":"lecture"]
+        let dynamoDbObjectMapper = AWSDynamoDBObjectMapper.default()
+        dynamoDbObjectMapper.query(LEC_CATE.self, expression: queryExpression) { (output: AWSDynamoDBPaginatedOutput?, error: Error?) in
+            if error != nil {
+                print("The request failed. Error: \(String(describing: error))")
+            }
+            if output != nil {
+                let data = output!.items.self[0] as! LEC_CATE
+                let firstCategory: [String] = ["전체", "개발", "금융", "문화", "외국어", "육아", "자격증", "필수"]
+                var secondCategory = [[String]]()
+                secondCategory.append(parseListData(beforeParsed:data._개발 as! NSArray))
+                secondCategory.append(parseListData(beforeParsed:data._금융 as! NSArray))
+                secondCategory.append(parseListData(beforeParsed:data._문화 as! NSArray))
+                secondCategory.append(parseListData(beforeParsed:data._외국어 as! NSArray))
+                secondCategory.append(parseListData(beforeParsed:data._육아 as! NSArray))
+                secondCategory.append(parseListData(beforeParsed:data._자격증 as! NSArray))
+                secondCategory.append(parseListData(beforeParsed:data._필수 as! NSArray))
+                //                self.lec_cate = secondCategory
+                self.Firstcategories = firstCategory
+                self.SecondCategories = secondCategory
+                print(firstCategory, "after")
+                print(secondCategory, "after")
+            }
+        }
+    }
+    
+    func initQueryExpression() -> AWSDynamoDBQueryExpression {
+        let queryExpression = AWSDynamoDBQueryExpression()
+        queryExpression.expressionAttributeNames = [String:String]()
+        queryExpression.expressionAttributeValues = [String:Any]()
+        return queryExpression
+    }
+    
+    
+    
     var Firstcategories = ["전체", "개발","금융","문학","어학","육아","자격증","필수강의"]
+
     var SecondCategorieEmpty = ["----------"]
     var SecondCategories = [["전체","ICT","인프라","정보보안"],
                           ["전체","금융1","금융2","금융3"],
@@ -43,7 +98,7 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
                           ["전체","육아1","육아2","육아3"],
                           ["전체","자격증1","자격증2","자격증3"],
                           ["전체","필수강의1","필수강의2","필수강의3"]]
-    
+
     
     // Video Data in Main Title Cell
     func setSampleRecentData() -> [My_Lec_List] {
@@ -53,26 +108,26 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
         for _ in 0..<15 {
             var lectureSample = My_Lec_List()
             
-            lectureSample._My_num = index as NSNumber
+            lectureSample?._My_num = index as NSNumber
             index += 1
             
-            lectureSample._Lecture_num = 11003
-            lectureSample._S_cate_num = 10000
+            lectureSample?._Lecture_num = 11003
+            lectureSample?._S_cate_num = 10000
             
-            lectureSample._Duty = 1
-            lectureSample._C_status = 0
-            lectureSample._J_status = 0
+            lectureSample?._Duty = 1
+            lectureSample?._C_status = 0
+            lectureSample?._J_status = 0
             
-            lectureSample._L_name = "세상에 나쁜 개는 없다"
-            lectureSample._L_length = 1000
-            lectureSample._L_link_img =  "https://shinpleios.s3.us-east-2.amazonaws.com/Infant/Edu/image/Chap1.png"
-            lectureSample._L_link_video = "https://shinpleios.s3.us-east-2.amazonaws.com/Culture/Cook/video/Chap1.mp4"
-            lectureSample._E_date = "2019-09-19"
+            lectureSample?._L_name = "세상에 나쁜 개는 없다"
+            lectureSample?._L_length = 1000
+            lectureSample?._L_link_img =  "https://shinpleios.s3.us-east-2.amazonaws.com/Infant/Edu/image/Chap1.png"
+            lectureSample?._L_link_video = "https://shinpleios.s3.us-east-2.amazonaws.com/Culture/Cook/video/Chap1.mp4"
+            lectureSample?._E_date = "2019-09-19"
             
-            lectureSample._U_length = 200
-            lectureSample._W_date = "2019-09-30"
+            lectureSample?._U_length = 200
+            lectureSample?._W_date = "2019-09-30"
             
-            sample.append(lectureSample)
+            sample.append(lectureSample!)
         }
         
         
@@ -215,9 +270,8 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
         // MARK: - DAEUN 로딩화면 구현 영상 로드가 끝난 시점에서 dismissSplashController 호출
         Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(dismissSplashController), userInfo: nil, repeats: false)
         
-        
-        
         VideoData = setSampleRecentData()
+        //dbGetLecCate()
         
         self.tabBarController?.delegate = self
         alertBtn.image = image
@@ -235,6 +289,7 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
         }
         
     }
+
     
     @objc func dismissSplashController(){
         // 로딩창 끄기
@@ -298,7 +353,9 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
                 cell.lblFirst.text = "대분류"
                 cell.lblSecond.text = "소분류"
                 cell.btnFirst.addTarget(self, action: #selector(goToFirstCategory), for: .touchUpInside)
-                cell.btnSecond.addTarget(self, action: #selector(goToSecondCategory), for: .touchUpInside)
+                cell.btnSecond.addTarget(self, action: #selector(goToSecondCategoryEmpty), for: .touchUpInside)
+                
+                
                 
                 return cell
             }else if row == 1 {
@@ -446,6 +503,44 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
         performSegue(withIdentifier: "goToSecondCategory", sender: nil)
     }
     
+
+    @objc func goToSecondCategoryEmpty() {
+        pushAlert(message: "대분류를 선택해주세요.")
+        
+        Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(offAlert), userInfo: nil, repeats: false)
+        
+    }
+    
+    func pushAlert(message: String) {
+        
+        print("---------------in")
+        self.view.addSubview(alertView)
+        
+        alertView.center = self.view.center
+        lblMessage.translatesAutoresizingMaskIntoConstraints = false
+        lblMessage.text = message
+        lblMessage.layer.cornerRadius = 40
+        
+        alertView.layer.zPosition = 1
+        
+        //alertView.translatesAutoresizingMaskIntoConstraints = false
+        
+        alertView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        alertView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 20).isActive = true
+        alertView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        alertView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 20).isActive = true
+
+        alertView.layer.cornerRadius = 30
+        
+        alertView.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
+        alertView.alpha = 1
+    }
+    
+    @objc func offAlert() {
+        print("---------------out")
+        self.alertView.removeFromSuperview()
+    }
+    
     
     
     
@@ -588,24 +683,6 @@ extension UIApplication {
     }
 }
 
-class My_Lec_List: NSObject {
-    
-    var _My_num : NSNumber?
-    var _E_num : NSNumber?
-    var _C_status : NSNumber?
-    var _J_status : NSNumber?
-    var _L_length : NSNumber?
-    var _L_link_img : String?
-    var _L_link_video : String?
-    var _L_name : String?
-    var _Lecture_num : NSNumber?
-    var _S_cate_num : NSNumber?
-    var _U_length : NSNumber?
-    var _W_date : String?
-    var _E_date : String?
-    var _Duty : NSNumber?
-    
-}
 
 extension UIImageView {
     
