@@ -9,7 +9,7 @@
 import UIKit
 
 
-class HomeTableViewController: UITableViewController, selectCategoryDelegate {
+class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UITabBarControllerDelegate{
 
     
     @IBOutlet weak var alertBtn: UIBarButtonItem!
@@ -27,12 +27,21 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate {
     //---------- DidLoad() ----------//
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tabBarController?.delegate = self
 
         alertBtn.image = image
 
     }
+
+ 
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+//        print("###")
+//        print(viewController.tabBarItem.tag)
+//        print("###")
+    }
     
-  
+    
+
     // MARK: - Table view data source
     //---------- Data Source ----------//
     

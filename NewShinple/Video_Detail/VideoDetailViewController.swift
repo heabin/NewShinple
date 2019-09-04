@@ -11,6 +11,10 @@ import AVFoundation
 
 class VideoDetailViewController: UIViewController {
     
+    // 강의 url
+    let urlString = "https://shinpleios.s3.us-east-2.amazonaws.com/Culture/Cook/video/Chap1.mp4"
+    
+    
     // videoView 의 위치를 잡아주기 위한 것들
     @IBOutlet weak var LargeView: UIView!
     @IBOutlet weak var SmallView: UIView!
@@ -35,10 +39,7 @@ class VideoDetailViewController: UIViewController {
     var isBookmarked: Bool = false
     var isFullScreen: Bool = false
     let layer = CALayer()
-    let urlString = "https://shinplestorage.s3.us-east-2.amazonaws.com/lectureTest.mp4"
-    //let urlString = "https://wolverine.raywenderlich.com/content/ios/tutorials/video_streaming/foxVillage.m3u8"
     
-    //let urlString = "https://shinplestorage.s3.us-east-2.amazonaws.com/videoplayback.mp4"
     var player: AVPlayer?
     var playerLayer = AVPlayerLayer()
     
@@ -87,8 +88,22 @@ class VideoDetailViewController: UIViewController {
         SmallView.backgroundColor = .black
         LargeView.backgroundColor = .black
         
+        
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        print("화면꺼질때")
+        let duration = player?.currentItem?.duration
+        let totalSeconds = CMTimeGetSeconds(duration!)
+        print("전체시간 : \(totalSeconds)")
+        
+        let current = videoSlider.value
+        print("현재시간 : \(current)")
+        
+        let temp: Float = Float(current) / Float(totalSeconds) * 100
+        let percent: Int = Int(temp)
+        print("진행률 : \(percent)")
+    }
     
     // 동영상 불러오기
     private func setupPlayerView(){
@@ -351,11 +366,11 @@ class VideoDetailViewController: UIViewController {
     }
     
     
+    // 영상 종료 완료 수강 완료
     @objc func playerDidFinishPlaying(note: NSNotification) {
         print("강의끝********")
         EvaluationView.isHidden = false
         EvaluationView.layer.zPosition = 1
-        
     }
     
     @IBAction func BadEvaluation(_ sender: UIButton) {
