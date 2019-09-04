@@ -16,22 +16,35 @@ var comments = ["강의 영상 재미있게 잘 봤습니다!강의 영상 재�
 
 class VideoCommentViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate {
     
+    var settingHeight:CGFloat?  // 각 셀의 댓글 길이에 따른 동적 높이 생성
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "CommentTableViewCell") as! CommentTableViewCell
         cell.lblName.text = names[(indexPath as NSIndexPath).row]
         cell.lblDate.text = dates[(indexPath as NSIndexPath).row]
         cell.textViewComment.text = comments[(indexPath as NSIndexPath).row]
-        
-        var newFrame = textViewComment.frame
+        cell.textViewComment.isScrollEnabled = true
+
+        let newFrame = cell.textViewComment.frame
         let width = newFrame.size.width
-        let newSize = textViewComment.sizeThatFits(CGSize(width: width,
-                                                   height: CGFloat.greatestFiniteMagnitude))
+        let newSize =  cell.textViewComment.sizeThatFits(CGSize(width: width, height: CGFloat.greatestFiniteMagnitude))
+        settingHeight = newSize.height
         
-        print("셀사이즈 출력 \(newSize.height)")
         return cell
     }
     
+    
+    // 각 셀의 높이 지정
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CommentTableViewCell") as! CommentTableViewCell
+        
+        
+        print(settingHeight)
+        return 50 + settingHeight!
+    }
     
     @IBOutlet weak var lblUserName: UILabel!
     @IBOutlet weak var lblToday: UILabel!
@@ -66,11 +79,7 @@ class VideoCommentViewController: UIViewController, UITableViewDelegate, UITable
         
     }
     
-    // 각 셀의 높이 지정
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 130
-    }
-    
+    // DB 내보내기
     @IBAction func AddComment(_ sender: UIButton) {
         print("댓글달기")
         
@@ -80,6 +89,9 @@ class VideoCommentViewController: UIViewController, UITableViewDelegate, UITable
         tableViewComment.reloadData()
         
         textViewComment.text = ""
+        
+        // DB 내보내기
+//        lblUserName.text
         
     }
 }
