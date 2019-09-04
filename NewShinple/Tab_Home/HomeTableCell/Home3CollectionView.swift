@@ -9,28 +9,59 @@
 import UIKit
 
 class Home3CollectionView: UICollectionView, UICollectionViewDelegate, UICollectionViewDataSource {
-
-    var titles = [["제1강. Swift 부시기", "제2강. 메인페이지힘듦..", "제3강. 던져버리고싶다", "제4강. 에헤라디야", "제5강. 뿌셔뿌셔"],
-                  ["몽쉘 생크림케이크", "행복한 카스타드", "HAITAI 오예스", "명가 찰떡 파이", "맛있는거 먹고싶다"],
-                  ["A TWOSOME PLACE", "Level UP! 막심커피", "스타벅스", "개인적으로 할리스짱", "배고프다"],
-                  ["보라돌이","뚜비","나나","뽀","텔레토비"],
-                  ["제1강. Swift 부시기", "제2강. 메인페이지힘듦..", "제3강. 던져버리고싶다", "제4강. 에헤라디야", "제5강. 뿌셔뿌셔"],
-                  ["몽쉘 생크림케이크", "행복한 카스타드", "HAITAI 오예스", "명가 찰떡 파이", "맛있는거 먹고싶다"]]
     
-    var imagieFiles = [
-                       ["video6.png", "video7.png", "video8.png", "video9.png", "video10.png"],
-                       ["video5.png", "video4.png", "video3.png", "video2.png", "video.png"],
-                       ["video10.png", "video9.png", "video8.png", "video7.png", "video6.png"],
-                       ["video3.png", "video.png", "video5.png", "video4.png", "video3.png"],
-                       ["video2.png", "video6.png", "video7.png", "video4.png", "video5.png"],
-                       ["video8.png", "video2.png", "video10.png", "video3.png", "video.png"]]
+    // for 메인 페이지
+    var titles = [[String]]()
+    var imgurls = [[URL]]()
+    var videoRates = [[CGFloat]]()
+    var videoTimes = [[Int]]()
     
-    var testurl = URL(string: "https://shinpleios.s3.us-east-2.amazonaws.com/Poutine.png")
+    // for 더보기 페이지
+    var contents = [[String]]()
+    var favorites = [[Bool]]()
 
     
     override func awakeFromNib() {
         self.delegate = self
         self.dataSource = self
+        
+        let getDataFromHome = HomeTableViewController()
+        let etc = getDataFromHome.setSampleRecentData()
+        
+        print(etc)
+        
+        for i in 0..<6 {
+            print(i)
+            
+            var temp_titles = [String]()
+            var temp_imgUrls = [URL]()
+            var temp_videoRates = [CGFloat]()
+            var temp_videoTimes = [Int]()
+            
+            var temp_contents = [String]()
+            var temp_favorites = [Bool]()
+            
+            for j in 0..<10 {
+                print(j)
+                
+                temp_titles.append(etc[j]._L_name!)
+                temp_imgUrls.append(URL(string: etc[j]._L_link_img!)!)
+                temp_videoRates.append(CGFloat(Int(etc[j]._U_length!) / Int(etc[j]._L_length!)))
+                temp_videoTimes.append(Int(etc[j]._L_length!))
+                
+                temp_contents.append("Today let's talk about salaries and how much money you can make as an iOS / Android Engineer out in the Bay Area / Silicon Valley.")
+                temp_favorites.append(etc[j]._J_status as! Bool)
+
+            }
+            
+            titles.append(temp_titles)
+            imgurls.append(temp_imgUrls)
+            videoRates.append(temp_videoRates)
+            videoTimes.append(temp_videoTimes)
+            
+            contents.append(temp_contents)
+            favorites.append(temp_favorites)
+        }
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -38,26 +69,25 @@ class Home3CollectionView: UICollectionView, UICollectionViewDelegate, UICollect
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return titles[0].count
+        return 10
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
+        var row = indexPath.row
+        var collectionRow = collectionView.tag-2
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Home3CollectionViewCell", for: indexPath) as! Home3CollectionViewCell
         
-        cell.lblTitle.text = titles[collectionView.tag-2][indexPath.row]
-        cell.imgVideo.image = UIImage(named: imagieFiles[collectionView.tag-2][indexPath.row])
+        cell.lblTitle.text = titles[collectionRow][row]
         
-        //image url 사용
-        //let testdata = try! Data(contentsOf: testurl!)
-        //cell.imgVideo.image = UIImage(data: testdata)
+        cell.imgVideo.downloadImage(from: imgurls[collectionRow][row])
+        cell.imgVideo.translatesAutoresizingMaskIntoConstraints = true
+        
+        cell.lblVideoTime.text = timeIntToString(from: videoTimes[collectionRow][row])
+
         
         return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        HomeTableViewController().goToDetailPage()
     }
 
 }

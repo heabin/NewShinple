@@ -22,6 +22,7 @@ class HomeMoreTableViewController: UITableViewController {
     //---------- 샘플 Data ----------//
     //*----------------------------------------------------*//
     
+    
     var titles: String = "제목입니다."
     var contents: String = "There is a content about the video.You can see the video if you click the image."
     var imagieFiles = ["video10.png", "video9.png", "video8.png", "video7.png", "video6.png","video5.png", "video4.png", "video3.png", "video2.png", "video.png"]
@@ -34,18 +35,38 @@ class HomeMoreTableViewController: UITableViewController {
     let heartEmpty = UIImage(named: "heart_empty.png")
     let heartFill = UIImage(named: "heart_fill.png")
     
-    
+    // for 더보기 페이지
+//    var titles:[String] = []
+//    var imgurls:[URL] = []
+//    var videoRates:[Float] = []
+//    var contents:[String] = []
+//    var videoTimes:[Int] = []
+//    var favorites:[Bool] = []
     
     
     //---------- Important Variable ----------//
     
     var mainTitleName = ""
     
+    var videoData = [Any]()
     
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let getDataFromHome = HomeTableViewController()
+        videoData = getDataFromHome.VideoData
+        
+//        for i in 0..<10 {
+//            titles.append(videoData[i]._L_name!)
+//            imgurls.append(URL(string: videoData[i]._L_link_img!)!)
+//            videoRates.append(Float(Int(videoData[i]._U_length!) / Int(VideoData[i]._L_length!)))
+//
+//            contents.append("Today let's talk about salaries and how much money you can make as an iOS / Android Engineer out in the Bay Area / Silicon Valley.")
+//            videoTimes.append(Int(videoData[i]._L_length!))
+//            favorites.append(videoData[i]._J_status! as! Bool)
+//        }
 
     }
 
@@ -65,7 +86,6 @@ class HomeMoreTableViewController: UITableViewController {
 
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //*----------------------------------------------------*//
         return 10
     }
 
@@ -87,7 +107,6 @@ class HomeMoreTableViewController: UITableViewController {
             cell.lblTitle.text = titles
             cell.lblContent.text = contents
             
-            //*----------------------------------------------------*//
             cell.imgVideo.downloadImage(from: url!)
             cell.imgVideo.translatesAutoresizingMaskIntoConstraints = true
             
@@ -129,24 +148,8 @@ class HomeMoreTableViewController: UITableViewController {
         }
     }
 
+
 }
 
 
-//*----------------------------------------------------*//
-extension UIImageView {
-    func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
-        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
-    }
-    
-    func downloadImage(from url: URL) {
-        getData(from: url) {
-            data, response, error in
-            guard let data = data, error == nil else {
-                return
-            }
-            DispatchQueue.main.async() {
-                self.image = UIImage(data: data)
-            }
-        }
-    }
-}
+

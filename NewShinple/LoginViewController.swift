@@ -164,5 +164,24 @@ class LoginViewController: UIViewController {
         
     }
     
+    
+    
+}
+
+/**
+ A convenient UIImageView to load and cache images.
+ */
+open class CachedImageView: UIImageView {
+    
+    public static let imageCache = NSCache<NSString, UIImage>()
+    
+    func setImageCache(item: UIImage, urlKey: String) {
+        CachedImageView.imageCache.setObject(item, forKey: urlKey as NSString)
+    }
+    
+    func loadCacheImage(urlKey: String, completion: (() -> ())? = nil) -> UIImage {
+        let cachedItem = CachedImageView.imageCache.object(forKey: urlKey as NSString)
+        return cachedItem!
+    }
 }
 

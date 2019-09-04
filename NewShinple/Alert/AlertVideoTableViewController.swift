@@ -14,9 +14,19 @@ class AlertVideoTableViewController: UITableViewController {
     
     var flag = [Bool](repeating: false, count: 4)
     
+    var alertkey:[Int] = []
+    var titles:[String] = []
+    var contents:[String] = []
+    var dates:[String] = []
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        for _ in 0..<5 {
+            
+        }
+        
     }
 
     
