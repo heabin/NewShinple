@@ -244,7 +244,7 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
             loading_11, loading_12, loading_14,loading_13,loading_13,loading_13,
             shinpleAni_0, shinpleAni_1,shinpleAni_2,shinpleAni_3, shinpleAni_4, shinpleAni_5]
 
-        animatedImage = UIImage.animatedImage(with: images, duration: 3.0)
+        animatedImage = UIImage.animatedImage(with: images, duration: 2.0)
         imgLogo.image = animatedImage
     
         return imgLogo

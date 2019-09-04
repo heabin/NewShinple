@@ -17,41 +17,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         // loading
-        //splashScreen()
         check()
         
         return true
     }
     
-    
-    // 로딩페이지, UI 수정 -> LaunchScreen.storyboard
-    func splashScreen(){
-        if UserDefaults.standard.value(forKey: "id") != nil{
-            let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "FirstLoadingViewController") as! FirstLoadingViewController
-            
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            
-            appDelegate.window?.rootViewController = vc
-            appDelegate.window?.makeKeyAndVisible()
-            
-            Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(dismissSplashController), userInfo: nil, repeats: false)
-        }
-    }
-    
-    @objc func dismissSplashController(){
-
-//        let mainVC = UIStoryboard.init(name: "Main", bundle: nil)
-//        let rootVC = mainVC.instantiateViewController(withIdentifier: "LoginSID")
-//        self.window?.rootViewController = rootVC
-//        self.window?.makeKeyAndVisible()
-        
-        let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "myTabBar")
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.window?.rootViewController = vc
-        appDelegate.window?.makeKeyAndVisible()
-
-    }
-
     // MARK: - DAEUN
     // 자동로그인
     func check(){
