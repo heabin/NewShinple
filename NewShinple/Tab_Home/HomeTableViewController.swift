@@ -12,6 +12,8 @@ import UIKit
 class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UITabBarControllerDelegate{
 
     
+    @IBOutlet weak var alertBtn: UIBarButtonItem!
+    
     //---------- 공통 color ----------//
     
     let colorStartBlue = UIColor(red: 15/255, green: 83/255, blue: 163/255, alpha: 1)
@@ -19,24 +21,7 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
     let colorEndBlue = UIColor(red: 27/255, green: 164/255, blue: 227/255, alpha: 1)
     let colorLightGray = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
     
-    
-    
-    
-    //---------- DidLoad() ----------//
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.tabBarController?.delegate = self
-
-    }
- 
-    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-//        print("###")
-//        print(viewController.tabBarItem.tag)
-//        print("###")
-    }
-    
-    
+    let image : UIImage? = UIImage.init(named: "alert_push.png")!.withRenderingMode(.alwaysOriginal)
     
     
     // MARK: - Table view data source
@@ -59,23 +44,52 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
                           ["전체","필수강의1","필수강의2","필수강의3"]]
     
     
-    // videoList data
-    var titles: String = "제목입니다."
-    var contents: String = "There is a content about the video.You can see the video if you click the image."
-    
-    var imagieFiles = ["video.png", "video2.png", "video3.png", "video4.png", "video5.png","video6.png", "video7.png", "video8.png", "video9.png", "video10.png"]
-    
-    var videoRate: [Float] = [0.2,0,0.1,0,0,0.4,0,0,0.8,0]
-    
+    // Video Data in Main Title Cell
+    func setSampleRecentData() -> [My_Lec_List] {
+        var sample = [My_Lec_List]()
+        var index = 0
+        
+        for _ in 0..<15 {
+            var lectureSample = My_Lec_List()
+            
+            lectureSample._My_num = index as NSNumber
+            index += 1
+            
+            lectureSample._Lecture_num = 11003
+            lectureSample._S_cate_num = 10000
+            
+            lectureSample._Duty = 1
+            lectureSample._C_status = 0
+            lectureSample._J_status = 0
+            
+            lectureSample._L_name = "세상에 나쁜 개는 없다"
+            lectureSample._L_length = 1000
+            lectureSample._L_link_img =  "https://shinpleios.s3.us-east-2.amazonaws.com/Infant/Edu/image/Chap1.png"
+            lectureSample._L_link_video = "https://shinpleios.s3.us-east-2.amazonaws.com/Culture/Cook/video/Chap1.mp4"
+            lectureSample._E_date = "2019-09-19"
+            
+            lectureSample._U_length = 200
+            lectureSample._W_date = "2019-09-30"
+            
+            sample.append(lectureSample)
+        }
+        
+        
+        return sample
+    }
     
     
     let heartEmpty = UIImage(named: "heart_empty.png")
     let heartFill = UIImage(named: "heart_fill.png")
     
     
-    
-    
-    
+    // for 더보기 페이지
+    var titles:[String] = []
+    var imgurls:[URL] = []
+    var videoRates:[Float] = []
+    var contents:[String] = []
+    var videoTimes:[Int] = []
+    var favorites:[Bool] = []
     
     //---------- Important Variable ----------//
     
@@ -90,7 +104,39 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
     var selectedMainTitle = ""
 
     
+    //----------------??????????????????????????????????????????
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        //        print("###")
+        //        print(viewController.tabBarItem.tag)
+        //        print("###")
+    }
     
+    
+    //MARK: - viowDidLoad
+    //---------- DidLoad() ----------//
+    var VideoData = [My_Lec_List]()
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        VideoData = setSampleRecentData()
+        
+        self.tabBarController?.delegate = self
+        alertBtn.image = image
+        
+        print("MoreData")
+        
+        for i in 0..<10 {
+            titles.append(VideoData[i]._L_name!)
+            imgurls.append(URL(string: VideoData[i]._L_link_img!)!)
+            videoRates.append(Float(Int(VideoData[i]._U_length!) / Int(VideoData[i]._L_length!)))
+            
+            contents.append("Today let's talk about salaries and how much money you can make as an iOS / Android Engineer out in the Bay Area / Silicon Valley.")
+            videoTimes.append(Int(VideoData[i]._L_length!))
+            favorites.append(VideoData[i]._J_status! as! Bool)
+        }
+        
+    }
     
     
     //Mark: - TableViewCell
@@ -124,7 +170,7 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
         if sortingCase == 0 {
             return MainTitle.count
         } else {
-            return imagieFiles.count
+            return titles.count
         }
     }
     
@@ -135,6 +181,7 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
     //----------Soritng case 적용----------//
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let row = indexPath.row
         
         //----------대분류: 전체, 소분류: 전체 - Sorting case: 0
@@ -190,11 +237,11 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
                 let cell = tableView.dequeueReusableCell(withIdentifier: "HomeTableViewCell4") as! HomeTableViewCell4
                 
                 
-                cell.lblTitle.text = titles
-                cell.lblContent.text = contents
+                cell.lblTitle.text = titles[row]
+                cell.lblContent.text = contents[row]
                 
                 
-                cell.imgVideo.image = UIImage(named: imagieFiles[indexPath.row])
+                cell.imgVideo.downloadImage(from: imgurls[indexPath.row])
                 cell.imgVideo.translatesAutoresizingMaskIntoConstraints = true
                 
                 if indexPath.row % 2 == 0 {
@@ -205,7 +252,7 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
                 
                 cell.btnFavorite.addTarget(self, action: #selector(setFavorite(_:)), for: .touchUpInside)
                 
-                cell.sliderTime.setValue(videoRate[row], animated: false)
+                cell.sliderTime.setValue(videoRates[row], animated: false)
                 
                 return cell
             }
@@ -227,11 +274,11 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
                 let cell = tableView.dequeueReusableCell(withIdentifier: "HomeTableViewCell4") as! HomeTableViewCell4
                 
                 
-                cell.lblTitle.text = titles
-                cell.lblContent.text = contents
+                cell.lblTitle.text = titles[row]
+                cell.lblContent.text = contents[row]
                 
                 
-                cell.imgVideo.image = UIImage(named: imagieFiles[indexPath.row])
+                cell.imgVideo.downloadImage(from: imgurls[indexPath.row])
                 cell.imgVideo.translatesAutoresizingMaskIntoConstraints = true
                 
                 if indexPath.row % 2 == 0 {
@@ -241,7 +288,8 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
                 }
                 
                 cell.btnFavorite.addTarget(self, action: #selector(setFavorite(_:)), for: .touchUpInside)
-                cell.sliderTime.setValue(videoRate[row], animated: false)
+                
+                cell.sliderTime.setValue(videoRates[row], animated: false)
                 
                 return cell
             }
@@ -435,3 +483,82 @@ extension UIApplication {
         return base
     }
 }
+
+class My_Lec_List: NSObject {
+    
+    var _My_num : NSNumber?
+    var _E_num : NSNumber?
+    var _C_status : NSNumber?
+    var _J_status : NSNumber?
+    var _L_length : NSNumber?
+    var _L_link_img : String?
+    var _L_link_video : String?
+    var _L_name : String?
+    var _Lecture_num : NSNumber?
+    var _S_cate_num : NSNumber?
+    var _U_length : NSNumber?
+    var _W_date : String?
+    var _E_date : String?
+    var _Duty : NSNumber?
+    
+}
+
+extension UIImageView {
+    
+    func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
+    }
+    
+    func downloadImage(from url: URL) {
+        getData(from: url) {
+            data, response, error in
+            guard let data = data, error == nil else {
+                return
+            }
+            DispatchQueue.main.async() {
+                self.image = UIImage(data: data)
+                
+            }
+        }
+    }
+    
+    func timeIntToString(from time: Int) -> String {
+        
+        let totalSeconds = time
+        let hours = Int(totalSeconds / 3600 )
+        let minutes = Int(totalSeconds % 3600) / 60
+        let seconds = Int(totalSeconds % 3600) % 60
+        
+        if hours > 0 {
+            return String(format: "%i:%02i:%02i", arguments: [hours, minutes, seconds])
+        }else{
+            return String(format: "%02i:%02i", arguments: [minutes, seconds])
+        }
+    }
+    
+}
+
+extension UICollectionView {
+    
+    @objc(collectionView:didSelectItemAtIndexPath:) func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        HomeTableViewController().goToDetailPage()
+    }
+    
+    func timeIntToString(from time: Int) -> String {
+        
+        let totalSeconds = time
+        let hours = Int(totalSeconds / 3600 )
+        let minutes = Int(totalSeconds % 3600) / 60
+        let seconds = Int(totalSeconds % 3600) % 60
+        
+        if hours > 0 {
+            return String(format: "%i:%02i:%02i", arguments: [hours, minutes, seconds])
+        }else{
+            return String(format: "%02i:%02i", arguments: [minutes, seconds])
+        }
+    }
+    
+}
+
+

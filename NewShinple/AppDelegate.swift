@@ -17,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         // loading
+        check()
         splashScreen()
         
         return true
@@ -25,7 +26,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // 로딩페이지, UI 수정 -> LaunchScreen.storyboard
     func splashScreen(){
-        // 자동로그인
         if UserDefaults.standard.value(forKey: "id") != nil{
             let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "myTabBar")
             
@@ -52,19 +52,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 //    // MARK: - DAEUN
-//    // 자동로그인
-//    func check(){
-//        if UserDefaults.standard.value(forKey: "id") != nil{
-//            let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "myTabBar")
-//
-//            //let layout = UICollectionViewFlowLayout()
-//
-//            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-//
-//            appDelegate.window?.rootViewController = vc
-//            appDelegate.window?.makeKeyAndVisible()
-//        }
-//    }
+    // 자동로그인
+    func check(){
+        if UserDefaults.standard.value(forKey: "id") != nil{
+            let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "myTabBar")
+
+            //let layout = UICollectionViewFlowLayout()
+
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+
+            appDelegate.window?.rootViewController = vc
+            appDelegate.window?.makeKeyAndVisible()
+        }
+    }
     
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

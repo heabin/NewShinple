@@ -14,7 +14,5 @@ class HomeTableViewCell3: UITableViewCell {
     @IBOutlet weak var btnMore: UIButton!
     @IBOutlet weak var collectionView: Home3CollectionView!
     
-    var cellNum:Int = 0
-    
 
 }

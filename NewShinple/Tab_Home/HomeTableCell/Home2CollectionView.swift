@@ -20,28 +20,47 @@ class Home2CollectionView: UICollectionView, UICollectionViewDelegate, UICollect
     
     //---------- Data 셋팅 ----------//
     
-    var titles = ["세상에 나쁜개는 없다","캠핑 클럽","놀라운 토요일","삼시세끼", "나 혼자 산다"]
+    // for 메인 페이지
+    var titles:[String] = []
+    var imgurls:[URL] = []
+    var videoRates:[CGFloat] = []
     
-    var imagieFiles = ["video.png", "video2.png", "video3.png","video4.png","video5.png"]
-    
-    var videoRate:[CGFloat] = [2.3, 0.5, 3.7, 2.0, 1.0]
-    
-    var testurl = URL(string: "https://shinpleios.s3.us-east-2.amazonaws.com/Poutine.png")
+    // for 더보기 페이지
+    var contents:[String] = []
+    var videoTimes:[Int] = []
+    var favorites:[Bool] = []
     
     
     
     //---------- Cell 셋팅 ----------//
     override func awakeFromNib() {
+        
         self.delegate = self
         self.dataSource = self
+        
+        let getDataFromHome = HomeTableViewController()
+        let recent = getDataFromHome.setSampleRecentData()
+
+        print(recent)
+
+        for i in 0..<10 {
+            titles.append(recent[i]._L_name!)
+            imgurls.append(URL(string: recent[i]._L_link_img!)!)
+            videoRates.append(CGFloat(Int(recent[i]._U_length!) / Int(recent[i]._L_length!)))
+            
+            contents.append("Today let's talk about salaries and how much money you can make as an iOS / Android Engineer out in the Bay Area / Silicon Valley.")
+            videoTimes.append(Int(recent[i]._L_length!))
+            favorites.append(recent[i]._J_status! as! Bool)
+        }
     }
+    
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return titles.count
+        return 10
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -56,12 +75,14 @@ class Home2CollectionView: UICollectionView, UICollectionViewDelegate, UICollect
         
         cell.imgVideo.layer.cornerRadius = 65/2
         
-        cell.imgVideo.image = UIImage(named: imagieFiles[indexPath.row])
+        cell.imgVideo.downloadImage(from: imgurls[indexPath.row])
+        cell.imgVideo.translatesAutoresizingMaskIntoConstraints = true
         
         
         let shapeLayer = CAShapeLayer()
         
-        let circularPath = UIBezierPath(arcCenter: CGPoint(x: 85/2, y: 85/2), radius: 85/2, startAngle: -CGFloat.pi/2, endAngle: videoRate[indexPath.row], clockwise: true)
+        let circularPath = UIBezierPath(arcCenter: CGPoint(x: 85/2, y: 85/2), radius: 85/2, startAngle: -CGFloat.pi/2, endAngle: videoRates[indexPath.row], clockwise: true)
+        
         shapeLayer.path = circularPath.cgPath
         shapeLayer.strokeColor = UIColor.red.cgColor
         shapeLayer.lineWidth = 15
@@ -71,8 +92,7 @@ class Home2CollectionView: UICollectionView, UICollectionViewDelegate, UICollect
         cell.imgVideo.layer.cornerRadius = 85/2
         
         cell.imgVideo.layer.addSublayer(shapeLayer)
-        
-        
+
         
         // 그라데이션 적용
         
@@ -93,14 +113,7 @@ class Home2CollectionView: UICollectionView, UICollectionViewDelegate, UICollect
         return cell
     }
     
-    
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        HomeTableViewController().goToDetailPage()
-    }
-    
-    
-    
 
 }
+
+

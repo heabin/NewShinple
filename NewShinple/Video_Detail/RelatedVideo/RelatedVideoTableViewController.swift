@@ -20,7 +20,6 @@ class RelatedVideoTableViewController: UITableViewController, UISearchBarDelegat
     let colorLightGray = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
     
     
-    
     //---------- 샘플 Data ----------//
     
     var titles: String = "제목입니다."

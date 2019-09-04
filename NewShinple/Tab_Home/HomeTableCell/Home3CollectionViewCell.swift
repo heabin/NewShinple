@@ -17,6 +17,10 @@ class Home3CollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         imgCheck.isHidden = true
+        
+        lblVideoTime.font = UIFont.boldSystemFont(ofSize: 12)
+        lblVideoTime.backgroundColor = .black
+        lblVideoTime.textColor = .white
     }
     
 }
