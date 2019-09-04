@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import AWSDynamoDB
 
 class VideoDetailViewController: UIViewController {
     
@@ -60,11 +61,15 @@ class VideoDetailViewController: UIViewController {
     
     @IBOutlet weak var TabContainerView: UIView!
     
+    var LectureDetail:LECTURE = LECTURE()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("videoDetailView")
+        print("==================\(LectureDetail._Duty)=================")
+        //self.dbGetLectureDetail(lecture: LectureDetail, employeeNum:1100012)
+        
+        print("videoDetailView viewDidLoad")
         // 그냥 작은 화면일때 기준이 되는 뷰를 한개 더 만들었음
         //SmallView.isHidden = true
         
@@ -108,7 +113,7 @@ class VideoDetailViewController: UIViewController {
     
     // 동영상 불러오기
     private func setupPlayerView(){
-        if let url = NSURL(string: urlString){
+        if let url = NSURL(string: LectureDetail._L_link_video!){
             player = AVPlayer(url: url as URL)
             
             playerLayer = AVPlayerLayer(player: player)
@@ -444,4 +449,155 @@ class VideoDetailViewController: UIViewController {
         playerLayer.frame = videoView.bounds
 //        gradientLayer.frame = videoView.bounds
     }
+    
+        // DB 받아옴
+        func dbGetLectureDetail(lecture:Any, employeeNum:NSNumber) {
+            //print("kisung0")
+    
+            let s_cate_num: NSNumber?
+            let lecture_num: NSNumber?
+            var targetE_num = employeeNum
+            if type(of: lecture) == LECTURE.self {
+                let casted = lecture as! LECTURE
+                s_cate_num = casted._S_cate_num
+                lecture_num = casted._Lecture_num
+            } else {
+                let casted = lecture as! My_Lec_List
+                // MARK: You should assign true for value -> 강의 시청 종료 후 나갈 때 필요
+                s_cate_num = casted._S_cate_num
+                lecture_num = casted._Lecture_num
+                targetE_num = casted._E_num!
+            }
+            let scanExpression = AWSDynamoDBScanExpression()
+            scanExpression.filterExpression = "S_cate_num = :S_cate_num"
+            scanExpression.projectionExpression = "Lecture_num, Duty, E_date, L_cate, L_content, L_length, L_link_img, L_link_video, L_name, L_rate, L_teacher,  S_cate, S_cate_num, U_date, L_count"
+            scanExpression.expressionAttributeValues = [":S_cate_num":Int(truncating: s_cate_num!)]
+            let dynamoDbObjectMapper = AWSDynamoDBObjectMapper.default()
+            //print("kisung1", s_cate_num, lecture_num)
+            dynamoDbObjectMapper.scan(LECTURE.self, expression: scanExpression).continueWith(block: { (task:AWSTask!) -> AnyObject? in
+                //print(task.result, "task.result")
+                if task.result != nil {
+                    let paginatedOutput = task.result! as AWSDynamoDBPaginatedOutput
+                    var lectureRelated = [LECTURE]()
+                    print(paginatedOutput)
+                    for item in paginatedOutput.items as! [LECTURE] {
+                        //print(item, "kisung3")
+                        if Int(truncating: item._Lecture_num!) == Int(truncating: lecture_num!) {
+                            continue
+                        }
+                        var inserted = false
+                        var index = 0
+                        for related in lectureRelated {
+                            if Int(truncating: item._Lecture_num!) < Int(truncating: related._Lecture_num!) {
+                                lectureRelated.insert(item, at: index)
+                                inserted = true
+                                break
+                            }
+                            index += 1
+                        }
+                        if !inserted {
+                            lectureRelated.append(item)
+                        }
+                    }
+                    //print("kisung2")
+                    if targetE_num != nil {
+                        // YOU SHOULD
+                        let resultRelated = ["related":lectureRelated]
+                        self.dbGetMyLecturesFromMainLectures(e_num:targetE_num, fromLectures: resultRelated)
+                    } else {
+                        print("related", lectureRelated)
+                    }
+                }
+                if ((task.error) != nil) {
+                    print("Error: \(String(describing: task.error))")
+                }
+                return nil
+            })
+            sleep(1)
+    
+            let scanExpressionComment = AWSDynamoDBScanExpression()
+            scanExpressionComment.filterExpression = "L_num = :L_num"
+            scanExpressionComment.projectionExpression = "L_num, C_content, C_date, U_id"
+            scanExpressionComment.expressionAttributeValues = [":L_num":Int(truncating: lecture_num!)]
+            //print(lecture_num, "lecture_num")
+            let dynamoDbObjectMapperComment = AWSDynamoDBObjectMapper.default()
+            dynamoDbObjectMapperComment.scan(Comment.self, expression: scanExpressionComment).continueWith(block: { (task:AWSTask!) -> AnyObject? in
+                if task.result != nil {
+                    let paginatedOutput = task.result! as AWSDynamoDBPaginatedOutput
+                    var lectureComment = [Comment]()
+                    print(paginatedOutput.items)
+                    var indexAry = [Double]()
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "yyyy-MM-dd"
+                    let today = Date()
+                    for item in paginatedOutput.items as! [Comment] {
+                        let upload = formatter.date(from: item._C_date!)
+                        let interval = upload?.timeIntervalSince(today) as! Double
+                        var inserted = false
+                        var index = 0
+                        for indexItem in indexAry {
+                            if interval >= indexItem {
+                                lectureComment.insert(item, at: index)
+                                indexAry.insert(interval, at: index)
+                                inserted = true
+                                break
+                            }
+                            index += 1
+                        }
+                        if !inserted {
+                            lectureComment.append(item)
+                            indexAry.append(interval)
+                        }
+                    }
+                    print("related", lectureComment)
+                }
+                if ((task.error) != nil) {
+                    print("Error: \(String(describing: task.error))")
+                }
+                return nil
+            })
+    
+        }
+    
+    
+    func dbGetMyLecturesFromMainLectures(e_num:NSNumber, fromLectures:[String:[Any]]) {
+        print("kisung9")
+        var toLectures = [String:[Any]]()
+        let scanExpression = AWSDynamoDBScanExpression()
+        scanExpression.filterExpression = "E_num = :E_num"
+        scanExpression.projectionExpression = "My_num, C_status, Duty, E_date, E_num, J_status, L_length, L_link_img, L_link_video, L_name, Lecture_num, S_cate_num, U_length, W_date"
+        scanExpression.expressionAttributeValues = [":E_num":Int(truncating: e_num)]
+        let dynamoDbObjectMapper = AWSDynamoDBObjectMapper.default()
+        dynamoDbObjectMapper.scan(My_Lec_List.self, expression: scanExpression).continueWith(block: { (task:AWSTask!) -> AnyObject? in
+            if task.result != nil {
+                let paginatedOutput = task.result! as AWSDynamoDBPaginatedOutput
+                for item in paginatedOutput.items as! [My_Lec_List] {
+                    for key in fromLectures.keys {
+                        if fromLectures[key] == nil {
+                            toLectures[key] = fromLectures[key]
+                            continue
+                        }
+                        var temp = [Any]()
+                        for data in fromLectures[key]! {
+                            if (data as AnyObject)._Lecture_num == item._Lecture_num {
+                                print("same!!", key, (data as AnyObject)._Lecture_num, item._Lecture_num)
+                                temp.append(item)
+                                print(toLectures)
+                            } else {
+                                temp.append(data)
+                            }
+                        }
+                        toLectures[key] = temp
+                    }
+                }
+                print("resolved item....", toLectures)
+            }
+            if ((task.error) != nil) {
+                print("Error: \(String(describing: task.error))")
+            }
+            return nil
+        })
+    }
 }
+
+

@@ -2910,7 +2910,7 @@
         <scene sceneID="Y4X-tB-vs5">
             <objects>
                 <viewController id="kPf-sB-FMN" customClass="MyListTwoViewController" customModule="NewShinple" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" ambiguous="YES" id="jTX-Ew-fMb">
+                    <view key="view" contentMode="scaleToFill" id="jTX-Ew-fMb">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>

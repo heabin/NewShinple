@@ -10,7 +10,7 @@ import UIKit
 import XLPagerTabStrip
 
 class VideoDetailTabViewController: ButtonBarPagerTabStripViewController {
-
+    
     override func viewDidLoad() {
         self.loadDesign()
         super.viewDidLoad()
