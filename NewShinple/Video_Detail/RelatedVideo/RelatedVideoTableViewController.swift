@@ -74,6 +74,12 @@ class RelatedVideoTableViewController: UITableViewController, UISearchBarDelegat
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let gotovideodetail: UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "VideoDetailSID")
+        
+        self.present(gotovideodetail, animated: true, completion: nil)
+    }
+    
     
     //---------- 좋아요 클릭/해제 ----------//
     @objc func setFavorite(_ sender: UIButton) {

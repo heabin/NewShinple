@@ -64,6 +64,7 @@ class VideoDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print("videoDetailView")
         // 그냥 작은 화면일때 기준이 되는 뷰를 한개 더 만들었음
         //SmallView.isHidden = true
         

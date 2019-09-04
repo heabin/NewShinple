@@ -53,6 +53,21 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate {
         return 1
     }
 
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        let row = indexPath.row
+        
+        if (selectedButton == false) {
+            if row == 0{
+                return 40
+            }else {
+                return 50
+            }
+        } else {
+            return 120
+        }
+        
+    }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (selectedButton == false) {
             if searching{

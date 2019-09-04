@@ -120,7 +120,7 @@ class MoreTabTableViewController: UITableViewController, UIImagePickerController
             let cell  = self.tableView.dequeueReusableCell(withIdentifier: cellIdentifier1, for: indexPath) as! MoreTabTableViewCell1
             
             cell.company.text = "신한DS"
-            cell.deptAndPosition.text = "그룹솔루션" + "선임"
+            cell.deptAndPosition.text = "그룹솔루션" + "  " + "선임"
             //cell.position.text = "선임"
             cell.name.text = "김신한"
             

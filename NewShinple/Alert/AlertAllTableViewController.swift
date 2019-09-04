@@ -12,7 +12,7 @@ import XLPagerTabStrip
 class AlertAllTableViewController: UITableViewController {
     
     var flag = [Bool](repeating: false, count: 4)
-    let colorLightGray = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
+    let colorLightGray = UIColor(red: 220/255, green: 220/255, blue: 220/255, alpha: 1)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +43,7 @@ class AlertAllTableViewController: UITableViewController {
             cell.lblDate.text = "19.09.09"
             if(flag[indexPath.row]){
                 cell.backgroundColor = colorLightGray
+                cell.lblTitle.textColor = .darkGray
             }
             
         } else if row == 1 {
@@ -51,6 +52,7 @@ class AlertAllTableViewController: UITableViewController {
             cell.lblDate.text = "19.09.08"
             if(flag[indexPath.row]){
                 cell.backgroundColor = colorLightGray
+                cell.lblTitle.textColor = .darkGray
             }
             
         } else {
@@ -59,9 +61,9 @@ class AlertAllTableViewController: UITableViewController {
             cell.lblDate.text = "19.09.07"
             if(flag[indexPath.row]){
                 cell.backgroundColor = colorLightGray
+                cell.lblTitle.textColor = .darkGray
             }
         }
-        
         
         return cell
     }
