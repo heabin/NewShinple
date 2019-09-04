@@ -117,8 +117,8 @@ class VideoDetailViewController: UIViewController {
             
             //CGRect(x: 0, y: 0, width: videoView.frame.width, height: videoView.frame.height)
             
-            player?.play()
-            isPlaying = true
+            player?.pause()
+            isPlaying = false
             player?.addObserver(self, forKeyPath: "currentItem.loadedTimeRanges", options: .new, context: nil)
             NotificationCenter.default.addObserver(self, selector: #selector(playerDidFinishPlaying), name: .AVPlayerItemDidPlayToEndTime, object: nil)
           
@@ -135,7 +135,6 @@ class VideoDetailViewController: UIViewController {
                 self?.lblCurrentTime.text = self?.getTimeString(from: currentItem.currentTime())
             })
             
-            print("강의불러와라")
         }
     }
     
@@ -161,7 +160,7 @@ class VideoDetailViewController: UIViewController {
         btnRewind.setImage(UIImage(named: "icons8-replay-10-100"), for: .normal)
         btnRewind.tintColor = .white
         btnPlayPause.translatesAutoresizingMaskIntoConstraints = false
-        btnPlayPause.setImage(UIImage(named: "icons8-pause-100"), for: .normal)
+        btnPlayPause.setImage(UIImage(named: "icons8-play-100"), for: .normal)
         btnPlayPause.tintColor = .white
         btnForward.translatesAutoresizingMaskIntoConstraints = false
         btnForward.setImage(UIImage(named: "icons8-forward-10-100"), for: .normal)
@@ -186,14 +185,16 @@ class VideoDetailViewController: UIViewController {
     }
     
     
-    
     // MARK: - 함수
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "currentItem.loadedTimeRanges" {
+            // 동영상 로딩완료
             activityIndicatorView.stopAnimating()
             activityIndicatorView.isHidden = true
             videoView.backgroundColor = .clear
-            isPlaying = true
+            
+            isControlOn = false
+            controlOnOff()
             
             if let duration = player?.currentItem?.duration {
                 let secondsText = getTimeString(from: duration)
@@ -316,6 +317,7 @@ class VideoDetailViewController: UIViewController {
     }
     
     @IBAction func PlayPause(_ sender: UIButton) {
+        print("처음 재생 누름 \(isPlaying)")
         if isPlaying {
             player?.pause()
             btnPlayPause.setImage(UIImage(named: "icons8-play-100"), for: .normal)
@@ -371,12 +373,16 @@ class VideoDetailViewController: UIViewController {
         print("강의끝********")
         EvaluationView.isHidden = false
         EvaluationView.layer.zPosition = 1
+        
     }
     
     @IBAction func BadEvaluation(_ sender: UIButton) {
         print("강의 별로에요")
         btnBad.setImage(UIImage(named: "bad_fill"), for: .normal)
         btnBad.tintColor = .white
+        
+        btnNormal.isEnabled = false
+        btnGood.isEnabled = false
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
             self.closeEvaluation()
@@ -388,6 +394,10 @@ class VideoDetailViewController: UIViewController {
         btnNormal.setImage(UIImage(named: "normal_fill"), for: .normal)
         btnNormal.tintColor = .white
         
+        btnBad.isEnabled = false
+        btnGood.isEnabled = false
+        
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
             self.closeEvaluation()
         })
@@ -397,6 +407,9 @@ class VideoDetailViewController: UIViewController {
         print("강의 최고에요")
         btnGood.setImage(UIImage(named: "good_fill"), for: .normal)
         btnGood.tintColor = .white
+        
+        btnBad.isEnabled = false
+        btnNormal.isEnabled = false
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
             self.closeEvaluation()
@@ -426,7 +439,6 @@ class VideoDetailViewController: UIViewController {
     // 레이어의 사이즈를 비디오뷰에 맞춘다
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-//        print("s")
         layer.frame = videoView.bounds
         playerLayer.frame = videoView.bounds
 //        gradientLayer.frame = videoView.bounds
