@@ -37,6 +37,7 @@ class HomeMoreTableViewCell2: UITableViewCell {
         lblVideoTime.textColor = .white
         
         
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

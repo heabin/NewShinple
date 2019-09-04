@@ -11,12 +11,8 @@ import UIKit
 
 class QuestionTableViewController: UITableViewController {
 
-    let send = UIImage(named: "send")
-    let recive = UIImage(named: "send2")
     var flag = [Bool](repeating: false, count: 4)
-    // 클릭 시 변환되는 이미지(Alert 종)
-    let image : UIImage? = UIImage.init(named: "alert_push.png")!.withRenderingMode(.alwaysOriginal)
-    
+    let colorLightGray = UIColor(red: 220/255, green: 220/255, blue: 220/255, alpha: 1)
 
     // MARK: - Table view data source
     
@@ -43,27 +39,25 @@ class QuestionTableViewController: UITableViewController {
             cell.lblTitle.text = "받은쪽지"
             cell.lblContent.text = "안녕하세요. 문의사항 답변드립니다."
             cell.lblDate.text = "19.09.09  09:05"
-            cell.imgState.image = send
             if(flag[indexPath.row]){
-                cell.imgState.image = image
+                cell.backgroundColor = colorLightGray
+                cell.lblTitle.textColor = .darkGray
             }
-            
         } else if row == 1 {
             cell.lblTitle.text = "받은쪽지"
             cell.lblContent.text = "안녕하세요. 문의사항 답변드립니다."
             cell.lblDate.text = "19.09.08  15:03"
-            cell.imgState.image = send
             if(flag[indexPath.row]){
-                cell.imgState.image = image
+                cell.backgroundColor = colorLightGray
+                cell.lblTitle.textColor = .darkGray
             }
-            
         } else {
             cell.lblTitle.text = "보낸쪽지"
             cell.lblContent.text = "동영상 재생이 되지 않아요. 개발을 이런식으로"
             cell.lblDate.text = "19.09.01   13:01"
-            cell.imgState.image = recive
             if(flag[indexPath.row]){
-                cell.imgState.image = image
+                cell.backgroundColor = colorLightGray
+                cell.lblTitle.textColor = .darkGray
             }
         }
         
@@ -76,11 +70,12 @@ class QuestionTableViewController: UITableViewController {
         
         let segueIdentifier = "QuestionDetail"
         
-        // 눌렀을 때는 이미지가 회색으로
         if(!flag[indexPath.row]) {
             flag[indexPath.row] = true
         }
         tableView.reloadData()
+        
+        
         
         
         self.performSegue(withIdentifier: segueIdentifier, sender: self)
