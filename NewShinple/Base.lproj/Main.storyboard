@@ -2548,6 +2548,7 @@
         <!--Video Detail View Controller-->
         <scene sceneID="mS5-9e-UZK">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="P31-FC-dYv" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="VideoDetailSID" id="v5l-vu-14c" customClass="VideoDetailViewController" customModule="NewShinple" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ePP-cb-96e">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -2773,7 +2774,7 @@
                                     <containerView opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aU0-xx-gOm">
                                         <rect key="frame" x="0.0" y="231" width="414" height="585"/>
                                         <connections>
-                                            <segue destination="s6c-kM-PV6" kind="embed" id="R7e-Ve-v8t"/>
+                                            <segue destination="s6c-kM-PV6" kind="embed" identifier="containerViewSegue" id="R7e-Ve-v8t"/>
                                         </connections>
                                     </containerView>
                                 </subviews>
@@ -2816,14 +2817,13 @@
                         <outlet property="btnNormal" destination="GVd-bX-pw2" id="xAk-1Z-wDP"/>
                         <outlet property="btnPlayPause" destination="7J8-sB-Spr" id="aWR-Sb-6Zo"/>
                         <outlet property="btnRewind" destination="kA9-UE-YHK" id="DFk-Ac-ZT7"/>
-                        <outlet property="containerView" destination="aU0-xx-gOm" id="ZT9-I6-Yjg"/>
+                        <outlet property="containerView" destination="aU0-xx-gOm" id="OSj-sb-Rp3"/>
                         <outlet property="lblCurrentTime" destination="rg5-Qb-AFy" id="0Lg-WP-Sp3"/>
                         <outlet property="lblVideoLength" destination="tCa-hI-d1f" id="ViA-TT-B36"/>
                         <outlet property="videoSlider" destination="fFK-EL-AyZ" id="Pb6-DT-4zP"/>
                         <outlet property="videoView" destination="QIk-Nr-Wrh" id="Wmp-0s-1Bz"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="P31-FC-dYv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1589.8550724637682" y="831.69642857142856"/>
         </scene>
@@ -2980,7 +2980,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DXY-lF-HzE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2590" y="908"/>
+            <point key="canvasLocation" x="2528" y="832"/>
         </scene>
         <!--New Video Info View Controller-->
         <scene sceneID="O6s-Qe-t0V">

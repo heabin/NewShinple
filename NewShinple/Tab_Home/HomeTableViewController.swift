@@ -320,6 +320,8 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
     
     
     override func viewDidLoad() {
+        
+        
         super.viewDidLoad()
         print("kisung0")
         // data 받는동안 loading page
@@ -639,25 +641,25 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
 //            let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "VideoDetailSID")
 //            UIApplication.topViewController()!.present(viewController, animated: true, completion: nil)
         
-        let sampleLecture:LECTURE = LECTURE()
-        sampleLecture._Lecture_num = 11002
-        sampleLecture._Duty = true
-        sampleLecture._E_date = "2019-07-01"
-        sampleLecture._L_cate = "필수"
-        sampleLecture._L_content = "지체장애인은 체육 활동을 즐기지 않을 거라는 비장애인의 잘못된 생각 때문에 오히려 상처받는 지체장애인의 현실 등 비장애인이 지체장애에 대해 가지는 편견을 바로잡는 우리가 몰랐던 이야기"
-        sampleLecture._L_count = 312
-        sampleLecture._L_length = 1000
-        sampleLecture._L_link_img = "https://shinpleios.s3.us-east-2.amazonaws.com/Culture/Cook/image/Chap1.png"
-        sampleLecture._L_link_video = "https://shinpleios.s3.us-east-2.amazonaws.com/Culture/Cook/video/Chap2.mp4"
-        sampleLecture._L_name = "지장애인식 개선"
-        sampleLecture._L_rate = 3
-        sampleLecture._L_teacher = "김병기"
-        sampleLecture._S_cate = "장애인인식개선"
-        sampleLecture._S_cate_num = 11000
-        sampleLecture._U_date = "2019-06-01"
+//        let sampleLecture:LECTURE = LECTURE()
+//        sampleLecture._Lecture_num = 11002
+//        sampleLecture._Duty = true
+//        sampleLecture._E_date = "2019-07-01"
+//        sampleLecture._L_cate = "필수"
+//        sampleLecture._L_content = "지체장애인은 체육 활동을 즐기지 않을 거라는 비장애인의 잘못된 생각 때문에 오히려 상처받는 지체장애인의 현실 등 비장애인이 지체장애에 대해 가지는 편견을 바로잡는 우리가 몰랐던 이야기"
+//        sampleLecture._L_count = 312
+//        sampleLecture._L_length = 1000
+//        sampleLecture._L_link_img = "https://shinpleios.s3.us-east-2.amazonaws.com/Culture/Cook/image/Chap1.png"
+//        sampleLecture._L_link_video = "https://shinpleios.s3.us-east-2.amazonaws.com/Culture/Cook/video/Chap2.mp4"
+//        sampleLecture._L_name = "지장애인식 개선"
+//        sampleLecture._L_rate = 3
+//        sampleLecture._L_teacher = "김병기"
+//        sampleLecture._S_cate = "장애인인식개선"
+//        sampleLecture._S_cate_num = 11000
+//        sampleLecture._U_date = "2019-06-01"
         
         let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "VideoDetailSID") as! VideoDetailViewController
-        viewController.LectureDetail = sampleLecture
+        viewController.LectureDetail = lecture
         UIApplication.topViewController()!.present(viewController, animated: true, completion: nil)
         
     }
@@ -836,7 +838,11 @@ extension UICollectionView {
         
         print("클릭클릭===============")
         let test1 = collectionView as! Home2CollectionView
+<<<<<<< HEAD
         //        print(test1.recent[indexPath.item])
+=======
+//        print(test1.recent[indexPath.item])
+>>>>>>> 6d7994ddd688534525a9ceaa6d958643a2eb1a60
         
         HomeTableViewController().goToDetailPage(lecture: test1.recent[indexPath.item] as! LECTURE)
     }

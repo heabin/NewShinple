@@ -10,6 +10,7 @@ import UIKit
 import AVFoundation
 import AWSDynamoDB
 
+
 class VideoDetailViewController: UIViewController {
     
     // 강의 url
@@ -63,10 +64,18 @@ class VideoDetailViewController: UIViewController {
     
     var LectureDetail:LECTURE = LECTURE()
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let containerVC = segue.destination as! VideoDetailTabViewController
+        
+        if segue.identifier == "containerViewSegue"{
+            containerVC.lecture = LectureDetail
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("==================\(LectureDetail._Duty)=================")
+        print("========어디보자==========\(LectureDetail)=================")
         //self.dbGetLectureDetail(lecture: LectureDetail, employeeNum:1100012)
         
         print("videoDetailView viewDidLoad")
@@ -598,6 +607,7 @@ class VideoDetailViewController: UIViewController {
             return nil
         })
     }
+    
 }
 
 

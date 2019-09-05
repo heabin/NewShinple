@@ -16,12 +16,20 @@ class NewVideoInfoViewController: UIViewController {
     @IBOutlet weak var lblUploadDate: UILabel!
     @IBOutlet weak var lblDueDate: UILabel!
     
+    var lecture:LECTURE = LECTURE()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        tvVideoInfo.isEditable = false
         
+        lblVideoTitle.text = lecture._L_name
+        lblUploadDate.text = lecture._U_date
+        lblDueDate.text = lecture._E_date
+        tvVideoInfo.text = lecture._L_content
+        
+        tvVideoInfo.isEditable = false
         tvVideoInfo.isScrollEnabled = true
         resize(textView: tvVideoInfo)
+        
     }
     
     fileprivate func resize(textView: UITextView) {
