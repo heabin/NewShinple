@@ -454,9 +454,9 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
                     
                 //let cell = HomeTableViewCell3()
                     
-                if indexPath.row == 2 {
-                    cell.backgroundColor = .black
-                }
+//                if indexPath.row == 2 {
+//                    cell.backgroundColor = .black
+//                }
                 print("EEEEEEunchae")
                 print(indexPath.row, self.MainTitle, cell, self.MainTitle[indexPath.row])
                 print(cell.lblCategory.text)
@@ -838,11 +838,7 @@ extension UICollectionView {
         
         print("클릭클릭===============")
         let test1 = collectionView as! Home2CollectionView
-<<<<<<< HEAD
-        //        print(test1.recent[indexPath.item])
-=======
 //        print(test1.recent[indexPath.item])
->>>>>>> 6d7994ddd688534525a9ceaa6d958643a2eb1a60
         
         HomeTableViewController().goToDetailPage(lecture: test1.recent[indexPath.item] as! LECTURE)
     }
