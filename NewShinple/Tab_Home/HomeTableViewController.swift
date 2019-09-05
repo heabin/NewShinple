@@ -13,9 +13,11 @@ import AWSDynamoDB
 
 
 class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UITabBarControllerDelegate{
-
-    //var Firstcategories = [String]()
-    //var SecondCategories = [[String]]()
+    
+    
+    
+    
+    
     @IBOutlet var alertView: UIView!
     @IBOutlet weak var lblMessage: UILabel!
     
@@ -41,7 +43,7 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
     
     // main data(default), MainTitle은 3번째부터
     var userName = "권민재"
-    var MainTitle = ["마이페이지", "최근시청강의", "필수 강의", "인기 강의", "신규 강의" ,"[대분류1] ICT개발", "[대분류2] 인프라", "[대분류3] 정보보안"]
+    var MainTitle = ["마이페이지", "최근시청강의", "필수 강의", "인기 강의", "신규 강의", "개발", "금융", "문화", "외국어", "육아", "자격증"]
     
     
     @IBOutlet var ItemCollectionView: UITableView!
@@ -68,7 +70,7 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
             }
             if output != nil {
                 let data = output!.items.self[0] as! LEC_CATE
-                let firstCategory: [String] = ["전체", "개발", "금융", "문화", "외국어", "육아", "자격증", "필수"]
+                let firstCategory: [String] = ["전체", "개발", "금융", "문화", "외국어", "육아", "자격증"]
                 var secondCategory = [[String]]()
                 secondCategory.append(parseListData(beforeParsed:data._개발 as! NSArray))
                 secondCategory.append(parseListData(beforeParsed:data._금융 as! NSArray))
@@ -394,52 +396,78 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
     
     
     
+//    func cellForRow(at indexPath: IndexPath) -> UITableViewCell? {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "RxCell") as? RxCell
+//        cell.SomeObservable.bind(onNext: { newValue in
+//
+//            tableView.beginUpdates()
+//            doSomethingWith(newValue)
+//            tableView.endUpdates()
+//            }
+//            .disposed(by:cell.disposeBag) // newLines2
+//    }
+    // newLines2
+//    func tableView(_: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt _: IndexPath) {
+//        guard let cell = cell as? RxCell else { return }
+//        cell.disposeBag = DisposeBag()
+//    }
+
+
     
     //----------Soritng case 적용----------//
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let row = indexPath.row
+        var row = indexPath.row
         
         //----------대분류: 전체, 소분류: 전체 - Sorting case: 0
         if sortingCase == 0 {
             print("sorting=0")
             
             if row == 0 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "HomeTableViewCell1") as! HomeTableViewCell1
+                let cell = tableView.dequeueReusableCell(withIdentifier: "HomeTableViewCell1", for: indexPath) as! HomeTableViewCell1
                 
                 cell.lblFirst.text = "대분류"
                 cell.lblSecond.text = "소분류"
                 cell.btnFirst.addTarget(self, action: #selector(goToFirstCategory), for: .touchUpInside)
                 cell.btnSecond.addTarget(self, action: #selector(goToSecondCategoryEmpty), for: .touchUpInside)
-                
-                
-                
+
                 return cell
+                
             }else if row == 1 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "HomeTableViewCell2") as! HomeTableViewCell2
+                let cell = tableView.dequeueReusableCell(withIdentifier: "HomeTableViewCell2", for: indexPath) as! HomeTableViewCell2
+                //tableView.deleteRows(at: <#T##[IndexPath]#>, with: UITableView.RowAnimation)
+                //tableView.dequeueReusableCell(withIdentifier: <#T##String#>, for: <#T##IndexPath#>)
                 
                 cell.lblName.text = userName
                 cell.lblCategory.text = "님의 최근시청 강의입니다."
-                
-                
-                
-                cell.btnMore.tag = row
+
+                cell.btnMore.tag = indexPath.row
                 cell.btnMore.addTarget(self, action: #selector(goToVideoList(_:)), for: .touchUpInside)
-                
+
                 return cell
             }else {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "HomeTableViewCell3") as! HomeTableViewCell3
                 
-                cell.lblCategory.text = MainTitle[indexPath.row]
+                let cell = tableView.dequeueReusableCell(withIdentifier: "HomeTableViewCell3", for: indexPath) as! HomeTableViewCell3
+                    
+                //let cell = HomeTableViewCell3()
+                    
+                if indexPath.row == 2 {
+                    cell.backgroundColor = .black
+                }
+                print("EEEEEEunchae")
+                print(indexPath.row, self.MainTitle, cell, self.MainTitle[indexPath.row])
+                print(cell.lblCategory.text)
+                cell.lblCategory.text = self.MainTitle[indexPath.row]
                 cell.collectionView.tag = indexPath.row
                 
-                cell.btnMore.tag = row
-                cell.btnMore.addTarget(self, action: #selector(goToVideoList(_:)), for: .touchUpInside)
-                
+                cell.btnMore.tag = indexPath.row
+                cell.btnMore.addTarget(self, action: #selector(self.goToVideoList(_:)), for: .touchUpInside)
+                print("eunchae hello")
+            
                 return cell
             }
-        
+                
             
         //----------대분류: 선택, 소분류: 전체 - Sorting case: 1
         } else if sortingCase == 1{
@@ -527,6 +555,7 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
         }
         
     }
+
     
     
     
@@ -606,7 +635,7 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
     //---------- SID를 통한 페이지 이동 ----------//
     
     // 강의 상세보기(재생) 페이지
-    func goToDetailPage() {
+    func goToDetailPage(lecture: LECTURE) {
 //            let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "VideoDetailSID")
 //            UIApplication.topViewController()!.present(viewController, animated: true, completion: nil)
         
@@ -805,8 +834,13 @@ extension UICollectionView {
     
     @objc(collectionView:didSelectItemAtIndexPath:) func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        HomeTableViewController().goToDetailPage()
+        print("클릭클릭===============")
+        let test1 = collectionView as! Home2CollectionView
+        //        print(test1.recent[indexPath.item])
+        
+        HomeTableViewController().goToDetailPage(lecture: test1.recent[indexPath.item] as! LECTURE)
     }
+    
     
     func timeIntToString(from time: Int) -> String {
         

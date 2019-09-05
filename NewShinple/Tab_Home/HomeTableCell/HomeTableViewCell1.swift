@@ -24,6 +24,7 @@ class HomeTableViewCell1: UITableViewCell, selectCategoryDelegate {
         btnFirst.layer.zPosition = 1
         btnSecond.layer.zPosition = 1
     }
+    
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

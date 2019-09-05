@@ -34,6 +34,53 @@ class Home2CollectionView: UICollectionView, UICollectionViewDelegate, UICollect
     
     var recent = [Any]()
     
+    func dbGetRecentLectures(e_num: NSNumber) {
+        let scanExpression = AWSDynamoDBScanExpression()
+        scanExpression.filterExpression = "E_num = :E_num"
+        scanExpression.projectionExpression = "My_num, C_status, Duty, E_date, E_num, J_status, L_length, L_link_img, L_link_video, L_name, S_cate_num, U_length, Lecture_num, L_content"
+        scanExpression.expressionAttributeValues = [":E_num":Int(truncating: e_num)]
+        let dynamoDbObjectMapper = AWSDynamoDBObjectMapper.default()
+        dynamoDbObjectMapper.scan(My_Lec_List.self, expression: scanExpression).continueWith(block: { (task:AWSTask!) -> AnyObject? in
+            if task.result != nil {
+                let paginatedOutput = task.result! as AWSDynamoDBPaginatedOutput
+                var indexAry = [Double]()
+                let formatter = DateFormatter()
+                var lectureMy = [My_Lec_List]()
+                formatter.dateFormat = "yyyy-MM-dd"
+                let today = Date()
+                for item in paginatedOutput.items as! [My_Lec_List] {
+                    if item._U_length == 0 {
+                        continue
+                    }
+                    let upload = formatter.date(from: item._W_date!)
+                    let interval = upload?.timeIntervalSince(today) as! Double
+                    var inserted = false
+                    var index = 0
+                    for indexItem in indexAry {
+                        if interval >= indexItem {
+                            lectureMy.insert(item, at: index)
+                            indexAry.insert(interval, at: index)
+                            inserted = true
+                            break
+                        }
+                        index += 1
+                    }
+                    if !inserted {
+                        lectureMy.append(item)
+                        indexAry.append(interval)
+                    }
+                    print("hash")
+                }
+                print(lectureMy)
+            }
+            if ((task.error) != nil) {
+                print("Error: \(String(describing: task.error))")
+            }
+            return nil
+        })
+    }
+    
+    
     func dbGetMyLecturesFromMainLectures(e_num:NSNumber, fromLectures:[String:[Any]]) {
         var toLectures = [String:[Any]]()
         let scanExpression = AWSDynamoDBScanExpression()
@@ -213,11 +260,6 @@ class Home2CollectionView: UICollectionView, UICollectionViewDelegate, UICollect
         
     }
     
-//    override func reloadData() {
-//        self.reloadData()
-//    }
-    
-    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -228,8 +270,18 @@ class Home2CollectionView: UICollectionView, UICollectionViewDelegate, UICollect
         }
         return 10
     }
+
+    
+//    override func reloadData() {
+//        self.reloadData()
+//    }
+    
+    
+
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        print("start cellForItemAt")
         
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Home2CollectionViewCell", for: indexPath) as! Home2CollectionViewCell

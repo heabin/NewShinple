@@ -14,5 +14,14 @@ class HomeTableViewCell3: UITableViewCell {
     @IBOutlet weak var btnMore: UIButton!
     @IBOutlet weak var collectionView: Home3CollectionView!
     
+    //var disposeBag = DisposeBag()
+    
+    override func prepareForReuse() {
+        print("HomeTableVIewCell3_prepareForReuse----------")
+    //    disposeBag = DisposeBag()
+    }
+    
+    
+    
 
 }

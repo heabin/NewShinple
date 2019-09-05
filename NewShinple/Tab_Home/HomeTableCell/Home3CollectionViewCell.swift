@@ -16,11 +16,21 @@ class Home3CollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imgCheck: UIImageView!
     
     override func awakeFromNib() {
+        print("eunchae1")
         imgCheck.isHidden = true
         
         lblVideoTime.font = UIFont.boldSystemFont(ofSize: 12)
         lblVideoTime.backgroundColor = .black
         lblVideoTime.textColor = .white
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        //        imgVideo.image = nil
+        //        lblTitle.text = "준비중"
+        print("collectionview2 prepareForReuse")
+        self.reloadInputViews()
     }
     
 }
