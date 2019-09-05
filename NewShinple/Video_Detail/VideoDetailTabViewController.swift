@@ -9,21 +9,29 @@
 import UIKit
 import XLPagerTabStrip
 
-class VideoDetailTabViewController: ButtonBarPagerTabStripViewController {
+
+class VideoDetailTabViewController: ButtonBarPagerTabStripViewController{
+    
+    var lecture:LECTURE = LECTURE()
     
     override func viewDidLoad() {
         self.loadDesign()
         super.viewDidLoad()
+        print("VideoDetailTabViewController \(lecture)")
     }
     
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
         
-        let child_1 = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "NewVideoInfoSID")
+        let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "VideoDetailSID") as! VideoDetailViewController
+        
+        let child_1 = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "NewVideoInfoSID")  as! NewVideoInfoViewController
+        child_1.lecture = self.lecture
         let child_2 = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "RelatedVideoSID")
         let child_3 = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "VideoCommentSID")
         
         return [child_1 ,child_2 ,child_3]
     }
+    
     
     func loadDesign() {
         self.settings.style.selectedBarHeight = 1
