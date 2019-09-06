@@ -49,120 +49,84 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
     @IBOutlet var ItemCollectionView: UITableView!
     
     // First: 대분류, Second: 소분류
-    func dbGetLecCate() {
-        func parseListData(beforeParsed:NSArray) -> [String] {
-            var parsed: [String] = []
-            parsed.append("전체")
-            for item in beforeParsed {
-                parsed.append(item as! String)
-            }
-            return parsed
-        }
-        
-        let queryExpression = initQueryExpression()
-        queryExpression.keyConditionExpression = "#LECTURE = :lecture"
-        queryExpression.expressionAttributeNames = ["#LECTURE":"LECTURE"]
-        queryExpression.expressionAttributeValues = [":lecture":"lecture"]
-        let dynamoDbObjectMapper = AWSDynamoDBObjectMapper.default()
-        dynamoDbObjectMapper.query(LEC_CATE.self, expression: queryExpression) { (output: AWSDynamoDBPaginatedOutput?, error: Error?) in
-            if error != nil {
-                print("The request failed. Error: \(String(describing: error))")
-            }
-            if output != nil {
-                let data = output!.items.self[0] as! LEC_CATE
-                let firstCategory: [String] = ["전체", "개발", "금융", "문화", "외국어", "육아", "자격증"]
-                var secondCategory = [[String]]()
-                secondCategory.append(parseListData(beforeParsed:data._개발 as! NSArray))
-                secondCategory.append(parseListData(beforeParsed:data._금융 as! NSArray))
-                secondCategory.append(parseListData(beforeParsed:data._문화 as! NSArray))
-                secondCategory.append(parseListData(beforeParsed:data._외국어 as! NSArray))
-                secondCategory.append(parseListData(beforeParsed:data._육아 as! NSArray))
-                secondCategory.append(parseListData(beforeParsed:data._자격증 as! NSArray))
-                secondCategory.append(parseListData(beforeParsed:data._필수 as! NSArray))
-                //                self.lec_cate = secondCategory
-                self.Firstcategories = firstCategory
-                self.SecondCategories = secondCategory
-                print(firstCategory, "after")
-                print(secondCategory, "after")
-            }
-        }
-    }
-    
-    func initQueryExpression() -> AWSDynamoDBQueryExpression {
-        let queryExpression = AWSDynamoDBQueryExpression()
-        queryExpression.expressionAttributeNames = [String:String]()
-        queryExpression.expressionAttributeValues = [String:Any]()
-        return queryExpression
-    }
     
     
-    var Firstcategories = ["전체", "개발","금융","문학","어학","육아","자격증","필수강의"]
+    var Firstcategories = ["전체", "개발", "금융", "문화", "외국어", "육아", "자격증", "필수강의"]
 
     var SecondCategorieEmpty = ["----------"]
-    var SecondCategories = [["전체","ICT","인프라","정보보안"],
-                          ["전체","금융1","금융2","금융3"],
-                          ["전체","문학1","문학2","문학3"],
-                          ["전체","어학1","어학2","어학3"],
-                          ["전체","육아1","육아2","육아3"],
-                          ["전체","자격증1","자격증2","자격증3"],
-                          ["전체","필수강의1","필수강의2","필수강의3"]]
-
+    var SecondCategories = [["전체","C언어","CSS","HTML", "JAVA", "Python"],
+                          ["전체","부동산","펀드","주식"],
+                          ["전체","문화","요리","건강", "스포츠"],
+                          ["전체","중국어","영어","독일어", "일본어", "스페인어"],
+                          ["전체","유아교육","임신과출산","태교"],
+                          ["전체","ADSP","AWS","IELTS","SQLD","TOEIC"],
+                          ["전체","장애인식개선","소방안전","개인정보보호","성폭력예방"]]
     
 
-    
-    func setSampleRecentData() -> [My_Lec_List] {
-        var sample = [My_Lec_List]()
-        var index = 0
-        
-        for _ in 0..<15 {
-            var lectureSample = My_Lec_List()
-            
-            lectureSample?._My_num = index as NSNumber
-            index += 1
-            
-            lectureSample?._Lecture_num = 11003
-            lectureSample?._S_cate_num = 10000
-            
-            lectureSample?._Duty = 1
-            lectureSample?._C_status = 0
-            lectureSample?._J_status = 0
-            
-            lectureSample?._L_name = "세상에 나쁜 개는 없다"
-            lectureSample?._L_length = 1000
-            lectureSample?._L_link_img =  "https://shinpleios.s3.us-east-2.amazonaws.com/Infant/Edu/image/Chap1.png"
-            lectureSample?._L_link_video = "https://shinpleios.s3.us-east-2.amazonaws.com/Culture/Cook/video/Chap1.mp4"
-            lectureSample?._E_date = "2019-09-19"
-            
-            lectureSample?._U_length = 200
-            lectureSample?._W_date = "2019-09-30"
-            
-            sample.append(lectureSample!)
-        }
-        
-        
-        return sample
-    }
-    
-    
-    // for 더보기 페이지
-    var titles:[String] = []
-    var imgurls:[URL] = []
-    var videoRates:[Float] = []
-    var contents:[String] = []
-    var videoTimes:[Int] = []
-    var favorites:[Bool] = []
-    
-    
-    
-    
-    
-    
     // 그림
     
     let heartEmpty = UIImage(named: "heart_empty.png")
     let heartFill = UIImage(named: "heart_fill.png")
     let alert_none = UIImage.init(named: "alert.png")!.withRenderingMode(.alwaysOriginal)
     let alert_push = UIImage.init(named: "alert_push.png")!.withRenderingMode(.alwaysOriginal)
+    
+    
+    // 분류 선택시 타이틀
+    var titles:[String] = ["", "제1강. 어서와 C언어는 처음이지!",
+                            "제2강. 어서와 C언어는 처음이지!",
+                            "제1강. AWS 시스템 설계와 마이그레이션",
+                            "제2강. AWS 시스템 설계와 마이그레이션",
+                            "제3강. AWS 시스템 설계와 마이그레이션",
+                            "제1강. 나도 이제 데이터 분석 준전문가",
+                            "제2강. 나도 이제 데이터 분석 준전문가"]
+    var imgurls:[URL] = [URL(string: "https://shinpleios.s3.us-east-2.amazonaws.com/Certi/ADSP/image/Chap2.png")!,
+                         URL(string: "https://shinpleios.s3.us-east-2.amazonaws.com/Develop/C/image/Chap1.png")!,
+                         URL(string: "https://shinpleios.s3.us-east-2.amazonaws.com/Develop/C/image/Chap3.png")!,
+                         URL(string: "https://shinpleios.s3.us-east-2.amazonaws.com/Certi/AWS/image/Chap1.png")!,
+                         URL(string: "https://shinpleios.s3.us-east-2.amazonaws.com/Certi/AWS/image/Chap2.png")!,
+                         URL(string: "https://shinpleios.s3.us-east-2.amazonaws.com/Certi/AWS/image/Chap3.png")!,
+                         URL(string: "https://shinpleios.s3.us-east-2.amazonaws.com/Certi/ADSP/image/Chap1.png")!,
+                         URL(string: "https://shinpleios.s3.us-east-2.amazonaws.com/Certi/ADSP/image/Chap2.png")!]
+    var videoRates:[Float] = [0, 1, 0.7, 0.2, 0, 0.3, 0, 0]
+    var contents:[String] = ["", "C 언어를 처음 시작하는 출발선은 같지만 C 언어 문법 하나하나가",
+                            "초보자들을 위한 쉽게 설명하는 C프로그래밍 가이드",
+                            "가장 강력한 클라우드 서비스를 경험하기 위한 최고의 AWS 가이드클라우드나",
+                            "클라우드나 AWS를 직접 배우고 싶다면, 실질적으로 구성해보는 예제가 궁금하다면",
+                            "AWS와 서비스 운영에 첫걸음을 내디딜 수 있게 도와준다!",
+                            "『데이터 분석 전문가 가이드(ADP)(ADSP)』는 데이터 분석 전문가 양성을 위한",
+                            "한국데이터베이스진흥원에서 실시하고 있는 데이터 분석 전문가 자격증"]
+    var videoTimes:[Int] = [0, 2000, 5200, 2500, 6030, 6700, 5300, 1800, 4300]
+    var favorites:[Bool] = [true, true, true, false, false, true, true, true]
+    
+    
+    //개발 소분류 선택시
+    var titles2:[String] = ["", "제1강. 초보자를 위한 파이썬",
+                           "제2강. 초보자를 위한 파이썬",
+                           "제1강. Python과 Pygame으로 게임 만들기 ",
+                           "제2강. Python과 Pygame으로 게임 만들기 ",
+                           "제3강. Python과 Pygame으로 게임 만들기 ",
+                           "제1강. 나도 이제 데이터 분석 준전문가",
+                           "제2강. 나도 이제 데이터 분석 준전문가"]
+    var imgurls2:[URL] = [URL(string: "https://shinpleios.s3.us-east-2.amazonaws.com/Develop/Python/image/Chapp4.png")!,
+                          URL(string: "https:/shinpleios.s3.us-east-2.amazonaws.com/Develop/Python/image/Chapp5.png")!,
+                         URL(string: "https://shinpleios.s3.us-east-2.amazonaws.com/Develop/Python/image/Chapp1.png")!,
+                         URL(string: "https://shinpleios.s3.us-east-2.amazonaws.com/Develop/Python/image/Chapp2.png")!,
+                         URL(string: "https://shinpleios.s3.us-east-2.amazonaws.com/Develop/Python/image/Chapp3.png")!,
+                         URL(string: "https://shinpleios.s3.us-east-2.amazonaws.com/Develop/Python/image/Chap1.png")!,
+                         URL(string: "https://shinpleios.s3.us-east-2.amazonaws.com/Develop/Python/image/Chap2.png")!,
+                         URL(string: "https://shinpleios.s3.us-east-2.amazonaws.com/Certi/ADSP/image/Chap2.png")!]
+    var videoRates2:[Float] = [0, 1, 1, 0.7, 0.5, 0.1, 1, 0.2]
+    var contents2:[String] = ["", "『데이터 분석 전문가 가이드(ADP)(ADSP)』는 데이터 분석 전문가 양성을 위한",
+                              "한국데이터베이스진흥원에서 실시하고 있는 데이터 분석 전문가 자격증",
+                              "머신 러닝과 딥 러닝에 관한 텐서플로 예제를 구현해 보면서",
+                              "기본적인 머신 러닝 알고리즘(선형회귀, KNN, K-MEANS)",
+                              "Pygame 라이브러리에 대한 소개와 함께 2D 그래픽 게임",
+                              "다양한 그래픽 효과와 알고리즘에 대해 알아보는 동영상",
+                              "Pygame 프레임워크(Pygame 라이브러리)와 Python 프로그래밍 언어"]
+    var videoTimes2:[Int] = [0, 2000, 5200, 2500, 6030, 6700, 5300, 1800, 4300]
+    var favorites2:[Bool] = [true, true, true, true, false, false, false, false]
+    
+    
 
     
     //---------- Important Variable ----------//
@@ -293,7 +257,7 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
     
     // 데이터 다 받으면 로딩페이지 끝내기
     func isCachingCompleted() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
             self.LoadingView.isHidden = true
             self.loadingImageView.isHidden = true
             
@@ -311,6 +275,7 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
         }
         
     }
+
     
     
     
@@ -319,46 +284,19 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
     var VideoData = [My_Lec_List]()
     
     
+    
+    
     override func viewDidLoad() {
         
         
         super.viewDidLoad()
-        print("kisung0")
-        // data 받는동안 loading page
-        loadingView()
-        isCachingCompleted()
-        print("kisung1")
-//        dbGetMainLectures(e_num: 1100012)
-        VideoData = setSampleRecentData()
-        //dbGetLecCate()
 
         
         // 알림 푸쉬
         self.tabBarController?.delegate = self
         pushAlert()
-        
-        
-        print("MoreData")
-        
-        for i in 0..<10 {
-            titles.append(VideoData[i]._L_name!)
-            imgurls.append(URL(string: VideoData[i]._L_link_img!)!)
-            videoRates.append(Float(Int(VideoData[i]._U_length!) / Int(VideoData[i]._L_length!)))
-            
-            contents.append("Today let's talk about salaries and how much money you can make as an iOS / Android Engineer out in the Bay Area / Silicon Valley.")
-            videoTimes.append(Int(VideoData[i]._L_length!))
-            favorites.append(VideoData[i]._J_status! as! Bool)
-        }
-        
-        
-        
     }
-    
-    
-    
-    
-    
-    
+
     
     //Mark: - TableViewCell
     //---------- TableView 셋팅 ----------//
@@ -389,32 +327,14 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if sortingCase == 0 {
-            return MainTitle.count
+            return 11
         } else {
-            return titles.count
+            return 8
         }
     }
-    
-    
-    
-    
-//    func cellForRow(at indexPath: IndexPath) -> UITableViewCell? {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "RxCell") as? RxCell
-//        cell.SomeObservable.bind(onNext: { newValue in
-//
-//            tableView.beginUpdates()
-//            doSomethingWith(newValue)
-//            tableView.endUpdates()
-//            }
-//            .disposed(by:cell.disposeBag) // newLines2
-//    }
-    // newLines2
-//    func tableView(_: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt _: IndexPath) {
-//        guard let cell = cell as? RxCell else { return }
-//        cell.disposeBag = DisposeBag()
-//    }
 
 
+    
     
     //----------Soritng case 적용----------//
     
@@ -427,7 +347,7 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
             print("sorting=0")
             
             if row == 0 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "HomeTableViewCell1", for: indexPath) as! HomeTableViewCell1
+                let cell = tableView.dequeueReusableCell(withIdentifier: "HomeTableViewCell1") as! HomeTableViewCell1
                 
                 cell.lblFirst.text = "대분류"
                 cell.lblSecond.text = "소분류"
@@ -437,9 +357,7 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
                 return cell
                 
             }else if row == 1 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "HomeTableViewCell2", for: indexPath) as! HomeTableViewCell2
-                //tableView.deleteRows(at: <#T##[IndexPath]#>, with: UITableView.RowAnimation)
-                //tableView.dequeueReusableCell(withIdentifier: <#T##String#>, for: <#T##IndexPath#>)
+                let cell = tableView.dequeueReusableCell(withIdentifier: "HomeTableViewCell2") as! HomeTableViewCell2
                 
                 cell.lblName.text = userName
                 cell.lblCategory.text = "님의 최근시청 강의입니다."
@@ -450,22 +368,14 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
                 return cell
             }else {
                 
-                let cell = tableView.dequeueReusableCell(withIdentifier: "HomeTableViewCell3", for: indexPath) as! HomeTableViewCell3
+                let cell = tableView.dequeueReusableCell(withIdentifier: "HomeTableViewCell3") as! HomeTableViewCell3
                     
-                //let cell = HomeTableViewCell3()
-                    
-//                if indexPath.row == 2 {
-//                    cell.backgroundColor = .black
-//                }
-                print("EEEEEEunchae")
-                print(indexPath.row, self.MainTitle, cell, self.MainTitle[indexPath.row])
-                print(cell.lblCategory.text)
+
                 cell.lblCategory.text = self.MainTitle[indexPath.row]
                 cell.collectionView.tag = indexPath.row
                 
                 cell.btnMore.tag = indexPath.row
                 cell.btnMore.addTarget(self, action: #selector(self.goToVideoList(_:)), for: .touchUpInside)
-                print("eunchae hello")
             
                 return cell
             }
@@ -473,36 +383,29 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
             
         //----------대분류: 선택, 소분류: 전체 - Sorting case: 1
         } else if sortingCase == 1{
-            print("sorting=1")
-            
             if row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "HomeTableViewCell1") as! HomeTableViewCell1
                 
                 cell.btnFirst.addTarget(self, action: #selector(goToFirstCategory), for: .touchUpInside)
                 cell.btnSecond.addTarget(self, action: #selector(goToSecondCategory), for: .touchUpInside)
+
                 cell.lblFirst.text = sortingFirstCategoryName
                 cell.lblSecond.text = "소분류"
                 
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "HomeTableViewCell4") as! HomeTableViewCell4
-                
+
                 
                 cell.lblTitle.text = titles[row]
                 cell.lblContent.text = contents[row]
-                
-                
-                cell.imgVideo.downloadImage(from: imgurls[indexPath.row])
+                cell.imgVideo.downloadImage(from: imgurls[row])
                 cell.imgVideo.translatesAutoresizingMaskIntoConstraints = true
                 
-                if indexPath.row % 2 == 0 {
+                if favorites[row] == true {
                     cell.btnFavorite.setImage(heartFill, for: .normal)
-                }else {
-                    cell.btnFavorite.setImage(heartEmpty, for: .normal)
                 }
-                
                 cell.btnFavorite.addTarget(self, action: #selector(setFavorite(_:)), for: .touchUpInside)
-                
                 cell.sliderTime.setValue(videoRates[row], animated: false)
                 
                 return cell
@@ -516,7 +419,6 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
                 
                 cell.btnFirst.addTarget(self, action: #selector(goToFirstCategory), for: .touchUpInside)
                 cell.btnSecond.addTarget(self, action: #selector(goToSecondCategory), for: .touchUpInside)
-                //cell.lblFirst.text = sortingFirstCategoryName
                 cell.lblSecond.text = sortingSecondCategoryName
                 
                 return cell
@@ -525,22 +427,16 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
                 let cell = tableView.dequeueReusableCell(withIdentifier: "HomeTableViewCell4") as! HomeTableViewCell4
                 
                 
-                cell.lblTitle.text = titles[row]
-                cell.lblContent.text = contents[row]
-                
-                
-                cell.imgVideo.downloadImage(from: imgurls[indexPath.row])
+                cell.lblTitle.text = titles2[row]
+                cell.lblContent.text = contents2[row]
+                cell.imgVideo.downloadImage(from: imgurls2[row])
                 cell.imgVideo.translatesAutoresizingMaskIntoConstraints = true
                 
-                if indexPath.row % 2 == 0 {
+                if favorites2[row] == true {
                     cell.btnFavorite.setImage(heartFill, for: .normal)
-                }else {
-                    cell.btnFavorite.setImage(heartEmpty, for: .normal)
                 }
-                
                 cell.btnFavorite.addTarget(self, action: #selector(setFavorite(_:)), for: .touchUpInside)
-                
-                cell.sliderTime.setValue(videoRates[row], animated: false)
+                cell.sliderTime.setValue(videoRates2[row], animated: false)
                 
                 return cell
             }
@@ -586,7 +482,9 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
     
     //대분류 선택 페이지
     @objc func goToFirstCategory() {
+        print("goToFirst")
         performSegue(withIdentifier: "goToFirstCategory", sender: nil)
+        print("endToFirs")
     }
     
     //소분류 선택 페이지
@@ -603,8 +501,6 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
     }
     
     func pushAlert(message: String) {
-        
-        print("---------------in")
         
         lblMessage.translatesAutoresizingMaskIntoConstraints = false
         lblMessage.text = message
@@ -627,7 +523,6 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
     }
     
     @objc func offAlert() {
-        print("---------------out")
         self.alertView.removeFromSuperview()
     }
     
@@ -637,31 +532,9 @@ class HomeTableViewController: UITableViewController, selectCategoryDelegate ,UI
     //---------- SID를 통한 페이지 이동 ----------//
     
     // 강의 상세보기(재생) 페이지
-    func goToDetailPage(lecture: LECTURE) {
-//            let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "VideoDetailSID")
-//            UIApplication.topViewController()!.present(viewController, animated: true, completion: nil)
-        
-//        let sampleLecture:LECTURE = LECTURE()
-//        sampleLecture._Lecture_num = 11002
-//        sampleLecture._Duty = true
-//        sampleLecture._E_date = "2019-07-01"
-//        sampleLecture._L_cate = "필수"
-//        sampleLecture._L_content = "지체장애인은 체육 활동을 즐기지 않을 거라는 비장애인의 잘못된 생각 때문에 오히려 상처받는 지체장애인의 현실 등 비장애인이 지체장애에 대해 가지는 편견을 바로잡는 우리가 몰랐던 이야기"
-//        sampleLecture._L_count = 312
-//        sampleLecture._L_length = 1000
-//        sampleLecture._L_link_img = "https://shinpleios.s3.us-east-2.amazonaws.com/Culture/Cook/image/Chap1.png"
-//        sampleLecture._L_link_video = "https://shinpleios.s3.us-east-2.amazonaws.com/Culture/Cook/video/Chap2.mp4"
-//        sampleLecture._L_name = "지장애인식 개선"
-//        sampleLecture._L_rate = 3
-//        sampleLecture._L_teacher = "김병기"
-//        sampleLecture._S_cate = "장애인인식개선"
-//        sampleLecture._S_cate_num = 11000
-//        sampleLecture._U_date = "2019-06-01"
-        
-        let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "VideoDetailSID") as! VideoDetailViewController
-        viewController.LectureDetail = lecture
-        UIApplication.topViewController()!.present(viewController, animated: true, completion: nil)
-        
+    func goToDetailPage() {
+            let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "VideoDetailSID")
+            UIApplication.topViewController()!.present(viewController, animated: true, completion: nil)
     }
     
     
@@ -830,35 +703,6 @@ extension UIImageView {
     
     
     
-}
-
-extension UICollectionView {
-    
-    @objc(collectionView:didSelectItemAtIndexPath:) func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        print("클릭클릭===============")
-        let test1 = collectionView as! Home2CollectionView
-//        print(test1.recent[indexPath.item])
-        
-        HomeTableViewController().goToDetailPage(lecture: test1.recent[indexPath.item] as! LECTURE)
-    }
-    
-    
-    func timeIntToString(from time: Int) -> String {
-        
-        let totalSeconds = time
-        let hours = Int(totalSeconds / 3600 )
-        let minutes = Int(totalSeconds % 3600) / 60
-        let seconds = Int(totalSeconds % 3600) % 60
-        
-        if hours > 0 {
-            return String(format: "%i:%02i:%02i", arguments: [hours, minutes, seconds])
-        }else{
-            return String(format: "%02i:%02i", arguments: [minutes, seconds])
-        }
-    }
-    
-   
     
 }
 

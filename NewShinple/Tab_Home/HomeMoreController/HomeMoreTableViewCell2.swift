@@ -32,9 +32,10 @@ class HomeMoreTableViewCell2: UITableViewCell {
         sliderTime.transform = CGAffineTransform(scaleX: 1, y: 3)
         sliderTime.setValue(0, animated: false)
         
-        lblVideoTime.font = UIFont.boldSystemFont(ofSize: 12)
+        lblVideoTime.font = UIFont.boldSystemFont(ofSize: 15)
         lblVideoTime.backgroundColor = .black
         lblVideoTime.textColor = .white
+        
         
         
         
